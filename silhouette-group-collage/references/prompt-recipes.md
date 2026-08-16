@@ -7,11 +7,15 @@ Replace bracketed variables. Keep the invariant sentence unchanged.
 ```text
 Transform the supplied group photograph into a vertical [4:5 / 2:3] two-panel editorial paper collage. Preserve exactly [person count] people in their original left-to-right order, depth scale, poses, clothing, interactions, held objects, environmental anchors, and source-photo texture.
 
+PERSON INVARIANT: every visible person must come directly from the supplied photograph; do not generate, repaint, reconstruct, beautify, relight, or reinterpret any face, hair, skin, hand, body, clothing, footwear, or held object.
+
 Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every person with opaque [dominant colour] group silhouettes. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels.
 
 Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars. Place the exact scene-matched phrase "[phrase]" in loose lowercase handwriting across the middle seam, spelled exactly and secondary to the group.
 
 INVARIANT: this is one photograph shown in two reciprocal mask states, not a scrapbook grid and not a collection of unrelated images.
+
+Build the paper layout and non-person content separately, then restore the protected original person pixels in every visible photographic state. If the workflow cannot restore original person pixels, stop instead of delivering generated faces.
 
 Avoid generic sticker collage, extra photos, invented people or objects, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thick sticker outlines, excessive decorations, illegible prominent text, anatomy changes, and loss of subject identity.
 ```
@@ -64,6 +68,12 @@ Replace perfect vector edges with irregular scissor-cut contours. Add subtle unc
 
 ```text
 Restore the source identity, body count, anatomy, pose, clothing, landmark geometry, and spatial relationships. Simplify the mask rather than altering the subject. Keep at least one unobstructed photographic view of every essential anchor.
+```
+
+### Face or person details changed
+
+```text
+Do not attempt another generative portrait correction. Restore the protected person regions directly from the supplied source photograph, including original face, eyes, nose, mouth, hair, skin, hands, body, clothing, footwear, and held objects. Keep the generated paper, mask, environment, stars, and typography outside those protected regions unchanged. PERSON INVARIANT: every visible person must come directly from the supplied photograph; do not generate, repaint, reconstruct, beautify, relight, or reinterpret any face, hair, skin, hand, body, clothing, footwear, or held object.
 ```
 
 ### Person count or depth is wrong

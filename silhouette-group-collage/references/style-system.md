@@ -22,6 +22,8 @@ Use this priority order:
 5. Sparse visual punctuation.
 6. One scene-matched handwritten seam phrase.
 
+Original person pixels override every style choice. Apply paper, film, ink, and registration effects only outside protected visible-person regions.
+
 If an output feels like a generic scrapbook, reduce levels 5 and 6 before changing levels 1–4.
 
 ## Group mask families
@@ -91,3 +93,4 @@ Before generating, record:
 - distinctive clothing colours and silhouettes;
 - environmental anchors such as lake, mountain, road, sea, snow, sunset, rocks, or reflections;
 - source grain, focus, motion blur, exposure, and colour cast.
+- protected pixel regions for every complete visible person, including faces, hair, skin, hands, clothing, footwear, and held objects.

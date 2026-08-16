@@ -15,6 +15,7 @@ REQUIRED_FILES = (
     "references/style-system.md",
     "references/prompt-recipes.md",
     "references/reference-breakdown.md",
+    "references/person-preservation.md",
 )
 REQUIRED_SKILL_PHRASES = (
     "Count all people explicitly from left to right",
@@ -22,6 +23,9 @@ REQUIRED_SKILL_PHRASES = (
     "Preserve original photographic texture",
     "add 8–12 sparse handmade stars",
     "scene-matched handwritten phrase",
+    "Person pixel lock",
+    "protected source pixels",
+    "Do not redraw, beautify",
     "INVARIANT",
 )
 
@@ -90,7 +94,7 @@ def main() -> None:
 
     print(f"PASS: {EXPECTED_NAME}")
     print(f"PASS: {len(REQUIRED_FILES)} required files")
-    print("PASS: metadata, references, invocation name, and group-image rules")
+    print("PASS: metadata, references, person-pixel lock, invocation name, and group-image rules")
 
 
 if __name__ == "__main__":
