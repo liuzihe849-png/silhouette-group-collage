@@ -13,6 +13,8 @@ Record four things:
 
 Make the design respond to these observations. Never select palette, type, or decoration before this diagnosis.
 
+Estimate person occupancy and select environment-led, balanced-group, or portrait-dense mode from `adaptive-layout.md`. This selection never rejects the photo.
+
 ## 2. Mask fidelity: preserve the pose, not merely the envelope
 
 A successful silhouette lets the viewer recount the people without seeing faces. Preserve:
@@ -28,25 +30,26 @@ For a connected group, use only narrow paper bridges where bodies genuinely touc
 Reject the mask if any of these are true:
 
 - it resembles a rectangle, convex hull, flower blob, or saw-tooth mountain band;
-- it covers more than roughly 55% of a panel without retaining internal count-defining gaps;
+- it leaves any portion of a selected face, hair, neck, hand, body, clothing, footwear, phone, or held object exposed;
 - the reciprocal photo aperture contains large accidental areas of grass, wall, road, or sky;
 - thin coloured outlines are needed to explain the edge;
 - the viewer cannot recover the original pose rhythm from the silhouette alone.
 
-Use a hard binary aperture edge for visible source pixels. If automated segmentation is messy, simplify the hand-cut contour or use a deliberately shaped photo window; never leave translucent halos, background slivers, or half-cut footwear.
+Use a hard binary aperture edge for visible source pixels. If automated segmentation is messy, simplify the hand-cut contour or use a deliberately shaped photo window; never leave translucent halos, background slivers, half-covered faces, or half-cut footwear. A large colour mask is not corrected by shrinking it independently. Use separate mask islands or uniformly inset the complete source photo and all masks together.
 
 ## 3. Composition for 9:16 phone wallpaper
 
 Use a native 1080×1920 or equivalent 9:16 canvas. Do not blur, mirror, or stretch the source to fill height.
 
 - Split panels around 46:54 or 50:50; reserve 7–12% of the page around the seam for lettering overlap.
-- Make the principal group occupy about 62–88% of canvas width in both reciprocal states.
-- Make the visible group occupy about 42–70% of its panel height. Tiny figures floating in paper fail.
+- In environment-led mode, aim for people to occupy roughly 18–32% of one panel while preserving the environmental anchor.
+- In balanced mode, use roughly 22–38% when practical.
+- In portrait-dense mode, uniformly inset the whole photo and matching masks so people occupy roughly 25–45% of one panel. These are soft targets, never mask-cropping rules.
 - Preserve one meaningful environmental anchor in the photo panel: architecture, mountain, lake, sea, snow, table, window, or road.
 - Use asymmetry inside each panel, but keep the reciprocal mask transform recognisable.
 - Keep roughly 12–20% of the whole page as quiet space for breathing room, text terminals, and sparse marks.
 
-The page should feel full because the group and lettering are large, not because every gap is decorated.
+The page should feel full because the photo window, environment/paper field, mask rhythm, and lettering are balanced. The people do not need to dominate the page.
 
 ## 4. Scene-derived palette selection
 
@@ -114,12 +117,13 @@ Use no more than two decoration colours. Place about two-thirds in quiet zones a
 Reject and correct the result if any answer is no:
 
 1. Can the people be recounted from the silhouette rhythm?
-2. Do the positive and negative states use the same recognisable mask?
-3. Are the people and seam phrase large enough for a phone wallpaper?
-4. Does the palette clearly belong to this source photo?
-5. Does the lettering vary by word while remaining one coherent handwriting family?
-6. Are paper fibres visible without damaging the photographic regions?
-7. Do the stars have scale and spacing rhythm rather than mechanical scatter?
-8. Are all visible people restored from protected source pixels?
+2. Does every opaque silhouette cover its complete person region with no exposed fragment?
+3. Do the positive and negative states use the same recognisable mask and coupled source-photo transform?
+4. Did the occupancy-aware layout create environment or paper breathing room without refusing the source?
+5. Does the palette clearly belong to this source photo?
+6. Does the lettering vary by word while remaining one coherent handwriting family?
+7. Are paper fibres visible without damaging the photographic regions?
+8. Do the stars have scale and spacing rhythm rather than mechanical scatter?
+9. Are all visible people restored from protected source pixels?
 
 Do not deliver a merely functional reciprocal mask when it fails art direction.

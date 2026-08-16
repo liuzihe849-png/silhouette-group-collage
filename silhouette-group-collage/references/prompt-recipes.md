@@ -9,7 +9,9 @@ Transform the supplied group photograph into a native vertical [4:5 / 2:3 / 9:16
 
 PERSON INVARIANT: every visible person must come directly from the supplied photograph; do not generate, repaint, reconstruct, beautify, relight, or reinterpret any face, hair, skin, hand, body, clothing, footwear, or held object.
 
-Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every person with opaque [dominant colour] group silhouettes. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels. Preserve count-defining negative spaces between heads, shoulders, raised arms, lifted legs, phones, joined hands, and companion objects. A connected silhouette must follow the group like a paper-doll chain; it must not become a convex hull, rectangular slab, giant flower blob, saw-tooth band, or broad envelope filled with accidental background.
+LAYOUT INVARIANT: the complete source photograph and every reciprocal person mask share the same scale, translation, crop, and inset transform. Never resize, crop, or reposition a mask independently from the photograph. Accept the source at any person occupancy; select environment-led, balanced-group, or portrait-dense layout rather than refusing the photo.
+
+Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every selected person completely with opaque [dominant colour] silhouettes, including every visible face, hair edge, neck, hand, body, garment, shoe, phone, and held object. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels. Preserve count-defining negative spaces between heads, shoulders, raised arms, lifted legs, phones, joined hands, and companion objects. A connected silhouette must follow the group like a paper-doll chain; it must not become a convex hull, rectangular slab, giant flower blob, saw-tooth band, or broad envelope filled with accidental background. If the colour mass is too large, use separate mask islands or uniformly inset the full photograph and every mask together; never shrink a mask alone.
 
 Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars in three size tiers with irregular spacing. Place the exact scene-matched phrase "[phrase]" in [brush diary / chunky marker / loose pencil] handwriting across the middle seam, spelled exactly. Make the phrase a visible compositional bridge spanning roughly 62–90% of the canvas width. Use controlled word-to-word variation: at most two related handwriting faces, scale variation, slight -4° to +4° rotation, irregular baseline, and one optional underline or motion mark. Do not render a tiny uniform digital caption.
 
@@ -26,6 +28,8 @@ Write these decisions before calling an image tool:
 
 ```text
 Source diagnosis: [group geometry], [energy], [environmental anchor], [quiet zones]
+Person occupancy: [estimated percentage]
+Adaptive layout: [environment-led / balanced group / portrait-dense] with coupled photo-plus-mask transform
 Mask family: [family] because [pose/spacing reason]
 Palette candidates:
 1. Echo: [dominant / accent / neutral]
@@ -35,6 +39,7 @@ Chosen palette: [candidate] because [contrast + mood + source anchor]
 Phrase: "[exact 3–6 word phrase]"
 Lettering: [brush diary / chunky marker / loose pencil], key word [word], controlled word-level variation
 Person lock: [deterministic mask/composite method]
+Coverage check: [target 100%, required >=99.5%]
 ```
 
 Do not generate until every line is resolved.
@@ -87,6 +92,12 @@ Replace perfect vector edges with irregular scissor-cut contours. Add subtle unc
 
 ```text
 Discard the enclosing blob, convex hull, saw-tooth slab, or broad group envelope. Retrace the paper-doll rhythm of the actual people. Preserve every head peak, shoulder break, extended arm, lifted leg, phone, joined hand, companion object, and large negative gap. Use only narrow bridges where bodies genuinely touch. Keep accidental background leakage out of the lower apertures. Do not add a contrasting outline around the mask.
+```
+
+### Mask leaves part of a person exposed
+
+```text
+Restore complete opaque coverage of every selected person, including visible face, mouth, hair, ear, neck, hand, body, clothing, footwear, phone, and held object. Expand or correct the mask outward; never erode or independently shrink it to reduce colour area. Keep the photograph and mask on the same coupled transform. If the colour mass remains heavy, uniformly inset the complete source photograph and all masks together or divide the group into separate related silhouette islands. Required deterministic coverage is at least 99.5%, with 100% preferred.
 ```
 
 ### Typography looks generic

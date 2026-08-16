@@ -17,6 +17,8 @@ REQUIRED_FILES = (
     "references/reference-breakdown.md",
     "references/person-preservation.md",
     "references/art-direction-qc.md",
+    "references/adaptive-layout.md",
+    "scripts/check_mask_coverage.py",
 )
 REQUIRED_SKILL_PHRASES = (
     "Count all people explicitly from left to right",
@@ -32,6 +34,9 @@ REQUIRED_SKILL_PHRASES = (
     "controlled handwritten variation",
     "giant blob",
     "9:16",
+    "Accept every source photo",
+    "Never shrink, crop, reshape, or reposition a mask independently",
+    "99.5%",
 )
 
 
@@ -110,8 +115,21 @@ def main() -> None:
         if phrase not in art_text:
             fail(f"art-direction-qc.md is missing section: {phrase}")
 
+    adaptive_text = (root / "references/adaptive-layout.md").read_text(encoding="utf-8").lower()
+    for phrase in (
+        "never reject a source",
+        "coupled-transform invariant",
+        "environment-led",
+        "balanced group",
+        "portrait-dense or selfie",
+        "priority order",
+        "coverage test",
+    ):
+        if phrase not in adaptive_text:
+            fail(f"adaptive-layout.md is missing rule: {phrase}")
+
     print(f"PASS: {len(REQUIRED_FILES)} required files")
-    print("PASS: metadata, references, person-pixel lock, 9:16 art direction, typography, palette, texture, and rejection rules")
+    print("PASS: metadata, references, person-pixel lock, adaptive occupancy layouts, coupled masks, 9:16 art direction, typography, palette, texture, and rejection rules")
 
 
 if __name__ == "__main__":

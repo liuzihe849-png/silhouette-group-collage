@@ -30,7 +30,7 @@ If an output feels like a generic scrapbook, reduce levels 5 and 6 before changi
 
 ### A. Connected paper-doll silhouette
 
-Use for a close couple or tightly clustered group. Trace the bodies as a loose paper-doll chain while retaining every head peak, count-defining gap, raised arm, lifted leg, phone, joined hand, and held object. Join only at real touches or with narrow crude bridges. Never replace the group with a convex hull, rectangular slab, saw-tooth band, or giant enclosing blob. Make the edge look cut by hand. Invert this exact silhouette between panels.
+Use for a close couple or tightly clustered group only when their touching contours remain readable. Trace the bodies as a loose paper-doll chain while retaining every head peak, count-defining gap, raised arm, lifted leg, phone, joined hand, and held object. Join only at real touches or with narrow crude bridges. Never replace the group with a convex hull, rectangular slab, saw-tooth band, or giant enclosing blob. For face-dominant selfies, prefer separate silhouettes or small touching clusters from `adaptive-layout.md`. Make the edge look cut by hand. Invert this exact silhouette between panels.
 
 Best for: friendship, youth, group portraits, performance posters, album artwork.
 
@@ -57,10 +57,10 @@ Best for: celebratory group moments with one airborne or held focal object.
 - Default canvas: vertical 4:5; use vertical 2:3 for poster-like artwork and native 9:16 for phone wallpapers.
 - Panel split: 45:55 or 50:50. A precise half split is allowed, but internal placement should remain asymmetrical.
 - Flat colour coverage: 40–60% of the complete page.
-- Main group masks: collectively 25–45% of one panel while preserving the source's scale and spacing.
+- Main group masks: use occupancy-aware targets from `adaptive-layout.md` while preserving complete coverage, source scale, and spacing.
 - Quiet space: keep at least one calm region equal to roughly 15% of the page.
 
-For 9:16, make the principal group occupy roughly 62–88% of canvas width and 42–70% of panel height. Reserve 7–12% around the seam for large handwriting overlap. Never fill the extra height with blurred, mirrored, or stretched source pixels.
+For 9:16, reserve 7–12% around the seam for large handwriting overlap. Default to an environment-led 18–32% person-area target per panel. For dense sources, uniformly inset the complete photo and all masks together and allow 25–45%. Never fill extra height with blurred, mirrored, or stretched source pixels, and never shrink masks independently.
 
 ## Palette recipes
 

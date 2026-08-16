@@ -36,6 +36,8 @@
 - A correct colour field can still feel cheap when chosen from a fixed template. Compare echo, counterpoint, and atmosphere palettes from the source before selecting one.
 - Flat colour plus universal noise does not create analogue material. Preserve the source photo texture and build visible paper fibres, uneven ink, matte density, dust, and registration drift only in paper regions.
 - Sparse decorations need hierarchy: use three size tiers, irregular spacing, and quiet-zone placement instead of identical stars distributed like a grid.
+- A maximum colour-area rule must never cause partial person coverage. Treat complete coverage and coupled photo-mask geometry as higher priority than colour-field proportion.
+- Do not reject face-dominant or close-up sources. Route them to a portrait-dense layout: uniformly inset the complete photo and every mask together, use separate silhouette islands or small clusters, and let paper supply the missing quiet environment.
 
 ## Core versus supporting features
 
