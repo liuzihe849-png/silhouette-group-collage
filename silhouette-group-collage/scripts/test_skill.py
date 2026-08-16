@@ -16,6 +16,7 @@ REQUIRED_FILES = (
     "references/prompt-recipes.md",
     "references/reference-breakdown.md",
     "references/person-preservation.md",
+    "references/art-direction-qc.md",
 )
 REQUIRED_SKILL_PHRASES = (
     "Count all people explicitly from left to right",
@@ -27,6 +28,10 @@ REQUIRED_SKILL_PHRASES = (
     "protected source pixels",
     "Do not redraw, beautify",
     "INVARIANT",
+    "three scene-derived palette candidates",
+    "controlled handwritten variation",
+    "giant blob",
+    "9:16",
 )
 
 
@@ -93,8 +98,20 @@ def main() -> None:
         fail("unfinished placeholder remains in the package")
 
     print(f"PASS: {EXPECTED_NAME}")
+    art_text = (root / "references/art-direction-qc.md").read_text(encoding="utf-8").lower()
+    for phrase in (
+        "mask fidelity",
+        "scene-derived palette selection",
+        "controlled variation",
+        "texture hierarchy",
+        "decoration rhythm",
+        "final rejection gate",
+    ):
+        if phrase not in art_text:
+            fail(f"art-direction-qc.md is missing section: {phrase}")
+
     print(f"PASS: {len(REQUIRED_FILES)} required files")
-    print("PASS: metadata, references, person-pixel lock, invocation name, and group-image rules")
+    print("PASS: metadata, references, person-pixel lock, 9:16 art direction, typography, palette, texture, and rejection rules")
 
 
 if __name__ == "__main__":

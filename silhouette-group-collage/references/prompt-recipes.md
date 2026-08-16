@@ -5,20 +5,39 @@
 Replace bracketed variables. Keep the invariant sentence unchanged.
 
 ```text
-Transform the supplied group photograph into a vertical [4:5 / 2:3] two-panel editorial paper collage. Preserve exactly [person count] people in their original left-to-right order, depth scale, poses, clothing, interactions, held objects, environmental anchors, and source-photo texture.
+Transform the supplied group photograph into a native vertical [4:5 / 2:3 / 9:16] two-panel editorial paper collage. Preserve exactly [person count] people in their original left-to-right order, depth scale, poses, clothing, interactions, held objects, environmental anchors, and source-photo texture. For 9:16, compose the artwork directly on the tall canvas; do not blur, mirror, stretch, or generatively extend the source photograph merely to fill height.
 
 PERSON INVARIANT: every visible person must come directly from the supplied photograph; do not generate, repaint, reconstruct, beautify, relight, or reinterpret any face, hair, skin, hand, body, clothing, footwear, or held object.
 
-Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every person with opaque [dominant colour] group silhouettes. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels.
+Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every person with opaque [dominant colour] group silhouettes. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels. Preserve count-defining negative spaces between heads, shoulders, raised arms, lifted legs, phones, joined hands, and companion objects. A connected silhouette must follow the group like a paper-doll chain; it must not become a convex hull, rectangular slab, giant flower blob, saw-tooth band, or broad envelope filled with accidental background.
 
-Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars. Place the exact scene-matched phrase "[phrase]" in loose lowercase handwriting across the middle seam, spelled exactly and secondary to the group.
+Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars in three size tiers with irregular spacing. Place the exact scene-matched phrase "[phrase]" in [brush diary / chunky marker / loose pencil] handwriting across the middle seam, spelled exactly. Make the phrase a visible compositional bridge spanning roughly 62–90% of the canvas width. Use controlled word-to-word variation: at most two related handwriting faces, scale variation, slight -4° to +4° rotation, irregular baseline, and one optional underline or motion mark. Do not render a tiny uniform digital caption.
 
 INVARIANT: this is one photograph shown in two reciprocal mask states, not a scrapbook grid and not a collection of unrelated images.
 
 Build the paper layout and non-person content separately, then restore the protected original person pixels in every visible photographic state. If the workflow cannot restore original person pixels, stop instead of delivering generated faces.
 
-Avoid generic sticker collage, extra photos, invented people or objects, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thick sticker outlines, excessive decorations, illegible prominent text, anatomy changes, and loss of subject identity.
+Avoid generic sticker collage, extra photos, invented people or objects, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thin contrasting mask outlines, thick sticker outlines, excessive decorations, tiny centred text, one unchanged font across unrelated images, arbitrary default colours, anatomy changes, and loss of subject identity.
 ```
+
+## Mandatory pre-prompt decisions
+
+Write these decisions before calling an image tool:
+
+```text
+Source diagnosis: [group geometry], [energy], [environmental anchor], [quiet zones]
+Mask family: [family] because [pose/spacing reason]
+Palette candidates:
+1. Echo: [dominant / accent / neutral]
+2. Counterpoint: [dominant / accent / neutral]
+3. Atmosphere: [dominant / accent / neutral]
+Chosen palette: [candidate] because [contrast + mood + source anchor]
+Phrase: "[exact 3–6 word phrase]"
+Lettering: [brush diary / chunky marker / loose pencil], key word [word], controlled word-level variation
+Person lock: [deterministic mask/composite method]
+```
+
+Do not generate until every line is resolved.
 
 ## Recipe A: organic silhouette / group memory
 
@@ -62,6 +81,24 @@ Match mask positions and contours more closely across both panels. Increase the 
 
 ```text
 Replace perfect vector edges with irregular scissor-cut contours. Add subtle uncoated-paper fibres, uneven ink density, faded consumer-film colour, fine dust, and slight registration drift. Keep grain restrained and the surface matte.
+```
+
+### Mask became a giant blob
+
+```text
+Discard the enclosing blob, convex hull, saw-tooth slab, or broad group envelope. Retrace the paper-doll rhythm of the actual people. Preserve every head peak, shoulder break, extended arm, lifted leg, phone, joined hand, companion object, and large negative gap. Use only narrow bridges where bodies genuinely touch. Keep accidental background leakage out of the lower apertures. Do not add a contrasting outline around the mask.
+```
+
+### Typography looks generic
+
+```text
+Remove the tiny uniform caption and rebuild the exact phrase as a major seam element spanning 62–90% of the canvas width. Choose one scene-matched handwriting family. Vary scale, tilt, baseline, spacing, and stroke density by word within a coherent range; use at most two related handwriting faces and one optional underline or motion mark. Keep spelling exact. Do not use a default sans/serif font or identical treatment from another image.
+```
+
+### Palette feels arbitrary or ugly
+
+```text
+Return to the source and compare three palette candidates: one echoing a distinctive garment/object, one muted complementary counterpoint to the environment, and one matching the scene's emotional temperature. Choose the strongest silhouette-to-photo contrast with restrained saturation. Use one dominant paper colour, one supporting accent, and cream or charcoal. Do not reuse a default teal, vermilion, magenta, or beige template.
 ```
 
 ### Subject is damaged

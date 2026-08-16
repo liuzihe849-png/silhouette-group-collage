@@ -1,4 +1,4 @@
 interface:
   display_name: "剪影群像风格 Skill"
-  short_description: "将群像照片转成锁定原人物像素的正负形剪影双联画"
-  default_prompt: "Use $silhouette-group-collage to transform my uploaded group photo into a reciprocal silhouette diptych while preserving every visible person from the original photo without generative redrawing."
+  short_description: "将群像照片制作成锁定原像素、审美导向的正负形纸艺双联画"
+  default_prompt: "Use $silhouette-group-collage to art-direct my uploaded group photo as a native 9:16 reciprocal silhouette diptych. Preserve every visible person as original source pixels, choose a scene-derived palette, use large controlled-variety handwriting at the seam, retain paper and film texture, and reject giant blob masks or generic typography."

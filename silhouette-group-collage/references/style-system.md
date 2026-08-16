@@ -22,15 +22,15 @@ Use this priority order:
 5. Sparse visual punctuation.
 6. One scene-matched handwritten seam phrase.
 
-Original person pixels override every style choice. Apply paper, film, ink, and registration effects only outside protected visible-person regions.
+Original person pixels override every style choice. Apply paper, film, ink, and registration effects only outside protected visible-person regions. Read `art-direction-qc.md` for the mandatory palette, typography, composition, and rejection process.
 
 If an output feels like a generic scrapbook, reduce levels 5 and 6 before changing levels 1–4.
 
 ## Group mask families
 
-### A. Connected group silhouette
+### A. Connected paper-doll silhouette
 
-Use for a close couple or tightly clustered group. Trace a loose simplified envelope around the group while retaining count-defining gaps, raised arms, and held objects. Make the edge look cut by hand. Invert this exact silhouette between panels.
+Use for a close couple or tightly clustered group. Trace the bodies as a loose paper-doll chain while retaining every head peak, count-defining gap, raised arm, lifted leg, phone, joined hand, and held object. Join only at real touches or with narrow crude bridges. Never replace the group with a convex hull, rectangular slab, saw-tooth band, or giant enclosing blob. Make the edge look cut by hand. Invert this exact silhouette between panels.
 
 Best for: friendship, youth, group portraits, performance posters, album artwork.
 
@@ -54,11 +54,13 @@ Best for: celebratory group moments with one airborne or held focal object.
 
 ## Layout ratios
 
-- Default canvas: vertical 4:5; use vertical 2:3 for poster-like artwork.
+- Default canvas: vertical 4:5; use vertical 2:3 for poster-like artwork and native 9:16 for phone wallpapers.
 - Panel split: 45:55 or 50:50. A precise half split is allowed, but internal placement should remain asymmetrical.
 - Flat colour coverage: 40–60% of the complete page.
 - Main group masks: collectively 25–45% of one panel while preserving the source's scale and spacing.
 - Quiet space: keep at least one calm region equal to roughly 15% of the page.
+
+For 9:16, make the principal group occupy roughly 62–88% of canvas width and 42–70% of panel height. Reserve 7–12% around the seam for large handwriting overlap. Never fill the extra height with blurred, mirrored, or stretched source pixels.
 
 ## Palette recipes
 
@@ -71,6 +73,8 @@ Use one recipe, never all at once:
 
 Sample colours from the source when they are already distinctive. Keep contrast strong enough that apertures read instantly.
 
+Do not select a recipe mechanically. Compare an echo, counterpoint, and atmosphere palette from `art-direction-qc.md`; then choose one and record the reason. Reusing the same dominant colour across unrelated photos is a failure.
+
 ## Texture recipe
 
 Describe texture as physical production, not as a filter:
@@ -81,7 +85,11 @@ Avoid heavy universal noise, fake torn-paper shadows, thick white sticker outlin
 
 ## Typography
 
-Typography is expected for group images unless the user declines it. Derive one short lowercase phrase from visible action and setting, such as `we ran to the sea`, `we ran toward the sun`, or `together under winter skies`. Place it across the panel seam so it binds the group. Verify spelling exactly. Use loose imperfect handwriting and no additional copy.
+Typography is expected for group images unless the user declines it. Derive one short lowercase phrase from visible action and setting, such as `we ran to the sea`, `we ran toward the sun`, or `together under winter skies`. Place it across the panel seam so it binds the group. Verify spelling exactly. Select brush diary, chunky marker, or loose pencil based on the scene. Span roughly 62–90% of the canvas width and vary word scale, tilt, baseline, spacing, and occasional stroke density within a coherent handwritten family. Use at most two related faces and no additional copy. Tiny centred captions and identical typography across unrelated photos fail.
+
+## Decoration rhythm
+
+Use 8–12 handmade stars in three size tiers rather than evenly scattering identical symbols. Use two decoration colours at most. Put roughly two-thirds in quiet zones and use the rest to guide the eye between panels. Mix filled and outline stars, vary rotation and spacing, and keep them off protected anchors.
 
 ## Source-preservation checklist
 

@@ -31,6 +31,11 @@
 - A group composition needs a seam phrase unless the user declines text.
 - Never report a person count without checking the image carefully from left to right.
 - Do not merge separated people, enlarge distant people, omit background people, break joined hands, or detach held objects.
+- A single enclosing polygon can technically cover the group while destroying the group rhythm. Preserve negative spaces, lifted limbs, phones, companions, and head count; reject convex hulls, rectangular slabs, saw-tooth bands, and giant flower-like blobs.
+- A tiny uniform caption does not bind a diptych. Make one exact phrase a large seam element and vary scale, tilt, baseline, spacing, and related handwriting face by word.
+- A correct colour field can still feel cheap when chosen from a fixed template. Compare echo, counterpoint, and atmosphere palettes from the source before selecting one.
+- Flat colour plus universal noise does not create analogue material. Preserve the source photo texture and build visible paper fibres, uneven ink, matte density, dust, and registration drift only in paper regions.
+- Sparse decorations need hierarchy: use three size tiers, irregular spacing, and quiet-zone placement instead of identical stars distributed like a grid.
 
 ## Core versus supporting features
 
