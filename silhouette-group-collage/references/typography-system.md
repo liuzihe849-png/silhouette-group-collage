@@ -2,7 +2,7 @@
 
 Treat the seam phrase as a visual subject, not as a caption. Select one family from the five reference assets under `assets/design-system/typography-reference/` after diagnosing the photograph's energy, palette, and available seam width.
 
-The PNG assets are visual references, not reusable font files. Match their stroke behaviour, proportion, spacing, and material quality with a licensed local typeface, hand drawing, or a separate typography generation pass. Keep spelling deterministic and composite the approved lettering after image generation when necessary.
+The PNG assets are visual targets. The bundled OFL fonts and `scripts/render_seam_phrase.py` provide the deterministic final lettering layer. Match the reference crop's stroke behaviour and energy through family selection and controlled word-level placement; do not ask image generation to write the final phrase.
 
 ## T1: tall dry brush
 
@@ -62,6 +62,7 @@ Reference: `05-wide-diary-brush.png`
 4. Vary scale, tilt, baseline, and spacing by word within the selected family. Do not mix unrelated families.
 5. Use no more than one optional underline, tail, registration offset, or pair of motion marks.
 6. Compare the result to its reference crop. Reject it if the stroke weight, width, energy, or handmade material character has drifted into generic system typography.
+7. Require contrast ratio at least 3.0 and keep the exact phrase as one cohesive line inside a calm seam band. If T1, T2, or T5 becomes too thin, switch to T3 or T4 before adding any outline.
 
 ## Typography quality gate
 
@@ -73,3 +74,4 @@ Confirm all answers are yes:
 4. Are spelling and punctuation exact?
 5. Does the ink feel printed or hand-painted on paper rather than digitally typeset?
 6. Is the lettering free of thick outlines, glossy effects, mechanical baselines, and generic default-font character?
+7. Did `render_seam_phrase.py` report `spelling_locked` and `readability_gate_passed` with contrast at least 3.0?

@@ -23,11 +23,25 @@ REQUIRED_FILES = (
     "references/gold-standard-system.md",
     "references/human-cutout-handoff.md",
     "references/typography-system.md",
+    "references/deterministic-finishing.md",
     "scripts/check_mask_coverage.py",
     "scripts/validate_cutout_handoff.py",
+    "scripts/apply_paper_texture.py",
+    "scripts/render_seam_phrase.py",
+    "scripts/test_finishing.py",
     "assets/design-system/palettes.json",
     "assets/design-system/mask-edge-profile.json",
     "assets/design-system/typography-families.json",
+    "assets/design-system/paper-textures/neutral-uncoated-paper.png",
+    "assets/fonts/caveat-brush/CaveatBrush-Regular.ttf",
+    "assets/fonts/caveat-brush/OFL.txt",
+    "assets/fonts/kalam/Kalam-Regular.ttf",
+    "assets/fonts/kalam/Kalam-Bold.ttf",
+    "assets/fonts/kalam/OFL.txt",
+    "assets/fonts/knewave/Knewave-Regular.ttf",
+    "assets/fonts/knewave/OFL.txt",
+    "assets/fonts/kaushan-script/KaushanScript-Regular.ttf",
+    "assets/fonts/kaushan-script/OFL.txt",
     "assets/design-system/typography-reference/01-tall-dry-brush.png",
     "assets/design-system/typography-reference/02-casual-dry-script.png",
     "assets/design-system/typography-reference/03-chunky-rounded-marker.png",
@@ -50,7 +64,7 @@ REQUIRED_SKILL_PHRASES = (
     "Do not redraw, beautify",
     "INVARIANT",
     "three scene-derived palette candidates",
-    "controlled handwritten variation",
+    "controlled word-to-word changes",
     "giant blob",
     "9:16",
     "Accept every source photo",
@@ -68,6 +82,9 @@ REQUIRED_SKILL_PHRASES = (
     "do not default to 9:16",
     "typography-system.md",
     "named typography family",
+    "apply_paper_texture.py",
+    "render_seam_phrase.py",
+    "Never accept image-generated final lettering",
 )
 
 
@@ -209,8 +226,27 @@ def main() -> None:
         reference = family.get("reference")
         if not reference or not (root / reference).is_file():
             fail(f"typography family has a missing reference asset: {reference}")
+        font = family.get("font")
+        license_file = family.get("font_license")
+        if not font or not (root / font).is_file():
+            fail(f"typography family has a missing bundled font: {font}")
+        if not license_file or not (root / license_file).is_file():
+            fail(f"typography family has a missing font license: {license_file}")
 
     print("PASS: five reference-backed typography families")
+    finishing_text = (root / "references/deterministic-finishing.md").read_text(
+        encoding="utf-8"
+    ).lower()
+    for phrase in (
+        "deterministic compositing layers",
+        "texture_gate_passed",
+        "luma_std >= 4.0",
+        "readability_gate_passed",
+        "contrast ratio at least `3.0`",
+        "never use generated lettering as the final copy",
+    ):
+        if phrase not in finishing_text:
+            fail(f"deterministic-finishing.md is missing gate: {phrase}")
     handoff_text = (root / "references/human-cutout-handoff.md").read_text(
         encoding="utf-8"
     ).lower()

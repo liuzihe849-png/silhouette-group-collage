@@ -75,6 +75,8 @@ Use one dominant paper colour, one supporting accent, and cream or charcoal. Nev
 
 Read `typography-system.md`, name the selected T1–T5 family, and compare the rendered seam phrase to its reference crop before acceptance.
 
+Reserve a calm seam band and render the exact final phrase with `scripts/render_seam_phrase.py`. Require contrast ratio at least 3.0, cohesive word spacing, and a passing readability manifest. Image-generated lettering is a layout placeholder only and must never reach final delivery.
+
 The seam phrase is a major visual bridge, not metadata. Derive one short phrase from the visible action and setting. Prefer 3–6 words and lowercase unless the scene calls for emphatic capitals.
 
 Select one named family per image from `typography-system.md`: T1 tall dry brush, T2 casual dry script, T3 chunky rounded marker, T4 bold motion brush, or T5 wide diary brush. Do not substitute a generic handwriting label or mix unrelated families.
@@ -96,11 +98,11 @@ The complete phrase should usually span 62–90% of canvas width and 5–11% of 
 Maintain two distinct material systems:
 
 - **Photo regions:** retain original grain, focus, exposure, colour cast, reflections, weather, and motion blur. Do not apply universal paper noise over protected people.
-- **Paper regions:** show scanned uncoated fibres, subtle density variation, matte ink, restrained dust, and slight registration drift at normal viewing size.
+- **Paper regions:** show scanned uncoated fibres, subtle density variation, matte ink, restrained dust, and slight registration drift at normal viewing size. Create the actual coloured paper pixels with `scripts/apply_paper_texture.py` and `assets/design-system/paper-textures/neutral-uncoated-paper.png`. Apply it to broad fields and opaque silhouettes alike. Require `texture_gate_passed: true` and luma standard deviation at least 4.0. The older coloured crops are palette references, not tileable texture sources, because they include decorations.
 
 Roughness belongs to the physical edge, not to random angular polygons. Avoid smooth flat fills, universal noise, artificial torn-paper drop shadows, thick white sticker borders, and sepia filters.
 
-At 200% zoom, confirm that paper fibres are visible in the paper field while face, hair, skin, hands, clothing, footwear, and held objects remain unchanged source pixels.
+At 100% and 200% zoom, confirm that paper fibres are visible in every paper field and opaque silhouette while face, hair, skin, hands, clothing, footwear, and held objects remain unchanged source pixels.
 
 ## 7. Decoration rhythm
 

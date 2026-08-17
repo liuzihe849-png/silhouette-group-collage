@@ -30,13 +30,14 @@ Invoke `$human-cutout-engine` before art direction. Treat its reviewed source-re
 13. Use the exact same design mask for both reciprocal states. Cover 100% of every accepted subject pixel in the opaque state. Maintain at least 99.5% measured coverage and limit excess mask area using `scripts/check_mask_coverage.py`; full coverage never licenses a bulky halo.
 14. Use one dominant paper colour, one secondary accent, and the source photo's natural colours. Build and compare at least three scene-derived palette candidates before selecting one. Pick for contrast, emotional fit, and clothing/environment harmony, never from a fixed template.
 15. Lock the transformed Human Cutout Engine RGBA before generation. Keep all accepted people and necessary foreground context as protected source pixels. A uniform transform applied to the complete source package is allowed; isolated generative reconstruction is not.
-16. Generate only the paper fields, non-person environment extensions, stars, and typography. Generate a person-free layout/background pass, then composite the protected RGBA through the accepted reciprocal mask at its recorded transform.
-17. Preserve the source photograph's own grain, focus, exposure, weather, reflections, ground texture, and colour relationships. Add paper fibres and ink variation only to the paper areas. Verify both photo texture and paper texture at 200% zoom.
-18. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Treat it as a major compositional bridge, not a tiny caption. Keep spelling exact and use no other copy. Select one named typography family from `references/typography-system.md`, match its stroke behaviour, proportion, spacing, and paper-ink character, and use the corresponding reference crop as a visual acceptance target. Follow the controlled word-level variation in `references/art-direction-qc.md`.
-19. Add 8–12 sparse handmade stars across both panels with three size tiers and irregular spacing. Do not cover faces, hands, held objects, or other identity anchors.
-20. Generate or edit with `image_gen` only for non-person content. Repeat both invariant sentences from the prompt recipe verbatim in correction attempts.
-21. Compare every visible person and retained foreground occluder against the source at face-level zoom. Reject any output with changed facial structure, eyes, nose, mouth, skin texture, hairstyle, body, clothing, hands, held objects, or broken occlusion continuity. Restore the accepted protected RGBA rather than prompting another portrait redraw.
-22. Run the visual failure gate in `references/art-direction-qc.md`. Reject the render before delivery if the handoff is unverified, the mask becomes a giant blob, leaves any accepted subject pixel exposed, creates a bulky halo, the lettering looks like a default font, the palette feels arbitrary, or the paper/film texture disappears.
+16. Generate only a person-free layout/background pass with reserved paper masks and a calm empty seam band. Do not ask `image_gen` to render the final phrase or final paper material. Composite the protected RGBA through the accepted reciprocal mask at its recorded transform.
+17. Build every opaque paper field and every opaque person silhouette with `scripts/apply_paper_texture.py` and the clean neutral fibre asset specified in `references/deterministic-finishing.md`. Flat colour is only a temporary layout guide. Require the texture manifest to pass before continuing.
+18. Preserve the source photograph's own grain, focus, exposure, weather, reflections, ground texture, and colour relationships. Apply paper fibres only inside paper masks. Verify both photo texture and paper texture at 100% and 200% zoom.
+19. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Select one named family from `references/typography-system.md`, then render the exact phrase as a separate transparent layer with `scripts/render_seam_phrase.py`. Require its spelling, contrast, scale, and readability manifest to pass. Never accept image-generated final lettering.
+20. Add 8–12 sparse handmade stars across both panels with three size tiers and irregular spacing after paper and lettering are complete. Do not bake decorations into the paper texture or cover identity anchors.
+21. Generate or edit with `image_gen` only for non-person, non-lettering layout content. Repeat both invariant sentences from the prompt recipe verbatim in correction attempts.
+22. Compare every visible person and retained foreground occluder against the source at face-level zoom. Reject any output with changed facial structure, eyes, nose, mouth, skin texture, hairstyle, body, clothing, hands, held objects, or broken occlusion continuity. Restore the accepted protected RGBA rather than prompting another portrait redraw.
+23. Run the visual failure gate in `references/art-direction-qc.md`. Reject the render before delivery if the handoff is unverified, the mask becomes a giant blob, any accepted subject pixel is exposed, any paper region remains a smooth flat fill, texture manifests fail, the final lettering was generated or is hard to read, the palette feels arbitrary, or the paper/film texture disappears.
 
 Read `references/prompt-recipes.md` when building the generation prompt. Read `references/style-system.md` when deciding mask family, layout, palette, or typography. Read `references/reference-breakdown.md` when explaining how the five seed references produce the system.
 Read `references/person-preservation.md` before every generation or edit that contains a visible person.
@@ -46,6 +47,7 @@ Read `references/edge-refinement.md` before building or correcting any person si
 Read `references/gold-standard-system.md` before choosing a final art direction.
 Read `references/human-cutout-handoff.md` before extracting, validating, transforming, or compositing the protected subject layer.
 Read `references/typography-system.md` before choosing, generating, or compositing the seam phrase.
+Read `references/deterministic-finishing.md` before rendering any paper field, opaque silhouette, seam phrase, or decoration.
 
 ## Person pixel lock
 
@@ -73,7 +75,9 @@ Read `references/typography-system.md` before choosing, generating, or compositi
 - Use group silhouettes as the mask family; stars and loose marks are supporting punctuation only.
 - Preserve count-defining gaps. Do not replace a group with one enclosing polygon, convex hull, saw-tooth slab, or near-rectangular mass.
 - Preserve original photographic texture inside every photo region. Do not replace it with a smooth AI-painted interpretation.
+- Render all opaque paper fields and silhouettes from the clean paper texture asset with a passing deterministic texture manifest; smooth flat digital fills fail.
 - Place one readable, scene-matched handwritten phrase at the middle seam for group images, unless the user requests no text. It should usually span 62–90% of the canvas width with controlled word-to-word changes in scale, tilt, baseline, and lettering face.
+- Render the exact phrase as a separate transparent layer with a bundled OFL font. Require contrast ratio at least 3.0 and a passing readability manifest; image-generated final text fails.
 - Retain generous quiet space. Supporting marks and words must not compete with the mask exchange.
 - When the user does not request a size, keep the output width equal to the source pixel width and do not force a preset aspect ratio or 9:16 canvas.
 
@@ -88,6 +92,7 @@ Read `references/typography-system.md` before choosing, generating, or compositi
 - Do not omit small or distant people, enlarge background people, merge separated people, or break joined hands.
 - Do not blur the entire composition; preserve enough photographic information to identify the source.
 - Do not accept misspelled generated lettering. Retry once or add exact text in a separate layout pass.
+- Do not use any image-generated lettering as final copy, even when it is spelled correctly.
 - Do not use tiny centred captions, one unchanged digital font across every image, or identical word sizing and baseline.
 - Do not use an arbitrary high-saturation default colour when it is unrelated to the source scene.
 - Do not refuse a photo solely because people occupy most of the frame.
@@ -104,10 +109,10 @@ Before delivery, confirm all answers are yes:
 4. Are the person count, order, depth scale, poses, clothing, interactions, held objects, and retained foreground relationships correct in both panels?
 5. Does every opaque silhouette fully cover its accepted subject layer with no exposed face, mouth, hair, hand, body, clothing, footwear, phone, held object, or necessary foreground segment while remaining tight to the true contour?
 6. Do all visible people use the protected source pixels, with no generated change to faces, hair, skin, bodies, hands, clothing, footwear, or held objects?
-7. Does the result feel cut from printed paper rather than rendered as clean vectors?
+7. Do all paper fields and opaque silhouettes use the deterministic fibre layer with passing texture manifests instead of smooth digital fills?
 8. Does the photograph retain its source grain, focus, exposure, colour, and environmental texture?
 9. Is there one strong scene-derived colour decision, 8–12 restrained stars with scale rhythm, and one correctly spelled scene-matched phrase that visibly binds the seam?
-10. Does the typography show controlled handwritten variation instead of a tiny or uniform digital caption?
+10. Was the exact phrase rendered separately with a bundled font, a contrast ratio of at least 3.0, cohesive spacing, and a passing readability manifest?
 11. Did the selected adaptive layout create useful paper/environment space without independently shrinking the mask?
 12. Does the output retain the requested geometry, or the source pixel width when no geometry was requested, without silently forcing 9:16?
 

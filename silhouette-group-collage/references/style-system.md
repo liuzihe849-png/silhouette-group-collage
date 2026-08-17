@@ -86,9 +86,11 @@ Describe texture as physical production, not as a filter:
 
 Avoid heavy universal noise, fake torn-paper shadows, thick white sticker outlines, and sepia wash.
 
+Description alone is insufficient. Read `deterministic-finishing.md`: every broad paper field and opaque silhouette must be built with `scripts/apply_paper_texture.py` from the clean neutral paper asset. The five coloured crops below are palette references and must not be tiled because they include stars or lettering.
+
 ## Typography
 
-Typography is expected for group images unless the user declines it. Read `typography-system.md` and select exactly one of its five named, reference-backed families for a scene-specific reason. Derive one short lowercase phrase from visible action and setting, place it across the panel seam, and verify spelling exactly. Span roughly 62–90% of the canvas width and vary word scale, tilt, baseline, spacing, and occasional stroke density within the chosen family. Use no additional copy. Tiny centred captions, mixed unrelated families, and identical typography across unrelated photos fail.
+Typography is expected for group images unless the user declines it. Read `typography-system.md` and select exactly one of its five named, reference-backed families for a scene-specific reason. Derive one short lowercase phrase from visible action and setting, reserve a calm seam band, then render the exact phrase with `scripts/render_seam_phrase.py`. Span roughly 62–90% of the canvas width and vary word scale, tilt, baseline, spacing, and occasional stroke density within the chosen family. Use no additional copy. Generated final text, tiny centred captions, scattered words, mixed unrelated families, and identical typography across unrelated photos fail.
 
 ## Decoration rhythm
 
