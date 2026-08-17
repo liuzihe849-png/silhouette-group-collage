@@ -15,11 +15,13 @@ EDGE INVARIANT: build one contour-tight design mask from instance segmentation a
 
 Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every selected person completely with opaque [dominant colour] silhouettes, including every visible face, hair edge, neck, hand, body, garment, shoe, phone, and held object. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels. Preserve count-defining negative spaces between heads, shoulders, raised arms, lifted legs, phones, joined hands, and companion objects. A connected silhouette must follow the group like a paper-doll chain; it must not become a convex hull, rectangular slab, giant flower blob, saw-tooth band, or broad envelope filled with accidental background. If the colour mass is too large, use separate mask islands or uniformly inset the full photograph and every mask together; never shrink a mask alone.
 
-Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars in three size tiers with irregular spacing. Place the exact scene-matched phrase "[phrase]" in [T1 tall dry brush / T2 casual dry script / T3 chunky rounded marker / T4 bold motion brush / T5 wide diary brush] handwriting across the middle seam, spelled exactly. Match the selected reference crop's stroke behaviour, proportion, spacing, and paper-ink character. Make the phrase a visible compositional bridge spanning roughly 62–90% of the canvas width. Use controlled word-to-word variation inside that family: scale variation, slight -4° to +4° rotation, irregular baseline, and one optional underline or motion mark. Do not render a tiny uniform digital caption.
+Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Reserve a calm empty seam band for the phrase "[phrase]", but DO NOT render any letters, words, captions, or decorative text in the generated layout. Add 8–12 sparse handmade [secondary accent] stars in three size tiers with irregular spacing, outside the reserved seam band.
 
 INVARIANT: this is one photograph shown in two reciprocal mask states, not a scrapbook grid and not a collection of unrelated images.
 
 Build the paper layout and non-person content separately, then restore the protected original person pixels in every visible photographic state. If the workflow cannot restore original person pixels, stop instead of delivering generated faces.
+
+After layout generation, create every coloured paper field and opaque silhouette with `scripts/apply_paper_texture.py` using the clean neutral paper asset and exact region masks. Then render "[phrase]" with `scripts/render_seam_phrase.py` using [T1 / T2 / T3 / T4 / T5], exact spelling, contrast ratio at least 3.0, and a calm seam band. Composite this deterministic transparent lettering layer last. Do not use generated lettering as final copy.
 
 Avoid generic sticker collage, extra photos, invented people or objects, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thin contrasting mask outlines, thick sticker outlines, excessive decorations, tiny centred text, one unchanged font across unrelated images, arbitrary default colours, anatomy changes, and loss of subject identity.
 ```
@@ -44,6 +46,8 @@ Lettering: [T1 / T2 / T3 / T4 / T5 named family], reference asset [file], key wo
 Person lock: [deterministic mask/composite method]
 Coverage check: [target 100%, required >=99.5%]
 Excess check: [<=8% separate / <=15% connected]
+Paper finish: [clean neutral texture asset], texture manifest [passed / failed]
+Lettering finish: [deterministic render path], contrast [ratio], readability manifest [passed / failed]
 ```
 
 Do not generate until every line is resolved.

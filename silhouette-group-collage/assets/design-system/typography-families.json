@@ -5,6 +5,9 @@
     {
       "id": "T1",
       "family": "tall-dry-brush",
+      "font": "assets/fonts/caveat-brush/CaveatBrush-Regular.ttf",
+      "font_license": "assets/fonts/caveat-brush/OFL.txt",
+      "rotation_degrees": 2.0,
       "reference": "assets/design-system/typography-reference/01-tall-dry-brush.png",
       "best_for": ["expansive landscape", "winter horizon", "travel memory", "celebration"],
       "traits": ["tall", "compressed", "dry brush", "long ascenders", "strong vertical rhythm"],
@@ -13,6 +16,9 @@
     {
       "id": "T2",
       "family": "casual-dry-script",
+      "font": "assets/fonts/kalam/Kalam-Regular.ttf",
+      "font_license": "assets/fonts/kalam/OFL.txt",
+      "rotation_degrees": 1.5,
       "reference": "assets/design-system/typography-reference/02-casual-dry-script.png",
       "best_for": ["quiet indoor group", "intimate friendship", "soft winter", "evening memory"],
       "traits": ["moderate slant", "open counters", "uneven spacing", "low contrast", "matte ink"],
@@ -21,6 +27,9 @@
     {
       "id": "T3",
       "family": "chunky-rounded-marker",
+      "font": "assets/fonts/knewave/Knewave-Regular.ttf",
+      "font_license": "assets/fonts/knewave/OFL.txt",
+      "rotation_degrees": 1.25,
       "reference": "assets/design-system/typography-reference/03-chunky-rounded-marker.png",
       "best_for": ["pets", "snow", "close group", "comfort", "playful portrait"],
       "traits": ["upright", "heavy", "rounded", "blunt terminals", "irregular widths"],
@@ -29,6 +38,9 @@
     {
       "id": "T4",
       "family": "bold-motion-brush",
+      "font": "assets/fonts/kalam/Kalam-Bold.ttf",
+      "font_license": "assets/fonts/kalam/OFL.txt",
+      "rotation_degrees": 2.5,
       "reference": "assets/design-system/typography-reference/04-bold-motion-brush.png",
       "best_for": ["walking", "running", "dancing", "linked gestures", "outdoor movement"],
       "traits": ["broad italic", "connected strokes", "directional", "large scale", "motion marks"],
@@ -37,6 +49,9 @@
     {
       "id": "T5",
       "family": "wide-diary-brush",
+      "font": "assets/fonts/kaushan-script/KaushanScript-Regular.ttf",
+      "font_license": "assets/fonts/kaushan-script/OFL.txt",
+      "rotation_degrees": 2.0,
       "reference": "assets/design-system/typography-reference/05-wide-diary-brush.png",
       "best_for": ["team", "reunion", "summer travel", "candid group", "shared memory"],
       "traits": ["wide", "loose", "pressure variation", "generous spacing", "fast handwritten finish"],
