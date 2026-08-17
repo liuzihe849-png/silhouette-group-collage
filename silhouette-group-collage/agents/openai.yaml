@@ -1,4 +1,4 @@
 interface:
   display_name: "剪影群像风格 Skill"
-  short_description: "将群像照片制作成锁定原像素、审美导向的正负形纸艺双联画"
-  default_prompt: "Use $silhouette-group-collage to art-direct my uploaded group photo as a native 9:16 reciprocal silhouette diptych. Select a gold-standard recipe and adaptive layout, keep each mask coupled to the full-photo transform, refine tight edges with segmentation and matting while using depth only as support, require at least 99.5% coverage with limited excess area, preserve visible people as original source pixels, and retain scene-derived colour, varied handwriting, paper texture, and film texture."
+  short_description: "以 Human Cutout Engine 锁定人物原像素的正负形纸艺双联画"
+  default_prompt: "Use $silhouette-group-collage to process my uploaded group photo. Invoke $human-cutout-engine first, validate its source-resolution Alpha, protected RGBA, RGB lock, Alpha lock, and person count, retain necessary foreground occluders, then use that exact accepted Alpha for both reciprocal mask states. Preserve all visible people as original source pixels, choose one reference-backed T1-T5 handwriting family, and complete the scene-derived palette, paper texture, and film texture. When no output size is requested, preserve the source pixel width and derive the diptych height; use 9:16 only when explicitly requested as a phone or mobile wallpaper."

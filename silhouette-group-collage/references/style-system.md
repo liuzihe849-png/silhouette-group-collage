@@ -52,15 +52,18 @@ Use one group silhouette family plus one small matching mask for a thrown snowba
 
 Best for: celebratory group moments with one airborne or held focal object.
 
-## Layout ratios
+## Output geometry
 
-- Default canvas: vertical 4:5; use vertical 2:3 for poster-like artwork and native 9:16 for phone wallpapers.
+- Default when the user gives no dimensions: keep the canvas width equal to the source photograph's pixel width and derive total height from the two panels, seam, and quiet-space needs.
+- Do not silently convert a source photo to 9:16 or use a blurred enlargement to fill a preset canvas.
+- Preserve the source photograph's aspect ratio inside each photo panel whenever practical; photo, Alpha, and protected RGBA always share one coupled transform.
+- Use 4:5, 2:3, 9:16, or exact pixel dimensions only when explicitly requested. Use 9:16 specifically for explicit phone-wallpaper or mobile-wallpaper requests.
 - Panel split: 45:55 or 50:50. A precise half split is allowed, but internal placement should remain asymmetrical.
 - Flat colour coverage: 40–60% of the complete page.
 - Main group masks: use occupancy-aware targets from `adaptive-layout.md` while preserving complete coverage, source scale, and spacing.
 - Quiet space: keep at least one calm region equal to roughly 15% of the page.
 
-For 9:16, reserve 7–12% around the seam for large handwriting overlap. Default to an environment-led 18–32% person-area target per panel. For dense sources, uniformly inset the complete photo and all masks together and allow 25–45%. Never fill extra height with blurred, mirrored, or stretched source pixels, and never shrink masks independently.
+When 9:16 is explicitly requested, reserve 7–12% around the seam for large handwriting overlap. Default to an environment-led 18–32% person-area target per panel. For dense sources, uniformly inset the complete photo and all masks together and allow 25–45%. Never fill extra height with blurred, mirrored, or stretched source pixels, and never shrink masks independently.
 
 ## Palette recipes
 
@@ -85,7 +88,7 @@ Avoid heavy universal noise, fake torn-paper shadows, thick white sticker outlin
 
 ## Typography
 
-Typography is expected for group images unless the user declines it. Derive one short lowercase phrase from visible action and setting, such as `we ran to the sea`, `we ran toward the sun`, or `together under winter skies`. Place it across the panel seam so it binds the group. Verify spelling exactly. Select brush diary, chunky marker, or loose pencil based on the scene. Span roughly 62–90% of the canvas width and vary word scale, tilt, baseline, spacing, and occasional stroke density within a coherent handwritten family. Use at most two related faces and no additional copy. Tiny centred captions and identical typography across unrelated photos fail.
+Typography is expected for group images unless the user declines it. Read `typography-system.md` and select exactly one of its five named, reference-backed families for a scene-specific reason. Derive one short lowercase phrase from visible action and setting, place it across the panel seam, and verify spelling exactly. Span roughly 62–90% of the canvas width and vary word scale, tilt, baseline, spacing, and occasional stroke density within the chosen family. Use no additional copy. Tiny centred captions, mixed unrelated families, and identical typography across unrelated photos fail.
 
 ## Decoration rhythm
 

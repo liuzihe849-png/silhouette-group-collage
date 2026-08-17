@@ -37,9 +37,11 @@ Reject the mask if any of these are true:
 
 Use a hard binary aperture edge for visible source pixels. Refine boundaries with `edge-refinement.md`: instance segmentation or matting first, depth only as auxiliary evidence, and a final 1–3 output-pixel safety edge. If automated segmentation is messy, correct the local boundary or use a deliberately shaped photo window; never leave translucent halos, background slivers, half-covered faces, or half-cut footwear. A large colour mask is not corrected by shrinking it independently or broadly dilating it. Use separate mask islands or uniformly inset the complete source photo and all masks together.
 
-## 3. Composition for 9:16 phone wallpaper
+## 3. Output geometry and optional 9:16
 
-Use a native 1080×1920 or equivalent 9:16 canvas. Do not blur, mirror, or stretch the source to fill height.
+When the user gives no dimensions, set the output width to the source photograph's pixel width and derive the height from the diptych composition. Preserve the photo's aspect ratio inside the panels whenever practical. Do not silently force 9:16 or fill a preset canvas with a blurred, mirrored, stretched, or enlarged copy.
+
+Only when the user explicitly requests a phone or mobile wallpaper, use a native 1080×1920 or equivalent 9:16 canvas. Do not blur, mirror, or stretch the source to fill height.
 
 - Split panels around 46:54 or 50:50; reserve 7–12% of the page around the seam for lettering overlap.
 - In environment-led mode, aim for people to occupy roughly 18–32% of one panel while preserving the environmental anchor.
@@ -71,17 +73,15 @@ Use one dominant paper colour, one supporting accent, and cream or charcoal. Nev
 
 ## 5. Handwriting system: controlled variation
 
+Read `typography-system.md`, name the selected T1–T5 family, and compare the rendered seam phrase to its reference crop before acceptance.
+
 The seam phrase is a major visual bridge, not metadata. Derive one short phrase from the visible action and setting. Prefer 3–6 words and lowercase unless the scene calls for emphatic capitals.
 
-Select one lettering family per image:
-
-- **brush diary** — fluid thick-thin strokes for movement, travel, friendship, or celebration;
-- **chunky marker** — rounded irregular letters for snow, pets, playful groups, or graphic colour fields;
-- **loose pencil** — lighter, more intimate lettering for indoor gatherings or quiet memories.
+Select one named family per image from `typography-system.md`: T1 tall dry brush, T2 casual dry script, T3 chunky rounded marker, T4 bold motion brush, or T5 wide diary brush. Do not substitute a generic handwriting label or mix unrelated families.
 
 Apply controlled randomness by word, not chaotic letter-by-letter styling:
 
-- use at most two related handwriting faces;
+- stay inside the selected family while allowing natural word-level variation;
 - vary word scale within roughly 0.88–1.16;
 - rotate words between about -4° and +4°;
 - shift baselines by 1–3% of canvas height;

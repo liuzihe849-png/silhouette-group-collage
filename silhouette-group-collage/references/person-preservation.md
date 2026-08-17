@@ -8,13 +8,14 @@ Use this procedure whenever any person remains visible in the final collage.
 
 ## Protected-layer workflow
 
-1. Mark each complete visible person region in the source, including fine hair, fingers, clothing edges, footwear, and held objects.
-2. Keep these regions as protected source pixels. Do not send their interiors through a generative repaint operation.
-3. Build the diptych layout, paper fields, stars, lettering, reciprocal masks, and any non-person environment extension separately.
-4. In every photographic aperture or visible-photo state, composite the protected source-person regions back above generated content at the recorded position and scale.
-5. Feather only the outer mask edge when necessary. Do not blur, recolour, sharpen, denoise, or relight the person interior.
-6. Compare source and output person crops at 200% or greater. Inspect eyes, nose, mouth, jaw, hairline, skin marks, fingers, garment details, footwear, and held objects.
-7. If any interior detail differs because of synthesis, restore the original person layer. Do not request another generative portrait correction.
+1. Invoke `$human-cutout-engine` and accept only a reviewed source-resolution Alpha, protected RGBA, and matching manifest that pass `scripts/validate_cutout_handoff.py`.
+2. Include each complete visible person, fine hair, fingers, clothing edges, footwear, held objects, and necessary foreground occluders in the accepted protected subject layer.
+3. Keep this RGBA as protected source pixels. Do not send its interior through a generative repaint operation or estimate its boundary again.
+4. Build the diptych layout, paper fields, stars, lettering, reciprocal masks, and any non-person environment extension separately.
+5. Transform the complete source photograph, Alpha, and RGBA together. In every photographic aperture or visible-photo state, composite the protected subject RGBA back above generated content at the recorded position and scale.
+6. Feather only the outer mask edge when necessary. Do not blur, recolour, sharpen, denoise, or relight the person interior.
+7. Compare source and output person crops at 200% or greater. Inspect eyes, nose, mouth, jaw, hairline, skin marks, fingers, garment details, footwear, held objects, and retained foreground relationships.
+8. If any interior detail differs because of synthesis, restore the accepted protected RGBA. Do not request another generative portrait correction.
 
 ## Permitted transformations
 
