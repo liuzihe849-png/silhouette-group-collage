@@ -11,7 +11,9 @@
 - 紧密群像、分散群像、横向队列及陪伴物轮廓
 - 锁定原照片人物像素，不让生图模型重绘脸、五官、头发、皮肤、身体、手、服装和持有物
 - 保留景物、胶片颗粒与现场光线
-- 自动选择场景对比色，并用干净的无涂布纸纤维资产确定性生成纸面；不再依赖生图模型模拟纹理
+- 以 Shepherd's Red、Hearth Smoke、Butter Yellow、Heirloom Linen 为四个参考锚点，扩展为 20 个低饱和复古印刷色 Token
+- 按雪景、海天、草地花园、暖室内、城市、中夜派对、夕阳道路七类场景，比较 Echo / Counterpoint / Atmosphere 三套候选后再人工定色
+- 自动校验纸色与中缝文字对比度，并用干净的无涂布纸纤维资产确定性生成纸面；不再依赖生图模型模拟纹理
 - 五套来自首版优秀作品的字体风格资产：高挑干刷、随性干笔、圆润粗记号笔、动势宽刷、宽幅日记笔触
 - 为群像匹配一条位于双联画中缝的简短手写文字，使用内置 OFL 字体独立排版；不再使用 AI 生成的最终文字
 - 默认保留原照片像素宽度，按双联画构图推导高度；只有用户明确提出手机壁纸时才使用 9:16
@@ -51,12 +53,21 @@ cp -R silhouette-group-collage/human-cutout-engine ~/.codex/skills/
 
 ```bash
 python3 silhouette-group-collage/scripts/test_skill.py
+python3 silhouette-group-collage/scripts/test_color_system.py
 python3 silhouette-group-collage/scripts/test_finishing.py
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py silhouette-group-collage
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py human-cutout-engine
 ```
 
-第一个命令检查必要文件、调用名称和关键规则；第二个命令实际生成红色纸纹与中缝文字并验证纹理强度、拼写、尺寸和对比度；后续命令使用 Codex 官方校验器检查目录规范。
+第一个命令检查必要文件、调用名称和关键规则；第二个命令验证 20 个色彩 Token、七类场景路由与所有推荐文字配色；第三个命令实际生成红色纸纹与中缝文字并验证纹理强度、拼写、尺寸和对比度；后续命令使用 Codex 官方校验器检查目录规范。
+
+需要单独查看某张照片的三套候选色时：
+
+```bash
+python3 silhouette-group-collage/scripts/select_scene_palette.py photo.jpg --scene sea-sky --output palette-manifest.json
+```
+
+场景参数可选 `snow-winter`、`sea-sky`、`grass-garden`、`warm-indoor`、`city-neutral`、`night-party` 或 `sunset-road`。脚本输出是审美预检，不会代替最终整版人工判断。
 
 ## 目录
 
@@ -65,17 +76,23 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py human-cu
 │   ├── SKILL.md
 │   ├── agents/openai.yaml
 │   ├── assets/design-system/
+│   │   ├── color-system.json
+│   │   ├── color-system-preview.png
 │   │   ├── typography-families.json
 │   │   ├── paper-textures/neutral-uncoated-paper.png
 │   │   └── typography-reference/*.png
 │   ├── assets/fonts/（OFL 字体与许可证）
 │   ├── references/
+│   │   ├── color-system.md
 │   │   ├── typography-system.md
 │   │   ├── deterministic-finishing.md
 │   │   ├── human-cutout-handoff.md
 │   │   ├── prompt-recipes.md
 │   │   └── art-direction-qc.md
 │   └── scripts/
+│       ├── select_scene_palette.py
+│       ├── test_color_system.py
+│       ├── render_color_board.py
 │       ├── apply_paper_texture.py
 │       ├── render_seam_phrase.py
 │       ├── test_finishing.py

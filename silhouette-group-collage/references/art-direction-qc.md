@@ -55,7 +55,7 @@ The page should feel full because the photo window, environment/paper field, mas
 
 ## 4. Scene-derived palette selection
 
-Create three candidates before rendering:
+Read `color-system.md` and use `../scripts/select_scene_palette.py` to create three candidates before rendering:
 
 1. **Echo palette** — dominant paper sampled from a distinctive garment or object.
 2. **Counterpoint palette** — a muted complementary colour against the dominant environment.
@@ -68,8 +68,10 @@ Choose one candidate using these checks:
 - saturation does not overpower skin, clothing, or the environment;
 - cream/ink accent remains legible on both panels;
 - the choice differs from the previous image when the sources have different colour stories.
+- the selected token is not an avoid-dominant for the diagnosed scene route;
+- the recommended ink reaches at least 3.0 contrast on the paper colour.
 
-Use one dominant paper colour, one supporting accent, and cream or charcoal. Never default every image to teal, vermilion, magenta, or beige. Avoid pure digital primaries unless the source already contains them and the mood supports them.
+Use one dominant paper colour, one supporting accent, and one ink from `assets/design-system/color-system.json`. Record the three distinct token IDs, source-analysis result, scene route, selected token, ink token, exact hex values, and contrast in the palette manifest. The selector proposes candidates; the art director still reviews the full-page mockup. Never default every image to teal, vermilion, magenta, or beige. Avoid pure digital primaries unless the source already contains them and the mood supports them.
 
 ## 5. Handwriting system: controlled variation
 
@@ -123,7 +125,7 @@ Reject and correct the result if any answer is no:
 3. Does the silhouette remain contour-tight without a bulky expansion halo?
 4. Do the positive and negative states use the same recognisable mask and coupled source-photo transform?
 5. Did the occupancy-aware layout create environment or paper breathing room without refusing the source?
-6. Does the palette clearly belong to this source photo?
+6. Does the palette clearly belong to this source photo, use a valid scene route, differ across all three candidates, and pass the 3.0 lettering-contrast gate?
 7. Does the lettering vary by word while remaining one coherent handwriting family?
 8. Are paper fibres visible without damaging the photographic regions?
 9. Do the stars have scale and spacing rhythm rather than mechanical scatter?

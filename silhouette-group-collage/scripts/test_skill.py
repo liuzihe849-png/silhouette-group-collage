@@ -24,12 +24,18 @@ REQUIRED_FILES = (
     "references/human-cutout-handoff.md",
     "references/typography-system.md",
     "references/deterministic-finishing.md",
+    "references/color-system.md",
     "scripts/check_mask_coverage.py",
     "scripts/validate_cutout_handoff.py",
     "scripts/apply_paper_texture.py",
     "scripts/render_seam_phrase.py",
     "scripts/test_finishing.py",
+    "scripts/select_scene_palette.py",
+    "scripts/test_color_system.py",
+    "scripts/render_color_board.py",
     "assets/design-system/palettes.json",
+    "assets/design-system/color-system.json",
+    "assets/design-system/color-system-preview.png",
     "assets/design-system/mask-edge-profile.json",
     "assets/design-system/typography-families.json",
     "assets/design-system/paper-textures/neutral-uncoated-paper.png",
@@ -85,6 +91,9 @@ REQUIRED_SKILL_PHRASES = (
     "apply_paper_texture.py",
     "render_seam_phrase.py",
     "Never accept image-generated final lettering",
+    "select_scene_palette.py",
+    "color-system.json",
+    "text contrast ratio of at least 3.0",
 )
 
 
@@ -234,6 +243,18 @@ def main() -> None:
             fail(f"typography family has a missing font license: {license_file}")
 
     print("PASS: five reference-backed typography families")
+    colour_data = json.loads(
+        (root / "assets/design-system/color-system.json").read_text(encoding="utf-8")
+    )
+    colour_tokens = colour_data.get("anchors", []) + colour_data.get("extensions", [])
+    colour_ids = {item.get("id") for item in colour_tokens}
+    for required in ("shepherds-red", "hearth-smoke", "butter-yellow", "heirloom-linen"):
+        if required not in colour_ids:
+            fail(f"colour system is missing reference anchor: {required}")
+    if len(colour_tokens) < 18 or len(colour_data.get("scene_recipes", {})) < 7:
+        fail("colour system needs at least 18 tokens and seven scene routes")
+
+    print("PASS: reference-backed heritage colour system and scene routes")
     finishing_text = (root / "references/deterministic-finishing.md").read_text(
         encoding="utf-8"
     ).lower()
