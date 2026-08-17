@@ -20,7 +20,7 @@ Invoke `$human-cutout-engine` before art direction. Treat its reviewed source-re
 5. Estimate how much of the source frame is occupied by the accepted subject layer and choose an adaptive layout from `references/adaptive-layout.md`. Accept every source photo, including close-up selfies with 80–90% subject occupancy. Occupancy changes the layout mode; it never disqualifies the photo.
 6. Study the transferable gold-standard recipes in `references/gold-standard-system.md` and the non-person assets under `assets/design-system/`. Use them as a quality floor, not as a fixed template.
 7. Choose one group mask family from `references/style-system.md`. Use a connected paper-doll chain for a horizontal group and separate related silhouettes for staggered, close-up, edge-cropped, or deep-space groups.
-8. Run the art-direction preflight in `references/art-direction-qc.md`. Decide crop, silhouette fidelity, colour, one named lettering family from `references/typography-system.md`, texture hierarchy, and decoration rhythm before generating anything. Do not fall back to a default template colour or font.
+8. Run the art-direction preflight in `references/art-direction-qc.md`. Decide crop, silhouette fidelity, colour, one named lettering family from `references/typography-system.md`, texture hierarchy, and decoration rhythm before generating anything. Read `references/color-system.md`, then run `scripts/select_scene_palette.py` on the source to produce Echo, Counterpoint, and Atmosphere candidates from the bundled heritage token system. Do not fall back to a default template colour or font.
 9. When the user does not specify dimensions, set the output width equal to the source pixel width and derive the height from the two-panel composition; do not default to 9:16. Preserve the source photograph's aspect ratio inside each photo panel whenever practical. Use 4:5, 2:3, 9:16, or exact pixel dimensions only when the user requests them; use 9:16 specifically for explicit phone-wallpaper or mobile-wallpaper requests. Repeat the same source scene across the upper and lower halves, then invert figure and ground:
    - Panel A: show most of the photo and cover selected areas with opaque accent shapes.
    - Panel B: fill most of the panel with a flat paper colour and reveal the same photo through apertures matching Panel A's shapes and positions.
@@ -28,7 +28,7 @@ Invoke `$human-cutout-engine` before art direction. Treat its reviewed source-re
 11. Build the tight design mask from the transformed accepted Alpha using `references/edge-refinement.md`. Do not re-segment or ask a generator to infer the people. Add only a 1–3 output-pixel hand-cut safety edge and retain necessary foreground occluders already accepted in the subject layer.
 12. Preserve count-defining negative space inside and around the group. A connected silhouette is a paper-doll chain following bodies, raised arms, lifted legs, phones, companions, necessary foreground context, and major gaps; it is never a convex hull, bounding blob, rectangular slab, or giant flower covering the whole group.
 13. Use the exact same design mask for both reciprocal states. Cover 100% of every accepted subject pixel in the opaque state. Maintain at least 99.5% measured coverage and limit excess mask area using `scripts/check_mask_coverage.py`; full coverage never licenses a bulky halo.
-14. Use one dominant paper colour, one secondary accent, and the source photo's natural colours. Build and compare at least three scene-derived palette candidates before selecting one. Pick for contrast, emotional fit, and clothing/environment harmony, never from a fixed template.
+14. Use one dominant paper colour, one secondary accent, and the source photo's natural colours. Build and compare at least three scene-derived palette candidates before selecting one. The three candidates must use different token IDs and roles from `assets/design-system/color-system.json`; require seam-text contrast of at least 3.0 and reject any dominant listed as an avoid colour for the diagnosed scene. Pick for contrast, emotional fit, and clothing/environment harmony, never from a fixed template or automatic score alone.
 15. Lock the transformed Human Cutout Engine RGBA before generation. Keep all accepted people and necessary foreground context as protected source pixels. A uniform transform applied to the complete source package is allowed; isolated generative reconstruction is not.
 16. Generate only a person-free layout/background pass with reserved paper masks and a calm empty seam band. Do not ask `image_gen` to render the final phrase or final paper material. Composite the protected RGBA through the accepted reciprocal mask at its recorded transform.
 17. Build every opaque paper field and every opaque person silhouette with `scripts/apply_paper_texture.py` and the clean neutral fibre asset specified in `references/deterministic-finishing.md`. Flat colour is only a temporary layout guide. Require the texture manifest to pass before continuing.
@@ -48,6 +48,7 @@ Read `references/gold-standard-system.md` before choosing a final art direction.
 Read `references/human-cutout-handoff.md` before extracting, validating, transforming, or compositing the protected subject layer.
 Read `references/typography-system.md` before choosing, generating, or compositing the seam phrase.
 Read `references/deterministic-finishing.md` before rendering any paper field, opaque silhouette, seam phrase, or decoration.
+Read `references/color-system.md` before selecting, extending, or applying any paper, ink, lettering, or decoration colour.
 
 ## Person pixel lock
 
@@ -71,6 +72,7 @@ Read `references/deterministic-finishing.md` before rendering any paper field, o
 - Cover every selected person completely in the opaque state. Never expose partial faces, mouths, hair, hands, bodies, clothing, footwear, phones, or held objects.
 - Keep the design mask tight. Default safety expansion is only 1–3 pixels at final output size, or at most 0.3% of the short edge. Use depth only to refine uncertain overlaps, not to replace instance segmentation or matting.
 - Let flat colour occupy roughly 40–60% of the whole page.
+- Select the dominant, ink, and supporting accent from the scene-adaptive heritage colour system. Record three different scene-derived candidates, the chosen token IDs, exact hex values, scene route, and a text contrast ratio of at least 3.0.
 - Keep the page asymmetrical and handmade; allow slight imperfect alignment.
 - Use group silhouettes as the mask family; stars and loose marks are supporting punctuation only.
 - Preserve count-defining gaps. Do not replace a group with one enclosing polygon, convex hull, saw-tooth slab, or near-rectangular mass.
@@ -111,11 +113,11 @@ Before delivery, confirm all answers are yes:
 6. Do all visible people use the protected source pixels, with no generated change to faces, hair, skin, bodies, hands, clothing, footwear, or held objects?
 7. Do all paper fields and opaque silhouettes use the deterministic fibre layer with passing texture manifests instead of smooth digital fills?
 8. Does the photograph retain its source grain, focus, exposure, colour, and environmental texture?
-9. Is there one strong scene-derived colour decision, 8–12 restrained stars with scale rhythm, and one correctly spelled scene-matched phrase that visibly binds the seam?
+9. Is there one strong scene-derived colour decision selected from three different token candidates, with a recorded scene route and ink contrast of at least 3.0, plus 8–12 restrained stars with scale rhythm and one correctly spelled scene-matched phrase that visibly binds the seam?
 10. Was the exact phrase rendered separately with a bundled font, a contrast ratio of at least 3.0, cohesive spacing, and a passing readability manifest?
 11. Did the selected adaptive layout create useful paper/environment space without independently shrinking the mask?
 12. Does the output retain the requested geometry, or the source pixel width when no geometry was requested, without silently forcing 9:16?
 
 ## Delivery
 
-Return the generated image plus a concise record containing: Human Cutout Engine candidate paths and handoff result, source subject-occupancy estimate, output geometry mode, adaptive layout mode, selected gold-standard recipe, selected mask family, edge-refinement method, retained foreground context, three palette candidates and the chosen palette, named typography family with reference asset and phrase, protected person-layer method, mask coverage and excess-area results, preserved subject anchors, and whether the twelve quality checks passed. If the user asks only for prompt analysis, return the prompt package without generating an image.
+Return the generated image plus a concise record containing: Human Cutout Engine candidate paths and handoff result, source subject-occupancy estimate, output geometry mode, adaptive layout mode, selected gold-standard recipe, selected mask family, edge-refinement method, retained foreground context, palette-manifest path, three palette candidate token IDs, chosen paper/ink/accent tokens and exact hex values, scene route, text contrast, named typography family with reference asset and phrase, protected person-layer method, mask coverage and excess-area results, preserved subject anchors, and whether the twelve quality checks passed. If the user asks only for prompt analysis, return the prompt package without generating an image.

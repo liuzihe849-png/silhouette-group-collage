@@ -1,0 +1,302 @@
+{
+  "version": 1,
+  "system_name": "Heirloom Scene Colour System",
+  "reference_policy": {
+    "source": "2026-08-17 four-card colour reference",
+    "rule": "Use visible card colour as the visual authority when screenshot text and colour disagree.",
+    "measured_anchors": {
+      "hearth-smoke": "#BFC4B9",
+      "butter-yellow": "#E8D297"
+    },
+    "named_hex_anchors": {
+      "shepherds-red": "#8E372F",
+      "heirloom-linen": "#FFF9F3"
+    }
+  },
+  "anchors": [
+    {
+      "id": "shepherds-red",
+      "name": "Shepherd's Red",
+      "hex": "#8E372F",
+      "family": "red",
+      "temperature": "warm",
+      "value": "dark-mid",
+      "chroma": "muted",
+      "mood": ["companionship", "winter warmth", "nostalgia"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "hearth-smoke",
+      "name": "Hearth Smoke",
+      "hex": "#BFC4B9",
+      "family": "smoke",
+      "temperature": "neutral-cool",
+      "value": "light",
+      "chroma": "low",
+      "mood": ["quiet indoor", "soft daylight", "calm archive"],
+      "recommended_ink": "charcoal-ink"
+    },
+    {
+      "id": "butter-yellow",
+      "name": "Butter Yellow",
+      "hex": "#E8D297",
+      "family": "yellow",
+      "temperature": "warm",
+      "value": "light",
+      "chroma": "soft",
+      "mood": ["summer memory", "gentle optimism", "sunlit travel"],
+      "recommended_ink": "storm-ink"
+    },
+    {
+      "id": "heirloom-linen",
+      "name": "Heirloom Linen",
+      "hex": "#FFF9F3",
+      "family": "linen",
+      "temperature": "warm-neutral",
+      "value": "very-light",
+      "chroma": "near-neutral",
+      "mood": ["paper archive", "quiet space", "soft contrast"],
+      "recommended_ink": "charcoal-ink"
+    }
+  ],
+  "extensions": [
+    {
+      "id": "brick-rose",
+      "name": "Brick Rose",
+      "hex": "#A65349",
+      "family": "red",
+      "temperature": "warm",
+      "value": "mid",
+      "chroma": "muted",
+      "mood": ["friends", "garden", "late afternoon"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "dried-persimmon",
+      "name": "Dried Persimmon",
+      "hex": "#C66A4A",
+      "family": "orange",
+      "temperature": "warm",
+      "value": "mid",
+      "chroma": "muted-rich",
+      "mood": ["sea travel", "holiday", "playful motion"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "oxblood-wool",
+      "name": "Oxblood Wool",
+      "hex": "#5F2C2B",
+      "family": "red",
+      "temperature": "warm",
+      "value": "dark",
+      "chroma": "muted",
+      "mood": ["night", "cabin", "intimate gathering"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "blue-smoke",
+      "name": "Blue Smoke",
+      "hex": "#AAB7B4",
+      "family": "blue-gray",
+      "temperature": "cool",
+      "value": "light-mid",
+      "chroma": "low",
+      "mood": ["snow", "mist", "window light"],
+      "recommended_ink": "charcoal-ink"
+    },
+    {
+      "id": "harbor-slate",
+      "name": "Harbor Slate",
+      "hex": "#596D73",
+      "family": "blue-gray",
+      "temperature": "cool",
+      "value": "mid-dark",
+      "chroma": "muted",
+      "mood": ["sea", "overcast", "urban travel"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "lake-blue",
+      "name": "Lake Blue",
+      "hex": "#547F8C",
+      "family": "blue",
+      "temperature": "cool",
+      "value": "mid",
+      "chroma": "muted",
+      "mood": ["lake", "open sky", "winter distance"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "faded-denim",
+      "name": "Faded Denim",
+      "hex": "#71869A",
+      "family": "blue",
+      "temperature": "cool",
+      "value": "mid",
+      "chroma": "muted",
+      "mood": ["road", "youth archive", "soft dusk"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "saffron-cloth",
+      "name": "Saffron Cloth",
+      "hex": "#D6A32C",
+      "family": "yellow",
+      "temperature": "warm",
+      "value": "mid-light",
+      "chroma": "earthy-rich",
+      "mood": ["winter sun", "celebration", "wide landscape"],
+      "recommended_ink": "storm-ink"
+    },
+    {
+      "id": "oat-straw",
+      "name": "Oat Straw",
+      "hex": "#C9AF79",
+      "family": "yellow-neutral",
+      "temperature": "warm",
+      "value": "light-mid",
+      "chroma": "muted",
+      "mood": ["field", "home", "daylight diary"],
+      "recommended_ink": "charcoal-ink"
+    },
+    {
+      "id": "burnt-ochre",
+      "name": "Burnt Ochre",
+      "hex": "#A76B38",
+      "family": "orange-brown",
+      "temperature": "warm",
+      "value": "mid",
+      "chroma": "earthy",
+      "mood": ["cabin", "autumn", "firelight"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "garden-sage",
+      "name": "Garden Sage",
+      "hex": "#8E9A76",
+      "family": "green",
+      "temperature": "neutral",
+      "value": "mid-light",
+      "chroma": "muted",
+      "mood": ["garden", "grass", "quiet portrait"],
+      "recommended_ink": "charcoal-ink"
+    },
+    {
+      "id": "olive-leaf",
+      "name": "Olive Leaf",
+      "hex": "#67704B",
+      "family": "green",
+      "temperature": "warm-neutral",
+      "value": "mid-dark",
+      "chroma": "muted",
+      "mood": ["forest", "field", "travel diary"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "pine-shadow",
+      "name": "Pine Shadow",
+      "hex": "#374A40",
+      "family": "green",
+      "temperature": "cool-neutral",
+      "value": "dark",
+      "chroma": "muted",
+      "mood": ["forest shade", "formal group", "night exterior"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "muted-teal",
+      "name": "Muted Teal",
+      "hex": "#4F817B",
+      "family": "teal",
+      "temperature": "cool",
+      "value": "mid",
+      "chroma": "muted",
+      "mood": ["movement", "architecture", "fresh daylight"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "winter-plum",
+      "name": "Winter Plum",
+      "hex": "#6F3E52",
+      "family": "plum",
+      "temperature": "cool-warm",
+      "value": "dark-mid",
+      "chroma": "muted",
+      "mood": ["snow portrait", "night party", "warm company"],
+      "recommended_ink": "heirloom-linen"
+    },
+    {
+      "id": "warm-bone",
+      "name": "Warm Bone",
+      "hex": "#E8DDC8",
+      "family": "linen",
+      "temperature": "warm-neutral",
+      "value": "light",
+      "chroma": "near-neutral",
+      "mood": ["archive", "studio", "quiet background"],
+      "recommended_ink": "charcoal-ink"
+    }
+  ],
+  "inks": [
+    {
+      "id": "charcoal-ink",
+      "name": "Charcoal Ink",
+      "hex": "#332F2C"
+    },
+    {
+      "id": "storm-ink",
+      "name": "Storm Ink",
+      "hex": "#2F3E46"
+    },
+    {
+      "id": "heirloom-linen",
+      "name": "Heirloom Linen",
+      "hex": "#FFF9F3"
+    }
+  ],
+  "scene_recipes": {
+    "snow-winter": {
+      "preferred": ["shepherds-red", "winter-plum", "saffron-cloth", "blue-smoke"],
+      "avoid_dominant": ["heirloom-linen", "warm-bone"],
+      "reason": "Keep silhouettes legible against snow while retaining wool-and-paper warmth."
+    },
+    "sea-sky": {
+      "preferred": ["dried-persimmon", "butter-yellow", "saffron-cloth", "harbor-slate"],
+      "avoid_dominant": ["lake-blue", "faded-denim"],
+      "reason": "Use a warm counterpoint unless the source already has a strong warm clothing anchor."
+    },
+    "grass-garden": {
+      "preferred": ["shepherds-red", "brick-rose", "butter-yellow", "muted-teal"],
+      "avoid_dominant": ["garden-sage", "olive-leaf"],
+      "reason": "Avoid losing the silhouette inside foliage; favour red, yellow, or teal separation."
+    },
+    "warm-indoor": {
+      "preferred": ["hearth-smoke", "blue-smoke", "oxblood-wool", "butter-yellow"],
+      "avoid_dominant": ["burnt-ochre", "oat-straw"],
+      "reason": "Balance amber wood and firelight with smoke neutrals or one deep warm anchor."
+    },
+    "city-neutral": {
+      "preferred": ["lake-blue", "brick-rose", "garden-sage", "butter-yellow"],
+      "avoid_dominant": ["hearth-smoke", "warm-bone"],
+      "reason": "Introduce one softened colour against concrete, glass, or pale walls."
+    },
+    "night-party": {
+      "preferred": ["winter-plum", "burnt-ochre", "shepherds-red", "harbor-slate"],
+      "avoid_dominant": ["pine-shadow", "oxblood-wool"],
+      "reason": "Keep the paper field readable beside dark clothing and low exposure."
+    },
+    "sunset-road": {
+      "preferred": ["saffron-cloth", "shepherds-red", "faded-denim", "winter-plum"],
+      "avoid_dominant": ["burnt-ochre", "oat-straw"],
+      "reason": "Echo sunset selectively without merging into the road or dry landscape."
+    }
+  },
+  "usage_rules": {
+    "candidate_roles": ["echo", "counterpoint", "atmosphere"],
+    "dominant_paper_share": "40-60% of the complete page",
+    "max_palette_colours": 3,
+    "minimum_text_contrast": 3.0,
+    "saturation_rule": "Prefer softened chroma; reject pure digital primaries and arbitrary neon colour.",
+    "selection_rule": "Analyse the actual scene first, generate three candidates, then select one. Never reuse a favourite colour mechanically."
+  }
+}

@@ -67,16 +67,9 @@ When 9:16 is explicitly requested, reserve 7–12% around the seam for large han
 
 ## Palette recipes
 
-Use one recipe, never all at once:
+Use the reference-backed system in `color-system.md` and `assets/design-system/color-system.json`. Its four anchors—Shepherd's Red, Hearth Smoke, Butter Yellow, and Heirloom Linen—extend into muted reds, smoke blues, cloth yellows, sage greens, lake colours, winter plum, and paper neutrals. These are coherent heritage-print materials, not fixed templates.
 
-- Electric emotional: hot magenta `#F70883`, sky blue, grass green, off-white.
-- Field diary: sage `#B6C596`, moss green, dusty pink, cream.
-- Travel poster: vermilion `#FF4633`, pale blue, warm landscape browns, ivory.
-- Youth archive: faded olive `#9CAF6A`, cream `#F4F0D8`, forest green, charcoal.
-
-Sample colours from the source when they are already distinctive. Keep contrast strong enough that apertures read instantly.
-
-Do not select a recipe mechanically. Compare an echo, counterpoint, and atmosphere palette from `art-direction-qc.md`; then choose one and record the reason. Reusing the same dominant colour across unrelated photos is a failure.
+Diagnose the scene, then run `scripts/select_scene_palette.py` and compare one Echo, one Counterpoint, and one Atmosphere candidate. Select one only after a full-page mockup review. Record token IDs, exact hex values, scene route, and ink contrast. Sample a distinctive source colour when it helps the Echo candidate, but do not let a dominant paper disappear into the environment. Reusing the same dominant colour across unrelated photos without a scene-based reason is a failure.
 
 ## Texture recipe
 
