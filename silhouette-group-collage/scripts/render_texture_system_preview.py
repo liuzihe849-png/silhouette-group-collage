@@ -21,15 +21,15 @@ REGULAR = ROOT / "assets/fonts/kalam/Kalam-Regular.ttf"
 
 def main() -> None:
     profiles = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))["profiles"]
-    colours = ["#FFF9F3", "#8E9A76", "#BFC4B9", "#E8D297", "#6F3E52"]
+    colours = ["#C9543F"] * 5
     width, card_h, margin, header = 1500, 250, 52, 170
     canvas = Image.new("RGB", (width, header + len(profiles) * card_h + margin), "#FFF9F3")
     draw = ImageDraw.Draw(canvas)
     title = ImageFont.truetype(str(FONT), 56)
     body = ImageFont.truetype(str(REGULAR), 30)
     small = ImageFont.truetype(str(REGULAR), 23)
-    draw.text((margin, 34), "Heirloom Paper Texture System", font=title, fill="#332F2C")
-    draw.text((margin, 102), "fine linen to weathered field fibre — deterministic neutral materials", font=body, fill="#596D73")
+    draw.text((margin, 34), "Five Quiet Paper Textures", font=title, fill="#332F2C")
+    draw.text((margin, 102), "soft fibre, matte grain, and three restrained fleck densities — shown on one red field", font=body, fill="#596D73")
     with tempfile.TemporaryDirectory(prefix="texture-board-") as temporary:
         directory = Path(temporary)
         for index, (profile, colour) in enumerate(zip(profiles, colours)):

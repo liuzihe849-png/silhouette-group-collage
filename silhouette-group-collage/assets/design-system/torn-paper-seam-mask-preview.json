@@ -1,0 +1,14 @@
+{
+  "size": [
+    1080,
+    120
+  ],
+  "edge": "top",
+  "seed": 849,
+  "amplitude_px": 10,
+  "baseline_y": 60,
+  "point_count": 57,
+  "fibre_count": 18,
+  "soft_alpha_fraction": 0.018657,
+  "shared_path_key": "torn-seam-849-1080-10"
+}

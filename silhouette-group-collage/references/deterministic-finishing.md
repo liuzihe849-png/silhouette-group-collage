@@ -15,7 +15,7 @@ Example:
 
 ```bash
 python scripts/apply_paper_texture.py \
-  --profile winter-wool-stock \
+  --profile fine-matte-grain \
   --colour '#c94b3f' --width 1178 --height 1600 \
   --mask final-paper-mask.png --output final-paper-layer.png
 ```
@@ -48,6 +48,7 @@ Reject the artwork when any of the following is true:
 - either the profile gate or output texture gate fails;
 - texture appears only as a faint optional overlay;
 - a texture tile repeats stars, words, or other decorations;
+- a paper-photo boundary is perfectly straight, a repeated zigzag, or uses a fake lifted-paper shadow instead of the shared torn-seam mask;
 - the final phrase came from image generation;
 - words are illegible, misspelled, too thin, scattered, or placed on a busy seam;
 - the phrase requires an outline, glow, or shadow to become readable.

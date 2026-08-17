@@ -27,13 +27,24 @@ def metrics(image: Image.Image) -> dict[str, float]:
     mean = float(stat.mean[0])
     standard = float(stat.stddev[0])
     histogram = luma.histogram()
+    total = max(1, image.width * image.height)
+    running = 0
+    median = 128
+    for value, count in enumerate(histogram):
+        running += count
+        if running >= total / 2:
+            median = value
+            break
     extreme = sum(count for value, count in enumerate(histogram) if value < mean - 2 * standard or value > mean + 2 * standard)
     return {
         "luma_std": standard,
         "high_frequency_mean": (dx + dy) / 2,
         "low_frequency_std": float(ImageStat.Stat(low).stddev[0]),
-        "fleck_fraction": extreme / max(1, image.width * image.height),
+        "fleck_fraction": extreme / total,
         "directional_ratio_y_over_x": dy / max(dx, 0.0001),
+        "deviation_gt_3": sum(count for value, count in enumerate(histogram) if abs(value - median) > 3) / total,
+        "light_deviation_gt_8": sum(count for value, count in enumerate(histogram) if value - median > 8) / total,
+        "dark_deviation_gt_8": sum(count for value, count in enumerate(histogram) if median - value > 8) / total,
     }
 
 
@@ -41,22 +52,23 @@ def main() -> None:
     data = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
     profiles = data.get("profiles", [])
     if [item["id"] for item in profiles] != [
-        "heirloom-linen", "field-fibre", "hearth-smoke-stock", "sun-faded-stock", "winter-wool-stock"
+        "soft-fibre-paper", "fine-matte-grain", "sparse-light-fleck", "sparse-dark-fleck", "medium-light-fleck"
     ]:
         raise SystemExit("FAIL: expected five ordered paper profiles")
     colours = {
-        "heirloom-linen": "#FFF9F3",
-        "field-fibre": "#8E9A76",
-        "hearth-smoke-stock": "#BFC4B9",
-        "sun-faded-stock": "#E8D297",
-        "winter-wool-stock": "#6F3E52",
+        "soft-fibre-paper": "#C9543F",
+        "fine-matte-grain": "#C9543F",
+        "sparse-light-fleck": "#C9543F",
+        "sparse-dark-fleck": "#C9543F",
+        "medium-light-fleck": "#C9543F",
     }
     routing_cases = [
-        ({"family": "linen", "value": "very-light"}, "grass-garden", "heirloom-linen"),
-        ({"family": "plum", "value": "dark-mid"}, "snow-winter", "winter-wool-stock"),
-        ({"family": "teal", "value": "mid"}, "grass-garden", "field-fibre"),
-        ({"family": "yellow", "value": "light"}, "grass-garden", "sun-faded-stock"),
-        ({"family": "blue", "value": "mid"}, "grass-garden", "hearth-smoke-stock"),
+        ({"family": "linen", "value": "very-light"}, "grass-garden", "sparse-dark-fleck"),
+        ({"family": "plum", "value": "dark-mid"}, "snow-winter", "fine-matte-grain"),
+        ({"family": "teal", "value": "mid"}, "grass-garden", "fine-matte-grain"),
+        ({"family": "yellow", "value": "light"}, "grass-garden", "sparse-light-fleck"),
+        ({"family": "blue", "value": "mid"}, "grass-garden", "soft-fibre-paper"),
+        ({"family": "neutral", "value": "mid"}, "sea-sky", "medium-light-fleck"),
     ]
     for item, scene, expected in routing_cases:
         actual = texture_profile(item, scene)

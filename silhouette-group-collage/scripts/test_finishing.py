@@ -27,7 +27,7 @@ def main() -> None:
         run(
             "scripts/apply_paper_texture.py",
             "--profile",
-            "winter-wool-stock",
+            "fine-matte-grain",
             "--colour",
             "#c94b3f",
             "--width",
@@ -59,7 +59,7 @@ def main() -> None:
         phrase_manifest = json.loads(phrase.with_suffix(".json").read_text(encoding="utf-8"))
         if not paper_manifest.get("texture_gate_passed") or not paper_manifest.get("profile_gate_passed"):
             raise SystemExit("paper finish test failed")
-        if paper_manifest.get("profile") != "winter-wool-stock":
+        if paper_manifest.get("profile") != "fine-matte-grain":
             raise SystemExit("paper profile manifest failed")
         if not phrase_manifest.get("readability_gate_passed"):
             raise SystemExit("lettering finish test failed")
