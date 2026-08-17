@@ -7,7 +7,7 @@ Replace bracketed variables. Keep the invariant sentence unchanged.
 ```text
 Transform the supplied group photograph into a vertical [4:5 / 2:3] two-panel editorial paper collage. Preserve exactly [person count] people in their original left-to-right order, depth scale, poses, clothing, interactions, held objects, environmental anchors, and source-photo texture.
 
-Treat every visible face as a protected source-pixel region. Do not generate, repaint, reconstruct, beautify, relight, sharpen, denoise, restyle, or expression-edit faces. Generate the layout and non-face content separately, then restore each original face crop using the same whole-photo crop, translation, and uniform scale. Preserve eyes, nose, mouth, skin texture, expression, ears, hairline, facial hair, glasses, and identity-bearing near-face details exactly.
+Treat every visible person as a protected source-pixel region. Do not generate, repaint, reconstruct, beautify, relight, sharpen, denoise, restyle, or expression-edit any face, hair, skin, body, hand, clothing, footwear, held object, or identity-bearing detail. Generate the layout and non-person content separately, then restore the unchanged source photograph through every visible photo mask using the same whole-photo crop, translation, and uniform scale.
 
 Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every person with opaque [dominant colour] group silhouettes. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels.
 
@@ -15,9 +15,9 @@ Art direction: handmade cut-paper editorial collage, indie album artwork, youthf
 
 INVARIANT: this is one photograph shown in two reciprocal mask states, not a scrapbook grid and not a collection of unrelated images.
 
-FACE INVARIANT: every visible face must come directly from the supplied photograph as protected source pixels; never generate, repaint, reconstruct, beautify, relight, or reinterpret a face.
+PERSON INVARIANT: every visible person must come directly from the supplied photograph as protected source pixels; never generate, repaint, reconstruct, beautify, relight, or reinterpret a person.
 
-Avoid generic sticker collage, extra photos, invented people or objects, AI-redrawn faces, portrait enhancement, beauty retouching, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thick sticker outlines, excessive decorations, illegible prominent text, anatomy changes, and loss of subject identity.
+Avoid generic sticker collage, extra photos, invented people or objects, AI-redrawn people, portrait or body enhancement, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thick sticker outlines, excessive decorations, illegible prominent text, anatomy changes, and loss of subject identity.
 ```
 
 ## Recipe A: organic silhouette / group memory
@@ -70,10 +70,10 @@ Replace perfect vector edges with irregular scissor-cut contours. Add subtle unc
 Restore the source identity, body count, anatomy, pose, clothing, landmark geometry, and spatial relationships. Simplify the mask rather than altering the subject. Keep at least one unobstructed photographic view of every essential anchor.
 ```
 
-### A visible face differs from the source
+### A visible person differs from the source
 
 ```text
-Stop generative portrait correction. Restore the original protected face crop using the recorded whole-photo crop, translation, and uniform scale. Preserve the protected interior exactly and feather only a documented 1–2 px outer boundary if necessary. Compare the transformed source and lossless output at 200% or greater and require zero RGB difference inside the protected face-lock region. Preserve both invariant sentences.
+Stop generative person correction. Restore the unchanged source photograph through the visible photo mask using the recorded whole-photo crop, translation, and uniform scale. Preserve the protected person interiors exactly and feather only a documented 1–2 px outer boundary if necessary. Compare the transformed source and lossless output and require zero RGB difference inside every visible protected person region. Preserve both invariant sentences.
 ```
 
 ### Person count or depth is wrong

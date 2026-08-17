@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run zero-dependency structural checks for silhouette-group-collage-v1."""
+"""Run zero-dependency structural checks for silhouette-group-collage."""
 
 from __future__ import annotations
 
@@ -8,14 +8,14 @@ import sys
 from pathlib import Path
 
 
-EXPECTED_NAME = "silhouette-group-collage-v1"
+EXPECTED_NAME = "silhouette-group-collage"
 REQUIRED_FILES = (
     "SKILL.md",
     "agents/openai.yaml",
     "references/style-system.md",
     "references/prompt-recipes.md",
     "references/reference-breakdown.md",
-    "references/face-preservation.md",
+    "references/person-pixel-lock.md",
 )
 REQUIRED_SKILL_PHRASES = (
     "Count all people explicitly from left to right",
@@ -23,10 +23,10 @@ REQUIRED_SKILL_PHRASES = (
     "Preserve original photographic texture",
     "add 8–12 sparse handmade stars",
     "scene-matched handwritten phrase",
-    "FACE INVARIANT",
+    "INVARIANT",
+    "PERSON INVARIANT",
     "protected source pixels",
     "zero RGB difference",
-    "INVARIANT",
 )
 
 
@@ -94,12 +94,12 @@ def main() -> None:
 
     print(f"PASS: {EXPECTED_NAME}")
     print(f"PASS: {len(REQUIRED_FILES)} required files")
-    face_text = (root / "references/face-preservation.md").read_text(encoding="utf-8")
-    for phrase in ("Protected-face workflow", "Do not request another generative portrait correction", "stop before final delivery"):
-        if phrase.lower() not in face_text.lower():
-            fail(f"face-preservation reference is missing required rule: {phrase}")
+    lock_text = (root / "references/person-pixel-lock.md").read_text(encoding="utf-8")
+    for phrase in ("Protected-person workflow", "Do not request another generative portrait or body correction", "stop before final delivery"):
+        if phrase.lower() not in lock_text.lower():
+            fail(f"person-pixel-lock reference is missing required rule: {phrase}")
 
-    print("PASS: metadata, references, invocation name, face lock, and group-image rules")
+    print("PASS: metadata, references, invocation name, person pixel lock, and group-image rules")
 
 
 if __name__ == "__main__":

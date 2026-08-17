@@ -1,4 +1,4 @@
 interface:
   display_name: "剪影群像风格 Skill v1"
-  short_description: "将群像照片转成脸部源像素锁定的正负形剪影双联画"
-  default_prompt: "Use $silhouette-group-collage-v1 to transform my uploaded group photo into the reciprocal silhouette diptych style while preserving every visible face as original source pixels."
+  short_description: "锁定原人物像素的正负形剪影双联画 v1"
+  default_prompt: "Use $silhouette-group-collage to transform my uploaded group photo into the frozen v1 reciprocal silhouette diptych style while preserving every visible person as original source pixels."

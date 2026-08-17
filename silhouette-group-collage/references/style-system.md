@@ -15,7 +15,7 @@ The references combine six stable choices:
 
 Use this priority order:
 
-1. Verified source-pixel faces wherever faces remain visible.
+1. Verified source-pixel people wherever people remain visible.
 2. Recognisable source subject or scene.
 3. Reciprocal mask exchange.
 4. Large flat colour field.
@@ -87,12 +87,12 @@ Typography is expected for group images unless the user declines it. Derive one 
 Before generating, record:
 
 - exact person count and left-to-right order;
-- every visible face-lock region, including ears, hairline, facial hair, glasses, and identity-bearing near-face details;
-- the whole-photo crop, translation, and uniform scale used in each panel so source face pixels can be restored and compared;
+- every protected visible-person region, including face, hair, skin, body, hands, clothing, footwear, held objects, and identity-bearing details;
+- the whole-photo crop, translation, and uniform scale used in each panel so source person pixels can be restored and compared;
 - foreground, midground, and background scale;
 - pose, raised arms, joined hands, lifted legs, and held objects;
 - distinctive clothing colours and silhouettes;
 - environmental anchors such as lake, mountain, road, sea, snow, sunset, rocks, or reflections;
 - source grain, focus, motion blur, exposure, and colour cast.
 
-Do not approve a face by visual similarity alone. Use the lossless output and verify zero RGB difference inside each transformed protected face region, excluding only a documented 1–2 px feather boundary.
+Do not approve a person by visual similarity alone. Use the lossless output and verify zero RGB difference inside every visible protected person region, excluding only a documented 1–2 px outer feather boundary.
