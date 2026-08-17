@@ -79,7 +79,7 @@ Describe texture as physical production, not as a filter:
 
 Avoid heavy universal noise, fake torn-paper shadows, thick white sticker outlines, and sepia wash.
 
-Description alone is insufficient. Read `deterministic-finishing.md`: every broad paper field and opaque silhouette must be built with `scripts/apply_paper_texture.py` from the clean neutral paper asset. The five coloured crops below are palette references and must not be tiled because they include stars or lettering.
+Description alone is insufficient. Read `paper-texture-system.md` and `deterministic-finishing.md`: select one of five reference-derived neutral material profiles, then build every broad paper field and opaque silhouette with `scripts/apply_paper_texture.py --profile PROFILE`. The older coloured crops are palette references and must not be tiled because they include stars or lettering.
 
 ## Typography
 

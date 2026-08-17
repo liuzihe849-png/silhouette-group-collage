@@ -100,7 +100,7 @@ The complete phrase should usually span 62–90% of canvas width and 5–11% of 
 Maintain two distinct material systems:
 
 - **Photo regions:** retain original grain, focus, exposure, colour cast, reflections, weather, and motion blur. Do not apply universal paper noise over protected people.
-- **Paper regions:** show scanned uncoated fibres, subtle density variation, matte ink, restrained dust, and slight registration drift at normal viewing size. Create the actual coloured paper pixels with `scripts/apply_paper_texture.py` and `assets/design-system/paper-textures/neutral-uncoated-paper.png`. Apply it to broad fields and opaque silhouettes alike. Require `texture_gate_passed: true` and luma standard deviation at least 4.0. The older coloured crops are palette references, not tileable texture sources, because they include decorations.
+- **Paper regions:** show scanned fibres, profile-specific density variation, matte ink, restrained dust, and slight registration drift at normal viewing size. Read `paper-texture-system.md`, select one of five reference-derived profiles, and create the actual coloured paper pixels with `scripts/apply_paper_texture.py --profile PROFILE`. Apply the same selected material to broad fields and reciprocal opaque silhouettes. Require both `texture_gate_passed: true` and `profile_gate_passed: true`. The older coloured crops are palette references, not tileable texture sources, because they include decorations.
 
 Roughness belongs to the physical edge, not to random angular polygons. Avoid smooth flat fills, universal noise, artificial torn-paper drop shadows, thick white sticker borders, and sepia filters.
 
