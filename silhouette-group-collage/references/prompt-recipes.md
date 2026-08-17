@@ -5,52 +5,20 @@
 Replace bracketed variables. Keep the invariant sentence unchanged.
 
 ```text
-Transform the supplied group photograph into a vertical [source-width diptych / explicitly requested ratio or pixel size] two-panel editorial paper collage. When no dimensions are requested, keep the output width equal to the source photograph's pixel width, derive the total height from the two-panel composition, and do not force 9:16. Preserve exactly [person count] people in their original left-to-right order, depth scale, poses, clothing, interactions, held objects, environmental anchors, and source-photo texture. When 9:16 is explicitly requested, compose the artwork directly on the tall canvas; do not blur, mirror, stretch, or generatively extend the source photograph merely to fill height.
+Transform the supplied group photograph into a vertical [4:5 / 2:3] two-panel editorial paper collage. Preserve exactly [person count] people in their original left-to-right order, depth scale, poses, clothing, interactions, held objects, environmental anchors, and source-photo texture.
 
-PERSON INVARIANT: every visible person must come directly from the supplied photograph; do not generate, repaint, reconstruct, beautify, relight, or reinterpret any face, hair, skin, hand, body, clothing, footwear, or held object.
+Treat every visible person as a protected source-pixel region. Do not generate, repaint, reconstruct, beautify, relight, sharpen, denoise, restyle, or expression-edit any face, hair, skin, body, hand, clothing, footwear, held object, or identity-bearing detail. Generate the layout and non-person content separately, then restore the unchanged source photograph through every visible photo mask using the same whole-photo crop, translation, and uniform scale.
 
-LAYOUT INVARIANT: the complete source photograph and every reciprocal person mask share the same scale, translation, crop, and inset transform. Never resize, crop, or reposition a mask independently from the photograph. Accept the source at any person occupancy; select environment-led, balanced-group, or portrait-dense layout rather than refusing the photo.
+Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every person with opaque [dominant colour] group silhouettes. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels.
 
-EDGE INVARIANT: build one contour-tight design mask from instance segmentation and alpha matting, using depth only as auxiliary overlap evidence. Cover at least 99.5% of the protected person region while limiting excess mask area to 8% for separate silhouettes or 15% for intentional connected clusters. Add only a 1–3 output-pixel safety edge and reuse the exact same design mask in both panels.
-
-Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every selected person completely with opaque [dominant colour] silhouettes, including every visible face, hair edge, neck, hand, body, garment, shoe, phone, and held object. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels. Preserve count-defining negative spaces between heads, shoulders, raised arms, lifted legs, phones, joined hands, and companion objects. A connected silhouette must follow the group like a paper-doll chain; it must not become a convex hull, rectangular slab, giant flower blob, saw-tooth band, or broad envelope filled with accidental background. If the colour mass is too large, use separate mask islands or uniformly inset the full photograph and every mask together; never shrink a mask alone.
-
-Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Reserve a calm empty seam band for the phrase "[phrase]", but DO NOT render any letters, words, captions, or decorative text in the generated layout. Add 8–12 sparse handmade [secondary accent] stars in three size tiers with irregular spacing, outside the reserved seam band.
+Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars. Place the exact scene-matched phrase "[phrase]" in loose lowercase handwriting across the middle seam, spelled exactly and secondary to the group.
 
 INVARIANT: this is one photograph shown in two reciprocal mask states, not a scrapbook grid and not a collection of unrelated images.
 
-Build the paper layout and non-person content separately, then restore the protected original person pixels in every visible photographic state. If the workflow cannot restore original person pixels, stop instead of delivering generated faces.
+PERSON INVARIANT: every visible person must come directly from the supplied photograph as protected source pixels; never generate, repaint, reconstruct, beautify, relight, or reinterpret a person.
 
-After layout generation, create every coloured paper field and opaque silhouette with `scripts/apply_paper_texture.py` using the clean neutral paper asset and exact region masks. Then render "[phrase]" with `scripts/render_seam_phrase.py` using [T1 / T2 / T3 / T4 / T5], exact spelling, contrast ratio at least 3.0, and a calm seam band. Composite this deterministic transparent lettering layer last. Do not use generated lettering as final copy.
-
-Avoid generic sticker collage, extra photos, invented people or objects, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thin contrasting mask outlines, thick sticker outlines, excessive decorations, tiny centred text, one unchanged font across unrelated images, arbitrary default colours, anatomy changes, and loss of subject identity.
+Avoid generic sticker collage, extra photos, invented people or objects, AI-redrawn people, portrait or body enhancement, glossy 3D, smooth gradients, polished vector geometry, perfect symmetry, thick sticker outlines, excessive decorations, illegible prominent text, anatomy changes, and loss of subject identity.
 ```
-
-## Mandatory pre-prompt decisions
-
-Write these decisions before calling an image tool:
-
-```text
-Source diagnosis: [group geometry], [energy], [environmental anchor], [quiet zones]
-Output geometry: [source-width default / explicit aspect ratio or pixel dimensions]
-Person occupancy: [estimated percentage]
-Adaptive layout: [environment-led / balanced group / portrait-dense] with coupled photo-plus-mask transform
-Mask family: [family] because [pose/spacing reason]
-Palette candidates:
-1. Echo: [dominant / accent / neutral]
-2. Counterpoint: [dominant / accent / neutral]
-3. Atmosphere: [dominant / accent / neutral]
-Chosen palette: [candidate] because [contrast + mood + source anchor]
-Phrase: "[exact 3–6 word phrase]"
-Lettering: [T1 / T2 / T3 / T4 / T5 named family], reference asset [file], key word [word], controlled word-level variation
-Person lock: [deterministic mask/composite method]
-Coverage check: [target 100%, required >=99.5%]
-Excess check: [<=8% separate / <=15% connected]
-Paper finish: [clean neutral texture asset], texture manifest [passed / failed]
-Lettering finish: [deterministic render path], contrast [ratio], readability manifest [passed / failed]
-```
-
-Do not generate until every line is resolved.
 
 ## Recipe A: organic silhouette / group memory
 
@@ -96,46 +64,16 @@ Match mask positions and contours more closely across both panels. Increase the 
 Replace perfect vector edges with irregular scissor-cut contours. Add subtle uncoated-paper fibres, uneven ink density, faded consumer-film colour, fine dust, and slight registration drift. Keep grain restrained and the surface matte.
 ```
 
-### Mask became a giant blob
-
-```text
-Discard the enclosing blob, convex hull, saw-tooth slab, or broad group envelope. Retrace the paper-doll rhythm of the actual people. Preserve every head peak, shoulder break, extended arm, lifted leg, phone, joined hand, companion object, and large negative gap. Use only narrow bridges where bodies genuinely touch. Keep accidental background leakage out of the lower apertures. Do not add a contrasting outline around the mask.
-```
-
-### Mask leaves part of a person exposed
-
-```text
-Restore complete opaque coverage of every selected person, including visible face, mouth, hair, ear, neck, hand, body, clothing, footwear, phone, and held object. Expand or correct the mask outward; never erode or independently shrink it to reduce colour area. Keep the photograph and mask on the same coupled transform. If the colour mass remains heavy, uniformly inset the complete source photograph and all masks together or divide the group into separate related silhouette islands. Required deterministic coverage is at least 99.5%, with 100% preferred.
-```
-
-### Mask is complete but looks swollen
-
-```text
-Return to the source-resolution person alpha and remove broad dilation. Refine only the local 6–16 pixel uncertain boundary band using instance segmentation, alpha matting, visible colour edges, and depth discontinuity as auxiliary evidence. Add only a 1–3 output-pixel safety edge. Keep coverage at least 99.5% while reducing area(C-P)/area(P) to 8% or less for separate silhouettes, or 15% or less for intentional connected clusters. Reuse the corrected exact mask in both reciprocal states.
-```
-
-### Typography looks generic
-
-```text
-Remove the tiny uniform caption and rebuild the exact phrase as a major seam element spanning 62–90% of the canvas width. Choose one scene-matched handwriting family. Vary scale, tilt, baseline, spacing, and stroke density by word within a coherent range; use at most two related handwriting faces and one optional underline or motion mark. Keep spelling exact. Do not use a default sans/serif font or identical treatment from another image.
-```
-
-### Palette feels arbitrary or ugly
-
-```text
-Return to the source and compare three palette candidates: one echoing a distinctive garment/object, one muted complementary counterpoint to the environment, and one matching the scene's emotional temperature. Choose the strongest silhouette-to-photo contrast with restrained saturation. Use one dominant paper colour, one supporting accent, and cream or charcoal. Do not reuse a default teal, vermilion, magenta, or beige template.
-```
-
 ### Subject is damaged
 
 ```text
 Restore the source identity, body count, anatomy, pose, clothing, landmark geometry, and spatial relationships. Simplify the mask rather than altering the subject. Keep at least one unobstructed photographic view of every essential anchor.
 ```
 
-### Face or person details changed
+### A visible person differs from the source
 
 ```text
-Do not attempt another generative portrait correction. Restore the protected person regions directly from the supplied source photograph, including original face, eyes, nose, mouth, hair, skin, hands, body, clothing, footwear, and held objects. Keep the generated paper, mask, environment, stars, and typography outside those protected regions unchanged. PERSON INVARIANT: every visible person must come directly from the supplied photograph; do not generate, repaint, reconstruct, beautify, relight, or reinterpret any face, hair, skin, hand, body, clothing, footwear, or held object.
+Stop generative person correction. Restore the unchanged source photograph through the visible photo mask using the recorded whole-photo crop, translation, and uniform scale. Preserve the protected person interiors exactly and feather only a documented 1–2 px outer boundary if necessary. Compare the transformed source and lossless output and require zero RGB difference inside every visible protected person region. Preserve both invariant sentences.
 ```
 
 ### Person count or depth is wrong
