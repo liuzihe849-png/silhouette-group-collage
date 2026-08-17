@@ -1,0 +1,182 @@
+{
+  "version": 1,
+  "system_name": "Heirloom Paper Texture System",
+  "reference_metrics": {
+    "fine-linen-reference": {
+      "luma_std": 4.32,
+      "high_frequency_mean": 1.93,
+      "low_frequency_std": 1.91,
+      "fleck_fraction": 0.0113,
+      "directional_ratio_y_over_x": 3.898,
+      "visual_traits": ["fine horizontal fibres", "low contrast", "soft fold shadows", "warm matte stock"]
+    },
+    "field-fibre-reference": {
+      "luma_std": 23.08,
+      "high_frequency_mean": 4.43,
+      "low_frequency_std": 11.0,
+      "fleck_fraction": 0.041,
+      "directional_ratio_y_over_x": 0.875,
+      "visual_traits": ["coarse mixed fibres", "uneven dye density", "light and dark flecks", "sparse scratches"]
+    }
+  },
+  "profiles": [
+    {
+      "id": "heirloom-linen",
+      "name": "Heirloom Linen",
+      "asset": "assets/design-system/paper-textures/system/heirloom-linen.png",
+      "reference_parent": "fine-linen-reference",
+      "best_for": ["linen", "very-light", "quiet-space", "studio"],
+      "default_strength": 0.2,
+      "default_grain": 0.012,
+      "min_output_luma_std": 3.2,
+      "generator": {
+        "seed": 1431,
+        "fine_sigma": 1.2,
+        "fine_distribution": "uniform",
+        "coarse_sigma": 1.8,
+        "scan_lines": 220,
+        "horizontal_fibres": 720,
+        "vertical_fibres": 70,
+        "flecks": 150,
+        "scratches": 8,
+        "folds": 2,
+        "directional_bias": "horizontal"
+      },
+      "asset_gate": {
+        "luma_std": [2.5, 8.0],
+        "high_frequency_mean": [0.8, 3.5],
+        "low_frequency_std": [0.5, 4.0],
+        "fleck_fraction": [0.002, 0.06],
+        "directional_ratio_y_over_x": [1.35, 6.0]
+      }
+    },
+    {
+      "id": "field-fibre",
+      "name": "Field Fibre",
+      "asset": "assets/design-system/paper-textures/system/field-fibre.png",
+      "reference_parent": "field-fibre-reference",
+      "best_for": ["grass-garden", "green", "earthy-midtones", "outdoor-diary"],
+      "default_strength": 0.27,
+      "default_grain": 0.022,
+      "min_output_luma_std": 4.0,
+      "generator": {
+        "seed": 1436,
+        "fine_sigma": 4.2,
+        "fine_distribution": "gaussian",
+        "coarse_sigma": 18.0,
+        "scan_lines": 0,
+        "horizontal_fibres": 360,
+        "vertical_fibres": 250,
+        "flecks": 1150,
+        "scratches": 78,
+        "folds": 0,
+        "directional_bias": "mixed"
+      },
+      "asset_gate": {
+        "luma_std": [7.0, 24.0],
+        "high_frequency_mean": [2.2, 8.0],
+        "low_frequency_std": [4.0, 16.0],
+        "fleck_fraction": [0.008, 0.09],
+        "directional_ratio_y_over_x": [0.65, 1.5]
+      }
+    },
+    {
+      "id": "hearth-smoke-stock",
+      "name": "Hearth Smoke Stock",
+      "asset": "assets/design-system/paper-textures/system/hearth-smoke-stock.png",
+      "reference_parent": "fine-linen-reference",
+      "best_for": ["smoke", "blue-gray", "snow-winter", "city-neutral", "soft-interior"],
+      "default_strength": 0.22,
+      "default_grain": 0.016,
+      "min_output_luma_std": 3.5,
+      "generator": {
+        "seed": 1432,
+        "fine_sigma": 3.0,
+        "fine_distribution": "gaussian",
+        "coarse_sigma": 7.0,
+        "scan_lines": 45,
+        "horizontal_fibres": 430,
+        "vertical_fibres": 120,
+        "flecks": 320,
+        "scratches": 22,
+        "folds": 1,
+        "directional_bias": "horizontal-soft"
+      },
+      "asset_gate": {
+        "luma_std": [3.5, 11.0],
+        "high_frequency_mean": [1.2, 5.0],
+        "low_frequency_std": [1.5, 7.0],
+        "fleck_fraction": [0.004, 0.06],
+        "directional_ratio_y_over_x": [1.05, 3.5]
+      }
+    },
+    {
+      "id": "sun-faded-stock",
+      "name": "Sun-faded Stock",
+      "asset": "assets/design-system/paper-textures/system/sun-faded-stock.png",
+      "reference_parent": "field-fibre-reference",
+      "best_for": ["yellow", "orange", "sunset-road", "sea-sky", "summer-memory"],
+      "default_strength": 0.25,
+      "default_grain": 0.019,
+      "min_output_luma_std": 3.8,
+      "generator": {
+        "seed": 1494,
+        "fine_sigma": 3.5,
+        "fine_distribution": "gaussian",
+        "coarse_sigma": 11.0,
+        "scan_lines": 20,
+        "horizontal_fibres": 300,
+        "vertical_fibres": 190,
+        "flecks": 620,
+        "scratches": 42,
+        "folds": 1,
+        "directional_bias": "mixed-soft"
+      },
+      "asset_gate": {
+        "luma_std": [5.0, 17.0],
+        "high_frequency_mean": [1.8, 6.5],
+        "low_frequency_std": [2.8, 11.0],
+        "fleck_fraction": [0.006, 0.075],
+        "directional_ratio_y_over_x": [0.75, 1.8]
+      }
+    },
+    {
+      "id": "winter-wool-stock",
+      "name": "Winter Wool Stock",
+      "asset": "assets/design-system/paper-textures/system/winter-wool-stock.png",
+      "reference_parent": "field-fibre-reference",
+      "best_for": ["dark", "dark-mid", "plum", "red", "night-party", "winter"],
+      "default_strength": 0.31,
+      "default_grain": 0.028,
+      "min_output_luma_std": 3.3,
+      "generator": {
+        "seed": 1435,
+        "fine_sigma": 5.0,
+        "fine_distribution": "gaussian",
+        "coarse_sigma": 12.0,
+        "scan_lines": 0,
+        "horizontal_fibres": 520,
+        "vertical_fibres": 330,
+        "flecks": 900,
+        "scratches": 55,
+        "folds": 0,
+        "directional_bias": "dense-mixed"
+      },
+      "asset_gate": {
+        "luma_std": [6.0, 20.0],
+        "high_frequency_mean": [2.5, 8.5],
+        "low_frequency_std": [3.0, 12.0],
+        "fleck_fraction": [0.008, 0.09],
+        "directional_ratio_y_over_x": [0.7, 1.55]
+      }
+    }
+  ],
+  "selection_rules": {
+    "very-light-or-linen": "heirloom-linen",
+    "dark-or-dark-mid": "winter-wool-stock",
+    "green-or-grass-garden": "field-fibre",
+    "yellow-orange-or-sunset": "sun-faded-stock",
+    "smoke-blue-gray-snow-city": "hearth-smoke-stock",
+    "fallback": "hearth-smoke-stock"
+  }
+}

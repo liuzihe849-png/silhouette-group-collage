@@ -4,10 +4,10 @@ Do not ask an image-generation model to produce the final paper texture or final
 
 ## Paper layer
 
-1. Use `assets/design-system/paper-textures/neutral-uncoated-paper.png` as the default clean material source. The older coloured crops are palette references only because they contain stars or lettering.
-2. Run `scripts/apply_paper_texture.py` separately for every opaque paper field and every opaque person silhouette, passing the exact final mask for that region.
-3. Tint the neutral texture to the selected scene-derived colour. Do not place a semi-transparent texture over a flat digital fill; the script must create the actual coloured paper pixels.
-4. Require `texture_gate_passed: true` and `luma_std >= 4.0` in the generated manifest.
+1. Read `paper-texture-system.md` and choose one of its five reference-derived neutral profiles after colour selection. The older coloured crops are palette references only because they contain stars or lettering.
+2. Run `scripts/apply_paper_texture.py --profile PROFILE` separately for every opaque paper field and every opaque person silhouette, passing the exact final mask for that region.
+3. Tint the selected neutral profile to the scene-derived colour. Do not place a semi-transparent texture over a flat digital fill; the script must create the actual coloured paper pixels.
+4. Require `texture_gate_passed: true`, `profile_gate_passed: true`, and the profile-specific minimum luma standard deviation in the generated manifest.
 5. Inspect at 100% and 200%. The fibres must remain visible at normal size without becoming heavy universal noise.
 6. Add stars only after the material layer is complete. Stars, words, shadows, and photographed objects never belong inside a reusable texture tile.
 
@@ -15,7 +15,7 @@ Example:
 
 ```bash
 python scripts/apply_paper_texture.py \
-  --texture assets/design-system/paper-textures/neutral-uncoated-paper.png \
+  --profile winter-wool-stock \
   --colour '#c94b3f' --width 1178 --height 1600 \
   --mask final-paper-mask.png --output final-paper-layer.png
 ```
@@ -44,6 +44,8 @@ python scripts/render_seam_phrase.py \
 Reject the artwork when any of the following is true:
 
 - a paper field or opaque silhouette is a smooth digital colour;
+- the selected texture profile is unrelated to the paper colour value or scene;
+- either the profile gate or output texture gate fails;
 - texture appears only as a faint optional overlay;
 - a texture tile repeats stars, words, or other decorations;
 - the final phrase came from image generation;

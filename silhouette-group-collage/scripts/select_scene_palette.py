@@ -15,6 +15,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 SYSTEM_PATH = ROOT / "assets/design-system/color-system.json"
+TEXTURE_SYSTEM_PATH = ROOT / "assets/design-system/paper-texture-profiles.json"
 
 
 def rgb(hex_value: str) -> tuple[int, int, int]:
@@ -49,6 +50,28 @@ def colour_distance(a: str, b: str) -> float:
     ar, ag, ab = rgb(a)
     br, bg, bb = rgb(b)
     return math.sqrt((ar - br) ** 2 + (ag - bg) ** 2 + (ab - bb) ** 2) / 441.673
+
+
+def texture_profile(item: dict[str, Any], scene: str | None) -> str:
+    family = item["family"]
+    value = item["value"]
+    if family == "linen" or value == "very-light":
+        return "heirloom-linen"
+    if value in {"dark", "dark-mid", "mid-dark"}:
+        return "winter-wool-stock"
+    if family in {"green", "teal"}:
+        return "field-fibre"
+    if family in {"yellow", "yellow-neutral", "orange", "orange-brown"}:
+        return "sun-faded-stock"
+    if family in {"smoke", "blue-gray", "blue"}:
+        return "hearth-smoke-stock"
+    if scene == "grass-garden":
+        return "field-fibre"
+    if scene in {"sunset-road", "sea-sky"}:
+        return "sun-faded-stock"
+    if scene in {"snow-winter", "city-neutral", "warm-indoor"}:
+        return "hearth-smoke-stock"
+    return "hearth-smoke-stock"
 
 
 def analyse_source(path: Path) -> dict[str, Any]:
@@ -86,6 +109,8 @@ def analyse_source(path: Path) -> dict[str, Any]:
 
 def select(path: Path, scene: str | None) -> dict[str, Any]:
     system = json.loads(SYSTEM_PATH.read_text(encoding="utf-8"))
+    texture_system = json.loads(TEXTURE_SYSTEM_PATH.read_text(encoding="utf-8"))
+    texture_profiles = {item["id"]: item for item in texture_system["profiles"]}
     source = analyse_source(path)
     swatches = system["anchors"] + system["extensions"]
     by_id = {item["id"]: item for item in swatches}
@@ -136,6 +161,8 @@ def select(path: Path, scene: str | None) -> dict[str, Any]:
             item = alternatives[0]
         used.add(item["id"])
         ink = inks[item["recommended_ink"]]
+        profile_id = texture_profile(item, scene)
+        paper_profile = texture_profiles[profile_id]
         chosen.append({
             "role": role,
             "token": item["id"],
@@ -143,6 +170,9 @@ def select(path: Path, scene: str | None) -> dict[str, Any]:
             "paper_hex": item["hex"],
             "ink_token": ink["id"],
             "ink_hex": ink["hex"],
+            "texture_profile": profile_id,
+            "texture_asset": paper_profile["asset"],
+            "texture_reference_parent": paper_profile["reference_parent"],
             "text_contrast": round(contrast(item["hex"], ink["hex"]), 2),
             "environment_separation": round(legibility(item), 3),
             "human_review_required": True,

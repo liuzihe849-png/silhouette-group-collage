@@ -31,7 +31,7 @@ Invoke `$human-cutout-engine` before art direction. Treat its reviewed source-re
 14. Use one dominant paper colour, one secondary accent, and the source photo's natural colours. Build and compare at least three scene-derived palette candidates before selecting one. The three candidates must use different token IDs and roles from `assets/design-system/color-system.json`; require seam-text contrast of at least 3.0 and reject any dominant listed as an avoid colour for the diagnosed scene. Pick for contrast, emotional fit, and clothing/environment harmony, never from a fixed template or automatic score alone.
 15. Lock the transformed Human Cutout Engine RGBA before generation. Keep all accepted people and necessary foreground context as protected source pixels. A uniform transform applied to the complete source package is allowed; isolated generative reconstruction is not.
 16. Generate only a person-free layout/background pass with reserved paper masks and a calm empty seam band. Do not ask `image_gen` to render the final phrase or final paper material. Composite the protected RGBA through the accepted reciprocal mask at its recorded transform.
-17. Build every opaque paper field and every opaque person silhouette with `scripts/apply_paper_texture.py` and the clean neutral fibre asset specified in `references/deterministic-finishing.md`. Flat colour is only a temporary layout guide. Require the texture manifest to pass before continuing.
+17. Read `references/paper-texture-system.md`, accept or revise the profile suggested by the palette manifest, then build every opaque paper field and every opaque person silhouette with `scripts/apply_paper_texture.py --profile PROFILE`. Flat colour is only a temporary layout guide. Require both texture and profile gates to pass before continuing.
 18. Preserve the source photograph's own grain, focus, exposure, weather, reflections, ground texture, and colour relationships. Apply paper fibres only inside paper masks. Verify both photo texture and paper texture at 100% and 200% zoom.
 19. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Select one named family from `references/typography-system.md`, then render the exact phrase as a separate transparent layer with `scripts/render_seam_phrase.py`. Require its spelling, contrast, scale, and readability manifest to pass. Never accept image-generated final lettering.
 20. Add 8–12 sparse handmade stars across both panels with three size tiers and irregular spacing after paper and lettering are complete. Do not bake decorations into the paper texture or cover identity anchors.
@@ -49,6 +49,7 @@ Read `references/human-cutout-handoff.md` before extracting, validating, transfo
 Read `references/typography-system.md` before choosing, generating, or compositing the seam phrase.
 Read `references/deterministic-finishing.md` before rendering any paper field, opaque silhouette, seam phrase, or decoration.
 Read `references/color-system.md` before selecting, extending, or applying any paper, ink, lettering, or decoration colour.
+Read `references/paper-texture-system.md` after colour selection and before rendering any opaque silhouette or broad paper field.
 
 ## Person pixel lock
 
@@ -77,7 +78,7 @@ Read `references/color-system.md` before selecting, extending, or applying any p
 - Use group silhouettes as the mask family; stars and loose marks are supporting punctuation only.
 - Preserve count-defining gaps. Do not replace a group with one enclosing polygon, convex hull, saw-tooth slab, or near-rectangular mass.
 - Preserve original photographic texture inside every photo region. Do not replace it with a smooth AI-painted interpretation.
-- Render all opaque paper fields and silhouettes from the clean paper texture asset with a passing deterministic texture manifest; smooth flat digital fills fail.
+- Render all opaque paper fields and silhouettes from one selected reference-derived paper profile with passing deterministic texture and profile manifests; smooth flat digital fills and arbitrary universal noise fail.
 - Place one readable, scene-matched handwritten phrase at the middle seam for group images, unless the user requests no text. It should usually span 62–90% of the canvas width with controlled word-to-word changes in scale, tilt, baseline, and lettering face.
 - Render the exact phrase as a separate transparent layer with a bundled OFL font. Require contrast ratio at least 3.0 and a passing readability manifest; image-generated final text fails.
 - Retain generous quiet space. Supporting marks and words must not compete with the mask exchange.
@@ -111,7 +112,7 @@ Before delivery, confirm all answers are yes:
 4. Are the person count, order, depth scale, poses, clothing, interactions, held objects, and retained foreground relationships correct in both panels?
 5. Does every opaque silhouette fully cover its accepted subject layer with no exposed face, mouth, hair, hand, body, clothing, footwear, phone, held object, or necessary foreground segment while remaining tight to the true contour?
 6. Do all visible people use the protected source pixels, with no generated change to faces, hair, skin, bodies, hands, clothing, footwear, or held objects?
-7. Do all paper fields and opaque silhouettes use the deterministic fibre layer with passing texture manifests instead of smooth digital fills?
+7. Do all paper fields and opaque silhouettes use the selected reference-derived profile with both texture and profile gates passing instead of smooth digital fills or universal noise?
 8. Does the photograph retain its source grain, focus, exposure, colour, and environmental texture?
 9. Is there one strong scene-derived colour decision selected from three different token candidates, with a recorded scene route and ink contrast of at least 3.0, plus 8–12 restrained stars with scale rhythm and one correctly spelled scene-matched phrase that visibly binds the seam?
 10. Was the exact phrase rendered separately with a bundled font, a contrast ratio of at least 3.0, cohesive spacing, and a passing readability manifest?
@@ -120,4 +121,4 @@ Before delivery, confirm all answers are yes:
 
 ## Delivery
 
-Return the generated image plus a concise record containing: Human Cutout Engine candidate paths and handoff result, source subject-occupancy estimate, output geometry mode, adaptive layout mode, selected gold-standard recipe, selected mask family, edge-refinement method, retained foreground context, palette-manifest path, three palette candidate token IDs, chosen paper/ink/accent tokens and exact hex values, scene route, text contrast, named typography family with reference asset and phrase, protected person-layer method, mask coverage and excess-area results, preserved subject anchors, and whether the twelve quality checks passed. If the user asks only for prompt analysis, return the prompt package without generating an image.
+Return the generated image plus a concise record containing: Human Cutout Engine candidate paths and handoff result, source subject-occupancy estimate, output geometry mode, adaptive layout mode, selected gold-standard recipe, selected mask family, edge-refinement method, retained foreground context, palette-manifest path, three palette candidate token IDs, chosen paper/ink/accent tokens and exact hex values, scene route, selected paper profile and reference parent, texture/profile gate results, text contrast, named typography family with reference asset and phrase, protected person-layer method, mask coverage and excess-area results, preserved subject anchors, and whether the twelve quality checks passed. If the user asks only for prompt analysis, return the prompt package without generating an image.

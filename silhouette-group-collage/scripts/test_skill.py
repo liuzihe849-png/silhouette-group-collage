@@ -25,6 +25,7 @@ REQUIRED_FILES = (
     "references/typography-system.md",
     "references/deterministic-finishing.md",
     "references/color-system.md",
+    "references/paper-texture-system.md",
     "scripts/check_mask_coverage.py",
     "scripts/validate_cutout_handoff.py",
     "scripts/apply_paper_texture.py",
@@ -33,12 +34,22 @@ REQUIRED_FILES = (
     "scripts/select_scene_palette.py",
     "scripts/test_color_system.py",
     "scripts/render_color_board.py",
+    "scripts/build_paper_texture_library.py",
+    "scripts/test_texture_system.py",
+    "scripts/render_texture_system_preview.py",
     "assets/design-system/palettes.json",
     "assets/design-system/color-system.json",
     "assets/design-system/color-system-preview.png",
+    "assets/design-system/paper-texture-profiles.json",
+    "assets/design-system/paper-texture-system-preview.png",
     "assets/design-system/mask-edge-profile.json",
     "assets/design-system/typography-families.json",
     "assets/design-system/paper-textures/neutral-uncoated-paper.png",
+    "assets/design-system/paper-textures/system/heirloom-linen.png",
+    "assets/design-system/paper-textures/system/field-fibre.png",
+    "assets/design-system/paper-textures/system/hearth-smoke-stock.png",
+    "assets/design-system/paper-textures/system/sun-faded-stock.png",
+    "assets/design-system/paper-textures/system/winter-wool-stock.png",
     "assets/fonts/caveat-brush/CaveatBrush-Regular.ttf",
     "assets/fonts/caveat-brush/OFL.txt",
     "assets/fonts/kalam/Kalam-Regular.ttf",
@@ -94,6 +105,8 @@ REQUIRED_SKILL_PHRASES = (
     "select_scene_palette.py",
     "color-system.json",
     "text contrast ratio of at least 3.0",
+    "paper-texture-system.md",
+    "both texture and profile gates",
 )
 
 
@@ -255,13 +268,29 @@ def main() -> None:
         fail("colour system needs at least 18 tokens and seven scene routes")
 
     print("PASS: reference-backed heritage colour system and scene routes")
+    texture_data = json.loads(
+        (root / "assets/design-system/paper-texture-profiles.json").read_text(encoding="utf-8")
+    )
+    texture_profiles = texture_data.get("profiles", [])
+    expected_profiles = [
+        "heirloom-linen", "field-fibre", "hearth-smoke-stock", "sun-faded-stock", "winter-wool-stock"
+    ]
+    if [item.get("id") for item in texture_profiles] != expected_profiles:
+        fail("paper texture system must define five ordered reference-derived profiles")
+    for profile in texture_profiles:
+        asset = profile.get("asset")
+        if not asset or not (root / asset).is_file():
+            fail(f"paper texture profile has a missing asset: {asset}")
+
+    print("PASS: five reference-derived paper texture profiles")
     finishing_text = (root / "references/deterministic-finishing.md").read_text(
         encoding="utf-8"
     ).lower()
     for phrase in (
         "deterministic compositing layers",
         "texture_gate_passed",
-        "luma_std >= 4.0",
+        "profile_gate_passed: true",
+        "profile-specific minimum luma standard deviation",
         "readability_gate_passed",
         "contrast ratio at least `3.0`",
         "never use generated lettering as the final copy",

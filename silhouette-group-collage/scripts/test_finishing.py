@@ -26,8 +26,8 @@ def main() -> None:
         phrase = directory / "phrase.png"
         run(
             "scripts/apply_paper_texture.py",
-            "--texture",
-            "assets/design-system/paper-textures/neutral-uncoated-paper.png",
+            "--profile",
+            "winter-wool-stock",
             "--colour",
             "#c94b3f",
             "--width",
@@ -57,8 +57,10 @@ def main() -> None:
 
         paper_manifest = json.loads(paper.with_suffix(".json").read_text(encoding="utf-8"))
         phrase_manifest = json.loads(phrase.with_suffix(".json").read_text(encoding="utf-8"))
-        if not paper_manifest.get("texture_gate_passed") or paper_manifest["luma_std"] < 4.0:
+        if not paper_manifest.get("texture_gate_passed") or not paper_manifest.get("profile_gate_passed"):
             raise SystemExit("paper finish test failed")
+        if paper_manifest.get("profile") != "winter-wool-stock":
+            raise SystemExit("paper profile manifest failed")
         if not phrase_manifest.get("readability_gate_passed"):
             raise SystemExit("lettering finish test failed")
         if phrase_manifest.get("text") != "we found the blue":
