@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "asset_type": "visual-lettering-reference",
+  "families": [
+    {
+      "id": "T1",
+      "family": "tall-dry-brush",
+      "reference": "assets/design-system/typography-reference/01-tall-dry-brush.png",
+      "best_for": ["expansive landscape", "winter horizon", "travel memory", "celebration"],
+      "traits": ["tall", "compressed", "dry brush", "long ascenders", "strong vertical rhythm"],
+      "recommended_width_fraction": [0.72, 0.94]
+    },
+    {
+      "id": "T2",
+      "family": "casual-dry-script",
+      "reference": "assets/design-system/typography-reference/02-casual-dry-script.png",
+      "best_for": ["quiet indoor group", "intimate friendship", "soft winter", "evening memory"],
+      "traits": ["moderate slant", "open counters", "uneven spacing", "low contrast", "matte ink"],
+      "recommended_width_fraction": [0.62, 0.88]
+    },
+    {
+      "id": "T3",
+      "family": "chunky-rounded-marker",
+      "reference": "assets/design-system/typography-reference/03-chunky-rounded-marker.png",
+      "best_for": ["pets", "snow", "close group", "comfort", "playful portrait"],
+      "traits": ["upright", "heavy", "rounded", "blunt terminals", "irregular widths"],
+      "recommended_width_fraction": [0.60, 0.86]
+    },
+    {
+      "id": "T4",
+      "family": "bold-motion-brush",
+      "reference": "assets/design-system/typography-reference/04-bold-motion-brush.png",
+      "best_for": ["walking", "running", "dancing", "linked gestures", "outdoor movement"],
+      "traits": ["broad italic", "connected strokes", "directional", "large scale", "motion marks"],
+      "recommended_width_fraction": [0.72, 0.94]
+    },
+    {
+      "id": "T5",
+      "family": "wide-diary-brush",
+      "reference": "assets/design-system/typography-reference/05-wide-diary-brush.png",
+      "best_for": ["team", "reunion", "summer travel", "candid group", "shared memory"],
+      "traits": ["wide", "loose", "pressure variation", "generous spacing", "fast handwritten finish"],
+      "recommended_width_fraction": [0.68, 0.92]
+    }
+  ],
+  "global_rules": {
+    "phrase_words": [3, 6],
+    "max_related_faces": 2,
+    "word_scale_range": [0.88, 1.16],
+    "word_rotation_degrees": [-4, 4],
+    "max_emphasis_marks": 2,
+    "forbid": ["generic default font", "rigid baseline", "heavy outline", "gloss", "identical word treatment"]
+  }
+}

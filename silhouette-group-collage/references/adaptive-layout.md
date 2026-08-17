@@ -2,6 +2,10 @@
 
 Never reject a source because people occupy too much or too little of the frame. Person occupancy selects a layout strategy; it is not an admission threshold.
 
+## Default geometry
+
+When the user does not specify dimensions, preserve the source pixel width as the output width and derive the canvas height from the diptych. Do not force 9:16. Keep the source photograph, accepted Alpha, and protected RGBA on one coupled transform inside each panel. If the user explicitly requests a phone wallpaper, apply the layout modes below on a native 9:16 canvas rather than padding or blurring a shorter result.
+
 ## Coupled-transform invariant
 
 `LAYOUT INVARIANT: the complete source photograph and every reciprocal person mask share the same scale, translation, crop, and inset transform. Never resize, crop, or reposition a mask independently from the photograph.`

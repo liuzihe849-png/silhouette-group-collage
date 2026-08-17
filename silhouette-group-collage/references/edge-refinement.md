@@ -16,9 +16,9 @@ Do not treat a smooth depth map as an exact hair or clothing boundary. It often 
 
 ## Single design-mask workflow
 
-1. Build a separate source-resolution alpha mask for every visible person and protected held object.
+1. Start from the reviewed source-resolution Alpha produced by `$human-cutout-engine`; include every visible person, protected held object, and necessary foreground occluder.
 2. Keep people separate until interaction and depth order are verified. Merge only genuinely touching people or deliberate small clusters.
-3. Define an uncertain edge band roughly 6–16 source pixels wide around the raw mask. Refine only this band using matting, colour edges, and depth discontinuity.
+3. Define an uncertain edge band roughly 6–16 source pixels wide around the accepted mask only when manual review identifies a local defect. Refine only this band using matting, colour edges, and depth discontinuity; never re-estimate the full subject boundary.
 4. Preserve intentional holes and negative spaces between arms, legs, torsos, phones, and neighbouring people.
 5. Convert the refined alpha into one binary design mask after the final coupled photo transform is known.
 6. Add a final outward safety edge of 1–3 pixels at output size, or at most 0.3% of the output short edge, whichever is smaller. Use a round or hand-cut contour, never a coarse block filter.

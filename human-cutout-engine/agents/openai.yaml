@@ -1,0 +1,4 @@
+interface:
+  display_name: "Human Cutout Engine"
+  short_description: "Extract people with needed foreground context"
+  default_prompt: "Use $human-cutout-engine to extract every person from this photo into an alpha mask and transparent PNG without changing retained source pixels. Preserve foreground occluders when they support group continuity or the future silhouette."

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import re
 import sys
+import json
 from pathlib import Path
 
 
@@ -20,9 +21,18 @@ REQUIRED_FILES = (
     "references/adaptive-layout.md",
     "references/edge-refinement.md",
     "references/gold-standard-system.md",
+    "references/human-cutout-handoff.md",
+    "references/typography-system.md",
     "scripts/check_mask_coverage.py",
+    "scripts/validate_cutout_handoff.py",
     "assets/design-system/palettes.json",
     "assets/design-system/mask-edge-profile.json",
+    "assets/design-system/typography-families.json",
+    "assets/design-system/typography-reference/01-tall-dry-brush.png",
+    "assets/design-system/typography-reference/02-casual-dry-script.png",
+    "assets/design-system/typography-reference/03-chunky-rounded-marker.png",
+    "assets/design-system/typography-reference/04-bold-motion-brush.png",
+    "assets/design-system/typography-reference/05-wide-diary-brush.png",
     "assets/design-system/paper-textures/saffron-winter.png",
     "assets/design-system/paper-textures/icy-blue-cabin.png",
     "assets/design-system/paper-textures/plum-winter.png",
@@ -50,6 +60,14 @@ REQUIRED_SKILL_PHRASES = (
     "1–3 pixels",
     "limit excess mask area",
     "gold-standard-system.md",
+    "Invoke `$human-cutout-engine` before art direction",
+    "validate_cutout_handoff.py",
+    "accepted Human Cutout Engine Alpha",
+    "necessary foreground context",
+    "output width equal to the source pixel width",
+    "do not default to 9:16",
+    "typography-system.md",
+    "named typography family",
 )
 
 
@@ -165,7 +183,48 @@ def main() -> None:
             fail(f"gold-standard-system.md is missing recipe: {phrase}")
 
     print(f"PASS: {len(REQUIRED_FILES)} required files")
-    print("PASS: metadata, private-safe gold standards, reusable design assets, contour-tight masks, person-pixel lock, adaptive layouts, 9:16 art direction, typography, palette, texture, and rejection rules")
+    typography_text = (root / "references/typography-system.md").read_text(
+        encoding="utf-8"
+    ).lower()
+    for phrase in (
+        "tall dry brush",
+        "casual dry script",
+        "chunky rounded marker",
+        "bold motion brush",
+        "wide diary brush",
+        "typography quality gate",
+    ):
+        if phrase not in typography_text:
+            fail(f"typography-system.md is missing family or gate: {phrase}")
+
+    typography_data = json.loads(
+        (root / "assets/design-system/typography-families.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    families = typography_data.get("families", [])
+    if [family.get("id") for family in families] != ["T1", "T2", "T3", "T4", "T5"]:
+        fail("typography-families.json must define T1 through T5 in order")
+    for family in families:
+        reference = family.get("reference")
+        if not reference or not (root / reference).is_file():
+            fail(f"typography family has a missing reference asset: {reference}")
+
+    print("PASS: five reference-backed typography families")
+    handoff_text = (root / "references/human-cutout-handoff.md").read_text(
+        encoding="utf-8"
+    ).lower()
+    for phrase in (
+        "exact source-to-rgba rgb lock",
+        "exact alpha-to-rgba alpha agreement",
+        "people + necessary foreground context",
+        "coupled reciprocal use",
+        "never ask image generation to estimate the people boundary again",
+    ):
+        if phrase not in handoff_text:
+            fail(f"human-cutout-handoff.md is missing rule: {phrase}")
+
+    print("PASS: metadata, Human Cutout Engine handoff, private-safe gold standards, reusable design assets, contour-tight reciprocal masks, person-pixel lock, retained foreground context, source-width default geometry, optional 9:16 art direction, reference-backed typography, palette, texture, and rejection rules")
 
 
 if __name__ == "__main__":
