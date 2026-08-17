@@ -38,6 +38,8 @@
 - Sparse decorations need hierarchy: use three size tiers, irregular spacing, and quiet-zone placement instead of identical stars distributed like a grid.
 - A maximum colour-area rule must never cause partial person coverage. Treat complete coverage and coupled photo-mask geometry as higher priority than colour-field proportion.
 - Do not reject face-dominant or close-up sources. Route them to a portrait-dense layout: uniformly inset the complete photo and every mask together, use separate silhouette islands or small clusters, and let paper supply the missing quiet environment.
+- Complete coverage alone can produce swollen silhouettes. Pair the coverage check with an excess-area limit, refine a narrow local edge band, and use depth only as auxiliary overlap evidence behind instance segmentation and alpha matting.
+- The five approved first-generation artworks should be treated as gold-standard recipes. Retain their transferable texture, palette, layout, lettering, mask, and star systems without publishing the private full artworks.
 
 ## Core versus supporting features
 

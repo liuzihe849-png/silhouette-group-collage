@@ -12,28 +12,32 @@ Create an image edit from a supplied group photograph. Preserve every photograph
 1. Inspect every supplied reference and source photo before prompting.
 2. Count all people explicitly from left to right. Record body count, foreground/background scale, pose, clothing anchors, held objects, interactions, environmental anchors, and protected person regions. Recheck the count before generation; never infer it from a casual first glance.
 3. Estimate how much of the source frame is occupied by people and choose an adaptive layout from `references/adaptive-layout.md`. Accept every source photo, including close-up selfies with 80–90% person occupancy. Occupancy changes the layout mode; it never disqualifies the photo.
-4. Choose one group mask family from `references/style-system.md`. Use a connected paper-doll chain for a horizontal group and separate related silhouettes for staggered, close-up, edge-cropped, or deep-space groups.
-5. Run the art-direction preflight in `references/art-direction-qc.md`. Decide crop, silhouette fidelity, colour, lettering family, texture hierarchy, and decoration rhythm before generating anything. Do not fall back to a default template colour or font.
-6. Compose a vertical 4:5, 2:3, or 9:16 diptych. Use 9:16 for phone wallpaper requests. Repeat the same source scene across the upper and lower halves, then invert figure and ground:
+4. Study the transferable gold-standard recipes in `references/gold-standard-system.md` and the non-person assets under `assets/design-system/`. Use them as a quality floor, not as a fixed template.
+5. Choose one group mask family from `references/style-system.md`. Use a connected paper-doll chain for a horizontal group and separate related silhouettes for staggered, close-up, edge-cropped, or deep-space groups.
+6. Run the art-direction preflight in `references/art-direction-qc.md`. Decide crop, silhouette fidelity, colour, lettering family, texture hierarchy, and decoration rhythm before generating anything. Do not fall back to a default template colour or font.
+7. Compose a vertical 4:5, 2:3, or 9:16 diptych. Use 9:16 for phone wallpaper requests. Repeat the same source scene across the upper and lower halves, then invert figure and ground:
    - Panel A: show most of the photo and cover selected areas with opaque accent shapes.
    - Panel B: fill most of the panel with a flat paper colour and reveal the same photo through apertures matching Panel A's shapes and positions.
-7. Preserve count-defining negative space inside and around the group. A connected silhouette is a paper-doll chain following bodies, raised arms, lifted legs, phones, companions, and major gaps; it is never a convex hull, bounding blob, rectangular slab, or giant flower covering the whole group.
-8. Couple every silhouette to its source-photo transform. Scale, translate, crop, or inset the complete source photograph and all of its masks together. Never shrink, crop, reshape, or reposition a mask independently to satisfy a colour-area target.
-9. Cover 100% of every selected person in the opaque state, including face, hair, ears, neck, fingers, clothing, footwear, phones, and held objects. Maintain at least 99.5% measured mask coverage when deterministic masks are available. Colour-area limits are subordinate to complete person coverage.
-10. Use one dominant paper colour, one secondary accent, and the source photo's natural colours. Build and compare at least three scene-derived palette candidates before selecting one. Pick for contrast, emotional fit, and clothing/environment harmony, never from a fixed template.
-11. Lock every visible person before generation. Keep faces, hair, skin, bodies, hands, clothing, footwear, and held objects from the source photograph as protected pixels. A uniform transform applied to the complete source photo is allowed; isolated generative reconstruction of a person is not.
-12. Generate only the paper fields, masks, non-person environment extensions, stars, and typography. If the tool may redraw people, generate a person-free layout/background pass and composite the original protected person regions back afterward at the recorded scale and position.
-13. Preserve the source photograph's own grain, focus, exposure, weather, reflections, ground texture, and colour relationships. Add paper fibres and ink variation only to the paper areas. Verify both photo texture and paper texture at 200% zoom.
-14. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Treat it as a major compositional bridge, not a tiny caption. Keep spelling exact and use no other copy. Follow the controlled handwriting variation in `references/art-direction-qc.md`.
-15. Add 8–12 sparse handmade stars across both panels with three size tiers and irregular spacing. Do not cover faces, hands, held objects, or other identity anchors.
-16. Generate or edit with `image_gen` only for non-person content. Repeat both invariant sentences from the prompt recipe verbatim in correction attempts.
-17. Compare every visible person against the source at face-level zoom. Reject any output with changed facial structure, eyes, nose, mouth, skin texture, hairstyle, body, clothing, hands, or held objects. Restore the protected source-person layer rather than prompting another portrait redraw.
-18. Run the visual failure gate in `references/art-direction-qc.md`. Reject the render before delivery if the mask becomes a giant blob, leaves any person partly exposed, the lettering looks like a default font, the palette feels arbitrary, or the paper/film texture disappears.
+8. Build one tight design mask per person or touching cluster using `references/edge-refinement.md`. Use instance segmentation or matting as the primary boundary, depth discontinuity only as auxiliary evidence, and a 1–3 output-pixel hand-cut safety edge. Never use broad morphological dilation as the default.
+9. Preserve count-defining negative space inside and around the group. A connected silhouette is a paper-doll chain following bodies, raised arms, lifted legs, phones, companions, and major gaps; it is never a convex hull, bounding blob, rectangular slab, or giant flower covering the whole group.
+10. Couple every silhouette to its source-photo transform. Scale, translate, crop, or inset the complete source photograph and all of its masks together. Never shrink, crop, reshape, or reposition a mask independently to satisfy a colour-area target.
+11. Cover 100% of every selected person in the opaque state, including face, hair, ears, neck, fingers, clothing, footwear, phones, and held objects. Maintain at least 99.5% measured mask coverage when deterministic masks are available. Also limit excess mask area using `scripts/check_mask_coverage.py`; full coverage never licenses a bulky halo.
+12. Use one dominant paper colour, one secondary accent, and the source photo's natural colours. Build and compare at least three scene-derived palette candidates before selecting one. Pick for contrast, emotional fit, and clothing/environment harmony, never from a fixed template.
+13. Lock every visible person before generation. Keep faces, hair, skin, bodies, hands, clothing, footwear, and held objects from the source photograph as protected pixels. A uniform transform applied to the complete source photo is allowed; isolated generative reconstruction of a person is not.
+14. Generate only the paper fields, masks, non-person environment extensions, stars, and typography. If the tool may redraw people, generate a person-free layout/background pass and composite the original protected person regions back afterward at the recorded scale and position.
+15. Preserve the source photograph's own grain, focus, exposure, weather, reflections, ground texture, and colour relationships. Add paper fibres and ink variation only to the paper areas. Verify both photo texture and paper texture at 200% zoom.
+16. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Treat it as a major compositional bridge, not a tiny caption. Keep spelling exact and use no other copy. Follow the controlled handwriting variation in `references/art-direction-qc.md`.
+17. Add 8–12 sparse handmade stars across both panels with three size tiers and irregular spacing. Do not cover faces, hands, held objects, or other identity anchors.
+18. Generate or edit with `image_gen` only for non-person content. Repeat both invariant sentences from the prompt recipe verbatim in correction attempts.
+19. Compare every visible person against the source at face-level zoom. Reject any output with changed facial structure, eyes, nose, mouth, skin texture, hairstyle, body, clothing, hands, or held objects. Restore the protected source-person layer rather than prompting another portrait redraw.
+20. Run the visual failure gate in `references/art-direction-qc.md`. Reject the render before delivery if the mask becomes a giant blob, leaves any person partly exposed, creates a bulky halo, the lettering looks like a default font, the palette feels arbitrary, or the paper/film texture disappears.
 
 Read `references/prompt-recipes.md` when building the generation prompt. Read `references/style-system.md` when deciding mask family, layout, palette, or typography. Read `references/reference-breakdown.md` when explaining how the five seed references produce the system.
 Read `references/person-preservation.md` before every generation or edit that contains a visible person.
 Read `references/art-direction-qc.md` before every render and again during final review.
 Read `references/adaptive-layout.md` before choosing crop, scale, panel placement, or mask grouping.
+Read `references/edge-refinement.md` before building or correcting any person silhouette.
+Read `references/gold-standard-system.md` before choosing a final art direction.
 
 ## Person pixel lock
 
@@ -53,6 +57,7 @@ Read `references/adaptive-layout.md` before choosing crop, scale, panel placemen
 - Accept close-up and face-dominant photos. Adapt the whole-photo layout rather than refusing the source.
 - Keep source photo and all reciprocal masks on one coupled transform. If a large group needs reduction, uniformly reduce the complete photo and its masks together.
 - Cover every selected person completely in the opaque state. Never expose partial faces, mouths, hair, hands, bodies, clothing, footwear, phones, or held objects.
+- Keep the design mask tight. Default safety expansion is only 1–3 pixels at final output size, or at most 0.3% of the short edge. Use depth only to refine uncertain overlaps, not to replace instance segmentation or matting.
 - Let flat colour occupy roughly 40–60% of the whole page.
 - Keep the page asymmetrical and handmade; allow slight imperfect alignment.
 - Use group silhouettes as the mask family; stars and loose marks are supporting punctuation only.
@@ -76,6 +81,7 @@ Read `references/adaptive-layout.md` before choosing crop, scale, panel placemen
 - Do not use an arbitrary high-saturation default colour when it is unrelated to the source scene.
 - Do not refuse a photo solely because people occupy most of the frame.
 - Do not shrink or crop a mask independently to reduce colour coverage.
+- Do not broadly dilate, inflate, or feather a person mask merely to pass the coverage test.
 
 ## Quality gate
 
@@ -84,7 +90,7 @@ Before delivery, confirm all answers are yes:
 1. Can the viewer recognise that both halves derive from the same photo?
 2. Does at least one shape perform an obvious positive-negative role reversal?
 3. Are the person count, order, depth scale, poses, clothing, interactions, and held objects correct in both panels?
-4. Does every opaque silhouette fully cover its selected person with no exposed face, mouth, hair, hand, body, clothing, footwear, phone, or held object?
+4. Does every opaque silhouette fully cover its selected person with no exposed face, mouth, hair, hand, body, clothing, footwear, phone, or held object while remaining tight to the true contour?
 5. Do all visible people use the protected source pixels, with no generated change to faces, hair, skin, bodies, hands, clothing, footwear, or held objects?
 6. Does the result feel cut from printed paper rather than rendered as clean vectors?
 7. Does the photograph retain its source grain, focus, exposure, colour, and environmental texture?
@@ -95,4 +101,4 @@ Before delivery, confirm all answers are yes:
 
 ## Delivery
 
-Return the generated image plus a concise record containing: source person-occupancy estimate, adaptive layout mode, selected mask family, three palette candidates and the chosen palette, lettering family and phrase, protected person-layer method, mask-coverage result, preserved subject anchors, and whether the eleven quality checks passed. If the user asks only for prompt analysis, return the prompt package without generating an image.
+Return the generated image plus a concise record containing: source person-occupancy estimate, adaptive layout mode, selected gold-standard recipe, selected mask family, edge-refinement method, three palette candidates and the chosen palette, lettering family and phrase, protected person-layer method, mask coverage and excess-area results, preserved subject anchors, and whether the eleven quality checks passed. If the user asks only for prompt analysis, return the prompt package without generating an image.

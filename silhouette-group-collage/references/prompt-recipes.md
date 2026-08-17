@@ -11,6 +11,8 @@ PERSON INVARIANT: every visible person must come directly from the supplied phot
 
 LAYOUT INVARIANT: the complete source photograph and every reciprocal person mask share the same scale, translation, crop, and inset transform. Never resize, crop, or reposition a mask independently from the photograph. Accept the source at any person occupancy; select environment-led, balanced-group, or portrait-dense layout rather than refusing the photo.
 
+EDGE INVARIANT: build one contour-tight design mask from instance segmentation and alpha matting, using depth only as auxiliary overlap evidence. Cover at least 99.5% of the protected person region while limiting excess mask area to 8% for separate silhouettes or 15% for intentional connected clusters. Add only a 1–3 output-pixel safety edge and reuse the exact same design mask in both panels.
+
 Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every selected person completely with opaque [dominant colour] silhouettes, including every visible face, hair edge, neck, hand, body, garment, shoe, phone, and held object. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels. Preserve count-defining negative spaces between heads, shoulders, raised arms, lifted legs, phones, joined hands, and companion objects. A connected silhouette must follow the group like a paper-doll chain; it must not become a convex hull, rectangular slab, giant flower blob, saw-tooth band, or broad envelope filled with accidental background. If the colour mass is too large, use separate mask islands or uniformly inset the full photograph and every mask together; never shrink a mask alone.
 
 Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars in three size tiers with irregular spacing. Place the exact scene-matched phrase "[phrase]" in [brush diary / chunky marker / loose pencil] handwriting across the middle seam, spelled exactly. Make the phrase a visible compositional bridge spanning roughly 62–90% of the canvas width. Use controlled word-to-word variation: at most two related handwriting faces, scale variation, slight -4° to +4° rotation, irregular baseline, and one optional underline or motion mark. Do not render a tiny uniform digital caption.
@@ -40,6 +42,7 @@ Phrase: "[exact 3–6 word phrase]"
 Lettering: [brush diary / chunky marker / loose pencil], key word [word], controlled word-level variation
 Person lock: [deterministic mask/composite method]
 Coverage check: [target 100%, required >=99.5%]
+Excess check: [<=8% separate / <=15% connected]
 ```
 
 Do not generate until every line is resolved.
@@ -98,6 +101,12 @@ Discard the enclosing blob, convex hull, saw-tooth slab, or broad group envelope
 
 ```text
 Restore complete opaque coverage of every selected person, including visible face, mouth, hair, ear, neck, hand, body, clothing, footwear, phone, and held object. Expand or correct the mask outward; never erode or independently shrink it to reduce colour area. Keep the photograph and mask on the same coupled transform. If the colour mass remains heavy, uniformly inset the complete source photograph and all masks together or divide the group into separate related silhouette islands. Required deterministic coverage is at least 99.5%, with 100% preferred.
+```
+
+### Mask is complete but looks swollen
+
+```text
+Return to the source-resolution person alpha and remove broad dilation. Refine only the local 6–16 pixel uncertain boundary band using instance segmentation, alpha matting, visible colour edges, and depth discontinuity as auxiliary evidence. Add only a 1–3 output-pixel safety edge. Keep coverage at least 99.5% while reducing area(C-P)/area(P) to 8% or less for separate silhouettes, or 15% or less for intentional connected clusters. Reuse the corrected exact mask in both reciprocal states.
 ```
 
 ### Typography looks generic

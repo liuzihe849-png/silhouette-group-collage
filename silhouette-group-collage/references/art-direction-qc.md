@@ -35,7 +35,7 @@ Reject the mask if any of these are true:
 - thin coloured outlines are needed to explain the edge;
 - the viewer cannot recover the original pose rhythm from the silhouette alone.
 
-Use a hard binary aperture edge for visible source pixels. If automated segmentation is messy, simplify the hand-cut contour or use a deliberately shaped photo window; never leave translucent halos, background slivers, half-covered faces, or half-cut footwear. A large colour mask is not corrected by shrinking it independently. Use separate mask islands or uniformly inset the complete source photo and all masks together.
+Use a hard binary aperture edge for visible source pixels. Refine boundaries with `edge-refinement.md`: instance segmentation or matting first, depth only as auxiliary evidence, and a final 1–3 output-pixel safety edge. If automated segmentation is messy, correct the local boundary or use a deliberately shaped photo window; never leave translucent halos, background slivers, half-covered faces, or half-cut footwear. A large colour mask is not corrected by shrinking it independently or broadly dilating it. Use separate mask islands or uniformly inset the complete source photo and all masks together.
 
 ## 3. Composition for 9:16 phone wallpaper
 
@@ -118,12 +118,13 @@ Reject and correct the result if any answer is no:
 
 1. Can the people be recounted from the silhouette rhythm?
 2. Does every opaque silhouette cover its complete person region with no exposed fragment?
-3. Do the positive and negative states use the same recognisable mask and coupled source-photo transform?
-4. Did the occupancy-aware layout create environment or paper breathing room without refusing the source?
-5. Does the palette clearly belong to this source photo?
-6. Does the lettering vary by word while remaining one coherent handwriting family?
-7. Are paper fibres visible without damaging the photographic regions?
-8. Do the stars have scale and spacing rhythm rather than mechanical scatter?
-9. Are all visible people restored from protected source pixels?
+3. Does the silhouette remain contour-tight without a bulky expansion halo?
+4. Do the positive and negative states use the same recognisable mask and coupled source-photo transform?
+5. Did the occupancy-aware layout create environment or paper breathing room without refusing the source?
+6. Does the palette clearly belong to this source photo?
+7. Does the lettering vary by word while remaining one coherent handwriting family?
+8. Are paper fibres visible without damaging the photographic regions?
+9. Do the stars have scale and spacing rhythm rather than mechanical scatter?
+10. Are all visible people restored from protected source pixels?
 
 Do not deliver a merely functional reciprocal mask when it fails art direction.

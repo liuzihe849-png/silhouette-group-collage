@@ -25,6 +25,12 @@ def main() -> None:
     parser.add_argument("person_mask", type=Path)
     parser.add_argument("colour_mask", type=Path)
     parser.add_argument("--minimum", type=float, default=0.995)
+    parser.add_argument(
+        "--maximum-excess",
+        type=float,
+        default=0.08,
+        help="maximum area(C-P)/area(P); use up to 0.15 for intentional connected clusters",
+    )
     args = parser.parse_args()
 
     person = binary(args.person_mask)
@@ -38,14 +44,18 @@ def main() -> None:
     covered = white_pixels(intersection)
     coverage = covered / person_area
     occupancy = person_area / (person.width * person.height)
-    spill = (colour_area - covered) / colour_area if colour_area else 0.0
+    excess = (colour_area - covered) / person_area
 
     print(f"person_occupancy={occupancy:.4f}")
     print(f"person_coverage={coverage:.4f}")
-    print(f"colour_spill={spill:.4f}")
+    print(f"mask_excess={excess:.4f}")
     if coverage < args.minimum:
         raise SystemExit(f"FAIL: coverage {coverage:.4f} is below {args.minimum:.4f}")
-    print("PASS: opaque mask fully covers the protected person region")
+    if excess > args.maximum_excess:
+        raise SystemExit(
+            f"FAIL: excess {excess:.4f} is above {args.maximum_excess:.4f}; mask is too bulky"
+        )
+    print("PASS: opaque mask covers the protected region and remains contour-tight")
 
 
 if __name__ == "__main__":

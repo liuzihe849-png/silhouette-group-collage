@@ -18,7 +18,16 @@ REQUIRED_FILES = (
     "references/person-preservation.md",
     "references/art-direction-qc.md",
     "references/adaptive-layout.md",
+    "references/edge-refinement.md",
+    "references/gold-standard-system.md",
     "scripts/check_mask_coverage.py",
+    "assets/design-system/palettes.json",
+    "assets/design-system/mask-edge-profile.json",
+    "assets/design-system/paper-textures/saffron-winter.png",
+    "assets/design-system/paper-textures/icy-blue-cabin.png",
+    "assets/design-system/paper-textures/plum-winter.png",
+    "assets/design-system/paper-textures/teal-rhythm.png",
+    "assets/design-system/paper-textures/crimson-team.png",
 )
 REQUIRED_SKILL_PHRASES = (
     "Count all people explicitly from left to right",
@@ -37,6 +46,10 @@ REQUIRED_SKILL_PHRASES = (
     "Accept every source photo",
     "Never shrink, crop, reshape, or reposition a mask independently",
     "99.5%",
+    "instance segmentation or matting",
+    "1–3 pixels",
+    "limit excess mask area",
+    "gold-standard-system.md",
 )
 
 
@@ -128,8 +141,31 @@ def main() -> None:
         if phrase not in adaptive_text:
             fail(f"adaptive-layout.md is missing rule: {phrase}")
 
+    edge_text = (root / "references/edge-refinement.md").read_text(encoding="utf-8").lower()
+    for phrase in (
+        "instance-level person or object segmentation",
+        "alpha matting",
+        "depth discontinuity",
+        "single design-mask workflow",
+        "maximum excess",
+    ):
+        if phrase not in edge_text:
+            fail(f"edge-refinement.md is missing rule: {phrase}")
+
+    gold_text = (root / "references/gold-standard-system.md").read_text(encoding="utf-8").lower()
+    for phrase in (
+        "saffron winter horizon",
+        "icy-blue cabin warmth",
+        "plum winter company",
+        "teal movement chain",
+        "crimson dual-depth team",
+        "original artworks remain private",
+    ):
+        if phrase not in gold_text:
+            fail(f"gold-standard-system.md is missing recipe: {phrase}")
+
     print(f"PASS: {len(REQUIRED_FILES)} required files")
-    print("PASS: metadata, references, person-pixel lock, adaptive occupancy layouts, coupled masks, 9:16 art direction, typography, palette, texture, and rejection rules")
+    print("PASS: metadata, private-safe gold standards, reusable design assets, contour-tight masks, person-pixel lock, adaptive layouts, 9:16 art direction, typography, palette, texture, and rejection rules")
 
 
 if __name__ == "__main__":

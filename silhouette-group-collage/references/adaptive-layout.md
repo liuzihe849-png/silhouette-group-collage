@@ -58,7 +58,8 @@ For each opaque state, compare the intended person mask `P` with the final colou
 
 - Required coverage: `area(P ∩ C) / area(P) >= 0.995`.
 - Preferred coverage: `1.000`.
-- Expand the colour mask outward by a small hand-cut safety margin when uncertain.
+- Default excess ratio: `area(C - P) / area(P) <= 0.08` for separate silhouettes and up to `0.15` for intentional connected clusters.
+- Expand only the affected contour segment by a 1–3 output-pixel hand-cut safety margin when uncertain.
 - Never erode the colour mask to satisfy a maximum-area rule.
 
 Use `scripts/check_mask_coverage.py` when deterministic masks are available. Any exposed facial or body fragment fails visually even if the numerical threshold passes.
