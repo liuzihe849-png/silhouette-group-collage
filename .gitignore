@@ -2,10 +2,3 @@
 __pycache__/
 *.pyc
 outputs/
-.venv/
-.runtime/
-models/
-checkpoints/
-*.safetensors
-*.pth
-*.pt

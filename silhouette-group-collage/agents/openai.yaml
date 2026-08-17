@@ -1,4 +1,4 @@
 interface:
-  display_name: "剪影群像风格 Skill"
-  short_description: "以 Human Cutout Engine 锁定人物原像素的正负形纸艺双联画"
-  default_prompt: "Use $silhouette-group-collage to process my uploaded group photo. Invoke $human-cutout-engine first, validate its source-resolution Alpha, protected RGBA, RGB lock, Alpha lock, and person count, retain necessary foreground occluders, then use that exact accepted Alpha for both reciprocal mask states. Preserve all visible people as original source pixels. Diagnose the scene and use the bundled Heirloom colour system to compare Echo, Counterpoint, and Atmosphere candidates before choosing a paper/ink/accent set with readable contrast. Select a reference-derived paper profile for the chosen colour and scene, require both profile and texture gates, and use it for every broad field and opaque silhouette. Render the exact seam phrase separately with one bundled T1-T5 family; never use image-generated final text. When no output size is requested, preserve the source pixel width and derive the diptych height; use 9:16 only when explicitly requested as a phone or mobile wallpaper."
+  display_name: "剪影群像风格 Skill v1"
+  short_description: "将群像照片转成脸部源像素锁定的正负形剪影双联画"
+  default_prompt: "Use $silhouette-group-collage-v1 to transform my uploaded group photo into the reciprocal silhouette diptych style while preserving every visible face as original source pixels."

@@ -15,22 +15,21 @@ The references combine six stable choices:
 
 Use this priority order:
 
-1. Recognisable source subject or scene.
-2. Reciprocal mask exchange.
-3. Large flat colour field.
-4. Tactile paper and film texture.
-5. Sparse visual punctuation.
-6. One scene-matched handwritten seam phrase.
-
-Original person pixels override every style choice. Apply paper, film, ink, and registration effects only outside protected visible-person regions. Read `art-direction-qc.md` for the mandatory palette, typography, composition, and rejection process.
+1. Verified source-pixel faces wherever faces remain visible.
+2. Recognisable source subject or scene.
+3. Reciprocal mask exchange.
+4. Large flat colour field.
+5. Tactile paper and film texture.
+6. Sparse visual punctuation.
+7. One scene-matched handwritten seam phrase.
 
 If an output feels like a generic scrapbook, reduce levels 5 and 6 before changing levels 1–4.
 
 ## Group mask families
 
-### A. Connected paper-doll silhouette
+### A. Connected group silhouette
 
-Use for a close couple or tightly clustered group only when their touching contours remain readable. Trace the bodies as a loose paper-doll chain while retaining every head peak, count-defining gap, raised arm, lifted leg, phone, joined hand, and held object. Join only at real touches or with narrow crude bridges. Never replace the group with a convex hull, rectangular slab, saw-tooth band, or giant enclosing blob. For face-dominant selfies, prefer separate silhouettes or small touching clusters from `adaptive-layout.md`. Make the edge look cut by hand. Invert this exact silhouette between panels.
+Use for a close couple or tightly clustered group. Trace a loose simplified envelope around the group while retaining count-defining gaps, raised arms, and held objects. Make the edge look cut by hand. Invert this exact silhouette between panels.
 
 Best for: friendship, youth, group portraits, performance posters, album artwork.
 
@@ -52,24 +51,24 @@ Use one group silhouette family plus one small matching mask for a thrown snowba
 
 Best for: celebratory group moments with one airborne or held focal object.
 
-## Output geometry
+## Layout ratios
 
-- Default when the user gives no dimensions: keep the canvas width equal to the source photograph's pixel width and derive total height from the two panels, seam, and quiet-space needs.
-- Do not silently convert a source photo to 9:16 or use a blurred enlargement to fill a preset canvas.
-- Preserve the source photograph's aspect ratio inside each photo panel whenever practical; photo, Alpha, and protected RGBA always share one coupled transform.
-- Use 4:5, 2:3, 9:16, or exact pixel dimensions only when explicitly requested. Use 9:16 specifically for explicit phone-wallpaper or mobile-wallpaper requests.
+- Default canvas: vertical 4:5; use vertical 2:3 for poster-like artwork.
 - Panel split: 45:55 or 50:50. A precise half split is allowed, but internal placement should remain asymmetrical.
 - Flat colour coverage: 40–60% of the complete page.
-- Main group masks: use occupancy-aware targets from `adaptive-layout.md` while preserving complete coverage, source scale, and spacing.
+- Main group masks: collectively 25–45% of one panel while preserving the source's scale and spacing.
 - Quiet space: keep at least one calm region equal to roughly 15% of the page.
-
-When 9:16 is explicitly requested, reserve 7–12% around the seam for large handwriting overlap. Default to an environment-led 18–32% person-area target per panel. For dense sources, uniformly inset the complete photo and all masks together and allow 25–45%. Never fill extra height with blurred, mirrored, or stretched source pixels, and never shrink masks independently.
 
 ## Palette recipes
 
-Use the reference-backed system in `color-system.md` and `assets/design-system/color-system.json`. Its four anchors—Shepherd's Red, Hearth Smoke, Butter Yellow, and Heirloom Linen—extend into muted reds, smoke blues, cloth yellows, sage greens, lake colours, winter plum, and paper neutrals. These are coherent heritage-print materials, not fixed templates.
+Use one recipe, never all at once:
 
-Diagnose the scene, then run `scripts/select_scene_palette.py` and compare one Echo, one Counterpoint, and one Atmosphere candidate. Select one only after a full-page mockup review. Record token IDs, exact hex values, scene route, and ink contrast. Sample a distinctive source colour when it helps the Echo candidate, but do not let a dominant paper disappear into the environment. Reusing the same dominant colour across unrelated photos without a scene-based reason is a failure.
+- Electric emotional: hot magenta `#F70883`, sky blue, grass green, off-white.
+- Field diary: sage `#B6C596`, moss green, dusty pink, cream.
+- Travel poster: vermilion `#FF4633`, pale blue, warm landscape browns, ivory.
+- Youth archive: faded olive `#9CAF6A`, cream `#F4F0D8`, forest green, charcoal.
+
+Sample colours from the source when they are already distinctive. Keep contrast strong enough that apertures read instantly.
 
 ## Texture recipe
 
@@ -79,24 +78,21 @@ Describe texture as physical production, not as a filter:
 
 Avoid heavy universal noise, fake torn-paper shadows, thick white sticker outlines, and sepia wash.
 
-Description alone is insufficient. Read `paper-texture-system.md` and `deterministic-finishing.md`: select one of five reference-derived neutral material profiles, then build every broad paper field and opaque silhouette with `scripts/apply_paper_texture.py --profile PROFILE`. The older coloured crops are palette references and must not be tiled because they include stars or lettering.
-
 ## Typography
 
-Typography is expected for group images unless the user declines it. Read `typography-system.md` and select exactly one of its five named, reference-backed families for a scene-specific reason. Derive one short lowercase phrase from visible action and setting, reserve a calm seam band, then render the exact phrase with `scripts/render_seam_phrase.py`. Span roughly 62–90% of the canvas width and vary word scale, tilt, baseline, spacing, and occasional stroke density within the chosen family. Use no additional copy. Generated final text, tiny centred captions, scattered words, mixed unrelated families, and identical typography across unrelated photos fail.
-
-## Decoration rhythm
-
-Use 8–12 handmade stars in three size tiers rather than evenly scattering identical symbols. Use two decoration colours at most. Put roughly two-thirds in quiet zones and use the rest to guide the eye between panels. Mix filled and outline stars, vary rotation and spacing, and keep them off protected anchors.
+Typography is expected for group images unless the user declines it. Derive one short lowercase phrase from visible action and setting, such as `we ran to the sea`, `we ran toward the sun`, or `together under winter skies`. Place it across the panel seam so it binds the group. Verify spelling exactly. Use loose imperfect handwriting and no additional copy.
 
 ## Source-preservation checklist
 
 Before generating, record:
 
 - exact person count and left-to-right order;
+- every visible face-lock region, including ears, hairline, facial hair, glasses, and identity-bearing near-face details;
+- the whole-photo crop, translation, and uniform scale used in each panel so source face pixels can be restored and compared;
 - foreground, midground, and background scale;
 - pose, raised arms, joined hands, lifted legs, and held objects;
 - distinctive clothing colours and silhouettes;
 - environmental anchors such as lake, mountain, road, sea, snow, sunset, rocks, or reflections;
 - source grain, focus, motion blur, exposure, and colour cast.
-- protected pixel regions for every complete visible person, including faces, hair, skin, hands, clothing, footwear, and held objects.
+
+Do not approve a face by visual similarity alone. Use the lossless output and verify zero RGB difference inside each transformed protected face region, excluding only a documented 1–2 px feather boundary.

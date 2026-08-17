@@ -31,15 +31,6 @@
 - A group composition needs a seam phrase unless the user declines text.
 - Never report a person count without checking the image carefully from left to right.
 - Do not merge separated people, enlarge distant people, omit background people, break joined hands, or detach held objects.
-- A single enclosing polygon can technically cover the group while destroying the group rhythm. Preserve negative spaces, lifted limbs, phones, companions, and head count; reject convex hulls, rectangular slabs, saw-tooth bands, and giant flower-like blobs.
-- A tiny uniform caption does not bind a diptych. Make one exact phrase a large seam element and vary scale, tilt, baseline, spacing, and related handwriting face by word.
-- A correct colour field can still feel cheap when chosen from a fixed template. Compare echo, counterpoint, and atmosphere palettes from the source before selecting one.
-- Flat colour plus universal noise does not create analogue material. Preserve the source photo texture and build visible paper fibres, uneven ink, matte density, dust, and registration drift only in paper regions.
-- Sparse decorations need hierarchy: use three size tiers, irregular spacing, and quiet-zone placement instead of identical stars distributed like a grid.
-- A maximum colour-area rule must never cause partial person coverage. Treat complete coverage and coupled photo-mask geometry as higher priority than colour-field proportion.
-- Do not reject face-dominant or close-up sources. Route them to a portrait-dense layout: uniformly inset the complete photo and every mask together, use separate silhouette islands or small clusters, and let paper supply the missing quiet environment.
-- Complete coverage alone can produce swollen silhouettes. Pair the coverage check with an excess-area limit, refine a narrow local edge band, and use depth only as auxiliary overlap evidence behind instance segmentation and alpha matting.
-- The five approved first-generation artworks should be treated as gold-standard recipes. Retain their transferable texture, palette, layout, lettering, mask, and star systems without publishing the private full artworks.
 
 ## Core versus supporting features
 
