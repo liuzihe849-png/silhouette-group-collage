@@ -1,49 +1,48 @@
-# Heirloom paper texture system
+# Five quiet paper texture system
 
-Read this file after colour selection and before rendering any opaque silhouette or large paper field. Paper material is selected independently from colour; one generic noise tile must not be reused mechanically across every artwork.
+The paper field must feel scanned and tactile without competing with the photograph, silhouettes, or seam phrase. The five assets below are procedural, tintable reconstructions of the supplied material references. They contain no copied reference pixels and no decorative stars.
 
-## Reference-derived parents
+## Profiles
 
-The supplied references establish two parent structures:
+- **soft-fibre-paper** — fine, randomly oriented short paper fibres with gentle micro-grain. Default for blue, blue-gray, smoke, snow, and quiet diary scenes.
+- **fine-matte-grain** — close, even, non-glossy paper tooth. Use for red, plum, green, teal, and large fields where the colour should remain visually calm.
+- **sparse-light-fleck** — a mostly clean field with a few pale paper crumbs and short pale scratches. Use for warm, light, yellow, orange, and softly aged layouts.
+- **sparse-dark-fleck** — the cleanest field, punctuated by very sparse dark ink flecks. Use for linen, butter-yellow, minimal layouts, and generous negative space.
+- **medium-light-fleck** — restrained but clearly visible pale paper dust with varied fleck sizes. Use for sea, sky, summer, travel, or when a little more analogue wear is useful.
 
-1. **Fine linen paper** — low contrast, warm matte stock, fine horizontal fibres, tiny paper grain, and faint vertical or horizontal fold memory. Use when quiet space, pale paper, or restrained archival softness matters.
-2. **Field fibre paper** — visibly uneven dye, mixed coarse fibres, pale and dark paper flecks, sparse scratches, and a drier printed surface. Use when the colour block needs stronger physical presence.
+## Selection
 
-The reusable assets are original deterministic neutral tiles derived from those material traits. They contain no stars, words, people, landscape pixels, or copied fragments from the references.
+1. Start with the profile suggested by `scripts/select_scene_palette.py`.
+2. Compare it with one quieter neighbouring profile at final output size.
+3. Prefer `soft-fibre-paper` or `fine-matte-grain` when the group already occupies much of the frame.
+4. Use the three fleck profiles only when their particle direction supports the scene; never stack profiles.
+5. Keep all profiles subordinate to protected source pixels and the reciprocal silhouette structure.
 
-## Five profiles
+## Non-negotiable visual rules
 
-- **heirloom-linen** — the quietest profile; fine horizontal fibres and restrained folds for linen, very-light paper, studio, and generous negative space.
-- **field-fibre** — coarse mixed fibres and uneven dye for grass, garden, earthy midtones, and outdoor diary scenes.
-- **hearth-smoke-stock** — balanced fine/coarse grain for smoke colours, blue-gray, snow, neutral city, and soft interior scenes.
-- **sun-faded-stock** — moderate fibres, faded density drift, and small flecks for yellow, orange, sea travel, summer, and sunset.
-- **winter-wool-stock** — dense matte fibres and brighter flecks that remain visible after tinting dark red, plum, pine, or night colours.
+- No cloud-like light/dark patches or broad mottled stains.
+- No artificial folds, crease shadows, fabric weave, canvas pattern, or wool texture.
+- No glossy digital noise, embossed grain, gradients, or repeated tile seams.
+- No star, doodle, or lettering baked into a paper texture. Decorations are separate layers.
+- Do not turn the paper field into a distressed overlay. The material is quiet; the silhouettes and phrase carry the graphic emphasis.
 
-Profile definitions and gates live in `assets/design-system/paper-texture-profiles.json`. Neutral assets live under `assets/design-system/paper-textures/system/`.
+## Deterministic use
 
-## Selection order
+Build assets with:
 
-1. Choose the scene colour token first with `select_scene_palette.py`.
-2. Accept the suggested texture profile only after checking the full-page colour value and scene:
-   - very-light or linen → `heirloom-linen`;
-   - dark, dark-mid, or mid-dark → `winter-wool-stock`;
-   - green or grass/garden → `field-fibre`;
-   - yellow/orange or sunset → `sun-faded-stock`;
-   - smoke, blue-gray, snow, or city neutral → `hearth-smoke-stock`.
-3. Render with `apply_paper_texture.py --profile PROFILE` using the exact final mask.
-4. Require both `texture_gate_passed: true` and `profile_gate_passed: true`.
-5. Inspect at 100% and 200%. The texture must be visible in the silhouette and broad field, but cannot obscure the hand-cut contour.
+```bash
+python3 scripts/build_paper_texture_library.py
+```
 
-## Material hierarchy
+Tint one selected profile with:
 
-- Keep photographic grain and focus untouched inside photo regions and protected people.
-- Apply paper material only inside opaque paper masks.
-- Use the same selected profile for the reciprocal silhouette and its matching broad field unless a deliberate material contrast is recorded.
-- Do not place texture as a semi-transparent filter over the whole artwork.
-- Do not introduce stars, lettering, black outlines, photographed grass, or copied landscape fragments into a reusable tile.
-- Do not make a dark paper smooth: use `winter-wool-stock` so fibre highlights survive tinting.
-- Do not make a light paper dirty: use `heirloom-linen` and keep coarse flecks restrained.
+```bash
+python3 scripts/apply_paper_texture.py \
+  --profile fine-matte-grain \
+  --colour '#C9543F' \
+  --width 1080 \
+  --height 960 \
+  --output outputs/paper-field.png
+```
 
-## Failure conditions
-
-Reject the material when it looks like flat vector colour, generic monochrome noise, concrete, fabric, leather, a photographic landscape crop, repeated decorations, or heavy grunge. Also reject obvious tile seams, repeated fold lines, crushed dark fibres, and universal texture applied across faces or clothing.
+The output manifest must report both `profile_gate_passed: true` and `texture_gate_passed: true`. Inspect at 100% and 200% zoom; if the profile reads as a filter before it reads as paper, choose a quieter profile or reduce strength.

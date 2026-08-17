@@ -102,7 +102,7 @@ Maintain two distinct material systems:
 - **Photo regions:** retain original grain, focus, exposure, colour cast, reflections, weather, and motion blur. Do not apply universal paper noise over protected people.
 - **Paper regions:** show scanned fibres, profile-specific density variation, matte ink, restrained dust, and slight registration drift at normal viewing size. Read `paper-texture-system.md`, select one of five reference-derived profiles, and create the actual coloured paper pixels with `scripts/apply_paper_texture.py --profile PROFILE`. Apply the same selected material to broad fields and reciprocal opaque silhouettes. Require both `texture_gate_passed: true` and `profile_gate_passed: true`. The older coloured crops are palette references, not tileable texture sources, because they include decorations.
 
-Roughness belongs to the physical edge, not to random angular polygons. Avoid smooth flat fills, universal noise, artificial torn-paper drop shadows, thick white sticker borders, and sepia filters.
+Roughness belongs to the physical edge, not to random angular polygons. At the broad paper-photo boundary, apply the restrained deterministic edge from `torn-paper-seam.md`; reuse its path across corresponding reciprocal seams. Avoid smooth flat fills, universal noise, artificial torn-paper drop shadows, thick white sticker borders, and sepia filters.
 
 At 100% and 200% zoom, confirm that paper fibres are visible in every paper field and opaque silhouette while face, hair, skin, hands, clothing, footwear, and held objects remain unchanged source pixels.
 

@@ -53,14 +53,28 @@ def texture_metrics(image: Image.Image) -> dict[str, float]:
     low_threshold = mean - 2 * standard
     high_threshold = mean + 2 * standard
     histogram = luma.histogram()
+    total_pixels = image.width * image.height
+    running = 0
+    median = 128
+    for value, count in enumerate(histogram):
+        running += count
+        if running >= total_pixels / 2:
+            median = value
+            break
     extreme = sum(count for value, count in enumerate(histogram) if value < low_threshold or value > high_threshold)
-    total = max(1, image.width * image.height)
+    total = max(1, total_pixels)
+    deviation_gt_3 = sum(count for value, count in enumerate(histogram) if abs(value - median) > 3)
+    light_gt_8 = sum(count for value, count in enumerate(histogram) if value - median > 8)
+    dark_gt_8 = sum(count for value, count in enumerate(histogram) if median - value > 8)
     return {
         "luma_std": round(standard, 4),
         "high_frequency_mean": round((dx + dy) / 2, 4),
         "low_frequency_std": round(float(ImageStat.Stat(low).stddev[0]), 4),
         "fleck_fraction": round(extreme / total, 5),
         "directional_ratio_y_over_x": round(dy / max(dx, 0.0001), 4),
+        "deviation_gt_3": round(deviation_gt_3 / total, 5),
+        "light_deviation_gt_8": round(light_gt_8 / total, 5),
+        "dark_deviation_gt_8": round(dark_gt_8 / total, 5),
     }
 
 
@@ -102,7 +116,7 @@ def main() -> None:
             texture_path = ROOT / texture_path
     else:
         profile_data = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
-        profile = next(item for item in profile_data["profiles"] if item["id"] == "heirloom-linen")
+        profile = next(item for item in profile_data["profiles"] if item["id"] == "soft-fibre-paper")
         texture_path = ROOT / profile["asset"]
 
     strength = args.strength if args.strength is not None else (profile["default_strength"] if profile else 0.22)

@@ -26,6 +26,7 @@ REQUIRED_FILES = (
     "references/deterministic-finishing.md",
     "references/color-system.md",
     "references/paper-texture-system.md",
+    "references/torn-paper-seam.md",
     "scripts/check_mask_coverage.py",
     "scripts/validate_cutout_handoff.py",
     "scripts/apply_paper_texture.py",
@@ -37,19 +38,24 @@ REQUIRED_FILES = (
     "scripts/build_paper_texture_library.py",
     "scripts/test_texture_system.py",
     "scripts/render_texture_system_preview.py",
+    "scripts/build_torn_paper_seam.py",
+    "scripts/test_torn_paper_seam.py",
     "assets/design-system/palettes.json",
     "assets/design-system/color-system.json",
     "assets/design-system/color-system-preview.png",
     "assets/design-system/paper-texture-profiles.json",
     "assets/design-system/paper-texture-system-preview.png",
+    "assets/design-system/torn-seam-profile.json",
+    "assets/design-system/torn-paper-seam-mask-preview.png",
+    "assets/design-system/torn-paper-seam-mask-preview.json",
     "assets/design-system/mask-edge-profile.json",
     "assets/design-system/typography-families.json",
     "assets/design-system/paper-textures/neutral-uncoated-paper.png",
-    "assets/design-system/paper-textures/system/heirloom-linen.png",
-    "assets/design-system/paper-textures/system/field-fibre.png",
-    "assets/design-system/paper-textures/system/hearth-smoke-stock.png",
-    "assets/design-system/paper-textures/system/sun-faded-stock.png",
-    "assets/design-system/paper-textures/system/winter-wool-stock.png",
+    "assets/design-system/paper-textures/system/soft-fibre-paper.png",
+    "assets/design-system/paper-textures/system/fine-matte-grain.png",
+    "assets/design-system/paper-textures/system/sparse-light-fleck.png",
+    "assets/design-system/paper-textures/system/sparse-dark-fleck.png",
+    "assets/design-system/paper-textures/system/medium-light-fleck.png",
     "assets/fonts/caveat-brush/CaveatBrush-Regular.ttf",
     "assets/fonts/caveat-brush/OFL.txt",
     "assets/fonts/kalam/Kalam-Regular.ttf",
@@ -107,6 +113,8 @@ REQUIRED_SKILL_PHRASES = (
     "text contrast ratio of at least 3.0",
     "paper-texture-system.md",
     "both texture and profile gates",
+    "torn-paper edge",
+    "Never apply this effect to the protected person Alpha",
 )
 
 
@@ -273,7 +281,7 @@ def main() -> None:
     )
     texture_profiles = texture_data.get("profiles", [])
     expected_profiles = [
-        "heirloom-linen", "field-fibre", "hearth-smoke-stock", "sun-faded-stock", "winter-wool-stock"
+        "soft-fibre-paper", "fine-matte-grain", "sparse-light-fleck", "sparse-dark-fleck", "medium-light-fleck"
     ]
     if [item.get("id") for item in texture_profiles] != expected_profiles:
         fail("paper texture system must define five ordered reference-derived profiles")

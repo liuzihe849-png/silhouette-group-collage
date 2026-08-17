@@ -33,6 +33,8 @@ Invoke `$human-cutout-engine` before art direction. Treat its reviewed source-re
 16. Generate only a person-free layout/background pass with reserved paper masks and a calm empty seam band. Do not ask `image_gen` to render the final phrase or final paper material. Composite the protected RGBA through the accepted reciprocal mask at its recorded transform.
 17. Read `references/paper-texture-system.md`, accept or revise the profile suggested by the palette manifest, then build every opaque paper field and every opaque person silhouette with `scripts/apply_paper_texture.py --profile PROFILE`. Flat colour is only a temporary layout guide. Require both texture and profile gates to pass before continuing.
 18. Preserve the source photograph's own grain, focus, exposure, weather, reflections, ground texture, and colour relationships. Apply paper fibres only inside paper masks. Verify both photo texture and paper texture at 100% and 200% zoom.
+   Use exactly one quiet paper profile. Reject cloud-like tonal patches, artificial fold shadows, cloth weave, glossy noise, repeated tile seams, or stars baked into the material texture.
+   Read `references/torn-paper-seam.md` and add one restrained, deterministic torn-paper edge where the broad colour field meets the photo collage. Reuse the same edge path for corresponding reciprocal seams. Never apply this effect to the protected person Alpha.
 19. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Select one named family from `references/typography-system.md`, then render the exact phrase as a separate transparent layer with `scripts/render_seam_phrase.py`. Require its spelling, contrast, scale, and readability manifest to pass. Never accept image-generated final lettering.
 20. Add 8–12 sparse handmade stars across both panels with three size tiers and irregular spacing after paper and lettering are complete. Do not bake decorations into the paper texture or cover identity anchors.
 21. Generate or edit with `image_gen` only for non-person, non-lettering layout content. Repeat both invariant sentences from the prompt recipe verbatim in correction attempts.
@@ -44,6 +46,7 @@ Read `references/person-preservation.md` before every generation or edit that co
 Read `references/art-direction-qc.md` before every render and again during final review.
 Read `references/adaptive-layout.md` before choosing crop, scale, panel placement, or mask grouping.
 Read `references/edge-refinement.md` before building or correcting any person silhouette.
+Read `references/torn-paper-seam.md` before constructing the paper-photo boundary.
 Read `references/gold-standard-system.md` before choosing a final art direction.
 Read `references/human-cutout-handoff.md` before extracting, validating, transforming, or compositing the protected subject layer.
 Read `references/typography-system.md` before choosing, generating, or compositing the seam phrase.

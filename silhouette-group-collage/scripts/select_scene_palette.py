@@ -56,22 +56,18 @@ def texture_profile(item: dict[str, Any], scene: str | None) -> str:
     family = item["family"]
     value = item["value"]
     if family == "linen" or value == "very-light":
-        return "heirloom-linen"
-    if value in {"dark", "dark-mid", "mid-dark"}:
-        return "winter-wool-stock"
-    if family in {"green", "teal"}:
-        return "field-fibre"
+        return "sparse-dark-fleck"
+    if family in {"red", "plum", "green", "teal"} or value in {"dark", "dark-mid", "mid-dark"}:
+        return "fine-matte-grain"
     if family in {"yellow", "yellow-neutral", "orange", "orange-brown"}:
-        return "sun-faded-stock"
+        return "sparse-light-fleck"
     if family in {"smoke", "blue-gray", "blue"}:
-        return "hearth-smoke-stock"
-    if scene == "grass-garden":
-        return "field-fibre"
+        return "soft-fibre-paper"
     if scene in {"sunset-road", "sea-sky"}:
-        return "sun-faded-stock"
+        return "medium-light-fleck"
     if scene in {"snow-winter", "city-neutral", "warm-indoor"}:
-        return "hearth-smoke-stock"
-    return "hearth-smoke-stock"
+        return "soft-fibre-paper"
+    return "soft-fibre-paper"
 
 
 def analyse_source(path: Path) -> dict[str, Any]:

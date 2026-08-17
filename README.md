@@ -13,9 +13,10 @@
 - 保留景物、胶片颗粒与现场光线
 - 以 Shepherd's Red、Hearth Smoke、Butter Yellow、Heirloom Linen 为四个参考锚点，扩展为 20 个低饱和复古印刷色 Token
 - 按雪景、海天、草地花园、暖室内、城市、中夜派对、夕阳道路七类场景，比较 Echo / Counterpoint / Atmosphere 三套候选后再人工定色
-- 自动校验纸色与中缝文字对比度，并用干净的无涂布纸纤维资产确定性生成纸面；不再依赖生图模型模拟纹理
-- 从细纤维浅色纸与粗纤维旧纸参考中建立五套材料档案：亚麻纸、田野粗纤维、烟灰纸、日晒纸与冬季羊毛纸
-- 颜色与纸张材料分开选择：浅色、深色、绿色、黄橙色、蓝灰色会自动匹配不同纤维密度、染色不均和纸屑强度
+- 自动校验纸色与中缝文字对比度，并确定性生成纸面；不再依赖生图模型模拟最终纹理
+- 五套安静纸张材料：柔和短纤维、细密哑光颗粒、稀疏浅色纸屑、稀疏深色墨点、中等浅色纸屑；已删除旧版云雾、折痕、布纹和重度脏污资产
+- 色彩与材料分开选择，同一纹理可安全染成场景色；纹理不含星星、文字或重复接缝
+- 在大色块与照片拼贴交界使用可复现的不规则撕纸边缘；上下互补状态共享同一路径，且绝不侵蚀受保护人物 Alpha
 - 五套来自首版优秀作品的字体风格资产：高挑干刷、随性干笔、圆润粗记号笔、动势宽刷、宽幅日记笔触
 - 为群像匹配一条位于双联画中缝的简短手写文字，使用内置 OFL 字体独立排版；不再使用 AI 生成的最终文字
 - 默认保留原照片像素宽度，按双联画构图推导高度；只有用户明确提出手机壁纸时才使用 9:16
@@ -57,12 +58,13 @@ cp -R silhouette-group-collage/human-cutout-engine ~/.codex/skills/
 python3 silhouette-group-collage/scripts/test_skill.py
 python3 silhouette-group-collage/scripts/test_color_system.py
 python3 silhouette-group-collage/scripts/test_texture_system.py
+python3 silhouette-group-collage/scripts/test_torn_paper_seam.py
 python3 silhouette-group-collage/scripts/test_finishing.py
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py silhouette-group-collage
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py human-cutout-engine
 ```
 
-第一个命令检查必要文件、调用名称和关键规则；第二个命令验证 20 个色彩 Token、七类场景路由与所有推荐文字配色；第三个命令验证五套参考衍生纸张材料、路由规则与实际染色输出；第四个命令实际生成红色纸纹与中缝文字并验证纹理强度、拼写、尺寸和对比度；后续命令使用 Codex 官方校验器检查目录规范。
+第一个命令检查必要文件、调用名称和关键规则；第二个命令验证 20 个色彩 Token、七类场景路由与所有推荐文字配色；第三个命令验证五套安静纸张材料、路由规则与实际染色输出；第四个命令验证撕纸边缘可复现、幅度克制且具有细微纤维 Alpha；第五个命令实际生成红色纸纹与中缝文字并验证纹理强度、拼写、尺寸和对比度；后续命令使用 Codex 官方校验器检查目录规范。
 
 需要单独查看某张照片的三套候选色时：
 
@@ -83,6 +85,8 @@ python3 silhouette-group-collage/scripts/select_scene_palette.py photo.jpg --sce
 │   │   ├── color-system-preview.png
 │   │   ├── paper-texture-profiles.json
 │   │   ├── paper-texture-system-preview.png
+│   │   ├── torn-seam-profile.json
+│   │   ├── torn-paper-seam-mask-preview.png
 │   │   ├── typography-families.json
 │   │   ├── paper-textures/neutral-uncoated-paper.png
 │   │   ├── paper-textures/system/*.png
@@ -91,6 +95,7 @@ python3 silhouette-group-collage/scripts/select_scene_palette.py photo.jpg --sce
 │   ├── references/
 │   │   ├── color-system.md
 │   │   ├── paper-texture-system.md
+│   │   ├── torn-paper-seam.md
 │   │   ├── typography-system.md
 │   │   ├── deterministic-finishing.md
 │   │   ├── human-cutout-handoff.md
@@ -103,6 +108,8 @@ python3 silhouette-group-collage/scripts/select_scene_palette.py photo.jpg --sce
 │       ├── build_paper_texture_library.py
 │       ├── test_texture_system.py
 │       ├── render_texture_system_preview.py
+│       ├── build_torn_paper_seam.py
+│       ├── test_torn_paper_seam.py
 │       ├── apply_paper_texture.py
 │       ├── render_seam_phrase.py
 │       ├── test_finishing.py
