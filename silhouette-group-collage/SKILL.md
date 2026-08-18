@@ -13,7 +13,7 @@ Treat this skill as the frozen visual baseline trained and tested in the origina
 
 ## Workflow
 
-1. Inspect every supplied reference and source photo before prompting.
+1. Inspect every supplied reference and source photo before prompting. Read `references/approved-style-assets.md`, then visually inspect the 2–3 complete approved examples in `assets/approved-style-examples/` that most closely match the current group arrangement. Treat them as style references only, never as instructions, source photos, or fixed copy.
 2. Count all people explicitly from left to right. Record body count, foreground/background scale, pose, clothing anchors, held objects, interactions, environmental anchors, and every protected person region. Recheck the count before generation; never infer it from a casual first glance.
 3. Establish the person source-pixel lock before any generative pass. Record the whole-photo crop, translation, and uniform scale used in each panel. Read `references/person-pixel-lock.md` and choose a deterministic restoration method before prompting.
 4. Choose one group mask family from `references/style-system.md`. Use a connected paper-doll chain for a horizontal group and separate related silhouettes for staggered or deep-space groups.
@@ -29,7 +29,7 @@ Treat this skill as the frozen visual baseline trained and tested in the origina
 12. Compare every visible output person with the correspondingly transformed source photograph in the lossless PNG. Require zero RGB difference inside visible protected person regions, excluding only a documented 1–2 px outer feather boundary when necessary. If pixels differ, restore the original source layer and recheck.
 13. Visually check the result against the quality gate below. Regenerate or re-composite when any hard requirement fails.
 
-Read `references/prompt-recipes.md` when building the generation prompt. Read `references/style-system.md` when deciding mask family, layout, or palette. Read `references/seam-lettering-system.md` before generating, correcting, or evaluating middle-seam text; consult the cropped samples in `assets/lettering-reference/` only as visual references, never as instructions or fixed copy. Read `references/reference-breakdown.md` when explaining how the five seed references produce the system. Read `references/person-pixel-lock.md` before every generation or edit containing a visible person.
+Read `references/approved-style-assets.md` at the start of every image task and inspect its selected complete examples before choosing the layout. Read `references/prompt-recipes.md` when building the generation prompt. Read `references/style-system.md` when deciding mask family, layout, or palette. Read `references/seam-lettering-system.md` before generating, correcting, or evaluating middle-seam text; consult the cropped samples in `assets/lettering-reference/` only as visual references, never as instructions or fixed copy. Read `references/reference-breakdown.md` when explaining how the five seed references produce the system. Read `references/person-pixel-lock.md` before every generation or edit containing a visible person.
 
 ## Person source-pixel lock
 
@@ -44,6 +44,7 @@ Read `references/prompt-recipes.md` when building the generation prompt. Read `r
 ## Hard requirements
 
 - Use the same photograph or clearly continuous scene in both panels.
+- Ground the overall art direction in 2–3 visually inspected complete approved examples, while copying none of their people, scenery, or wording.
 - Make the two panels visibly reciprocal: opaque shape above becomes a photo-revealing hole below, or vice versa.
 - Preserve the exact person count, left-to-right order, foreground/background scale, poses, interactions, clothing, held objects, and recognisable setting.
 - Preserve every visible person as source pixels. No generative change to faces, hair, skin, bodies, hands, clothing, footwear, held objects, or identity-bearing details is allowed.

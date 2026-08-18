@@ -17,6 +17,7 @@ English name: **Silhouette Group Collage v1**
 - 自动选择场景对比色、手工纸张质感和少量星星装饰
 - 为群像匹配一条位于双联画中缝的简短手写文字
 - 内置可复用的中缝文字系统：干刷斜体、圆润粗记号笔、宽幅动势笔刷、安静日记手写
+- 内置 8 张用户正式认可的完整风格成品，作为构图、遮罩、配色、纹理、星星与文字层级的视觉基准
 - 内置结构测试和八项成品质量检查
 
 ## 安装
@@ -46,6 +47,8 @@ cp -R silhouette-group-collage/silhouette-group-collage ~/.codex/skills/
 
 中缝文字不是固定字体或固定英文文案。Skill 会从四种字感中选择一种，用单行短句跨越上下画面的接缝，并根据纸色选择暖奶油、象牙白、深海军蓝或焦茶墨色。八张参考裁切图只用于观察字感、尺度和纸墨关系，不会被当成执行指令。
 
+八张完整成品保存在 `assets/approved-style-examples/`，属于正式风格资产。执行时会先选择与当前群像结构最接近的 2–3 张进行视觉对照，但不会复制其中的人物、场景或文案，也不会把它们拼进新作品。
+
 人物像素锁定不依赖 Human Cutout Engine：生成模型只负责纸面、遮罩和非人物内容；所有可见人物必须使用与整张原照片相同的裁切、位移和等比缩放，从原图重新合成并进行像素比对。
 
 ## 本地测试
@@ -63,8 +66,11 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py silhouet
 silhouette-group-collage/
 ├── SKILL.md
 ├── agents/openai.yaml
-├── assets/lettering-reference/
+├── assets/
+│   ├── approved-style-examples/
+│   └── lettering-reference/
 ├── references/
+│   ├── approved-style-assets.md
 │   ├── person-pixel-lock.md
 │   ├── prompt-recipes.md
 │   ├── reference-breakdown.md
