@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import re
+import hashlib
 import sys
 from pathlib import Path
 
@@ -17,6 +18,17 @@ REQUIRED_FILES = (
     "references/reference-breakdown.md",
     "references/person-pixel-lock.md",
     "references/seam-lettering-system.md",
+    "references/approved-style-assets.md",
+)
+REQUIRED_APPROVED_ASSETS = (
+    "assets/approved-style-examples/01-same-team-every-time.png",
+    "assets/approved-style-examples/02-we-ran-toward-the-sun.png",
+    "assets/approved-style-examples/03-together-under-winter-skies.png",
+    "assets/approved-style-examples/04-cold-air-warm-company.png",
+    "assets/approved-style-examples/05-one-step-same-rhythm.png",
+    "assets/approved-style-examples/06-we-ran-into-the-light.png",
+    "assets/approved-style-examples/07-warmth-within-winter-outside.png",
+    "assets/approved-style-examples/08-we-chased-the-last-light.png",
 )
 REQUIRED_LETTERING_ASSETS = (
     "assets/lettering-reference/01-dry-brush-same-team.png",
@@ -76,6 +88,26 @@ def main() -> None:
         if not asset.is_file() or asset.stat().st_size == 0:
             fail(f"missing or empty lettering asset: {relative}")
 
+    for relative in REQUIRED_APPROVED_ASSETS:
+        asset = root / relative
+        if not asset.is_file() or asset.stat().st_size == 0:
+            fail(f"missing or empty approved style asset: {relative}")
+
+    checksum_file = root / "assets/approved-style-examples/SHA256SUMS"
+    if not checksum_file.is_file():
+        fail("missing approved style asset checksum manifest")
+    checksum_lines = checksum_file.read_text(encoding="utf-8").splitlines()
+    expected_checksums = {}
+    for line in checksum_lines:
+        checksum, filename = line.split(maxsplit=1)
+        expected_checksums[filename.strip()] = checksum
+    for relative in REQUIRED_APPROVED_ASSETS:
+        asset = root / relative
+        expected = expected_checksums.get(asset.name)
+        actual = hashlib.sha256(asset.read_bytes()).hexdigest()
+        if expected != actual:
+            fail(f"checksum mismatch for approved style asset: {relative}")
+
     skill_text = (root / "SKILL.md").read_text(encoding="utf-8")
     frontmatter = parse_frontmatter(skill_text)
     if set(frontmatter) != {"name", "description"}:
@@ -112,6 +144,7 @@ def main() -> None:
     print(f"PASS: {EXPECTED_NAME}")
     print(f"PASS: {len(REQUIRED_FILES)} required files")
     print(f"PASS: {len(REQUIRED_LETTERING_ASSETS)} lettering reference assets")
+    print(f"PASS: {len(REQUIRED_APPROVED_ASSETS)} complete approved style assets")
     lock_text = (root / "references/person-pixel-lock.md").read_text(encoding="utf-8")
     for phrase in ("Protected-person workflow", "Do not request another generative portrait or body correction", "stop before final delivery"):
         if phrase.lower() not in lock_text.lower():
