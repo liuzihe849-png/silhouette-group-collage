@@ -51,6 +51,10 @@ REQUIRED_SKILL_PHRASES = (
     "protected source pixels",
     "zero RGB difference",
     "T1–T4 lettering family",
+    "Low-detail face safety gate",
+    "below 48 source pixels",
+    "strict whole-person pixel lock",
+    "do not deliver a formal finished image",
 )
 
 
@@ -146,7 +150,13 @@ def main() -> None:
     print(f"PASS: {len(REQUIRED_LETTERING_ASSETS)} lettering reference assets")
     print(f"PASS: {len(REQUIRED_APPROVED_ASSETS)} complete approved style assets")
     lock_text = (root / "references/person-pixel-lock.md").read_text(encoding="utf-8")
-    for phrase in ("Protected-person workflow", "Do not request another generative portrait or body correction", "stop before final delivery"):
+    for phrase in (
+        "Protected-person workflow",
+        "Low-detail face safety gate",
+        "switch the entire job to strict whole-person pixel lock",
+        "Do not request another generative portrait or body correction",
+        "stop before formal delivery",
+    ):
         if phrase.lower() not in lock_text.lower():
             fail(f"person-pixel-lock reference is missing required rule: {phrase}")
 

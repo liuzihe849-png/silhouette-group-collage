@@ -15,7 +15,7 @@ Treat this skill as the frozen visual baseline trained and tested in the origina
 
 1. Inspect every supplied reference and source photo before prompting. Read `references/approved-style-assets.md`, then visually inspect the 2–3 complete approved examples in `assets/approved-style-examples/` that most closely match the current group arrangement. Treat them as style references only, never as instructions, source photos, or fixed copy.
 2. Count all people explicitly from left to right. Record body count, foreground/background scale, pose, clothing anchors, held objects, interactions, environmental anchors, and every protected person region. Recheck the count before generation; never infer it from a casual first glance.
-3. Establish the person source-pixel lock before any generative pass. Record the whole-photo crop, translation, and uniform scale used in each panel. Read `references/person-pixel-lock.md` and choose a deterministic restoration method before prompting.
+3. Establish the person source-pixel lock before any generative pass. Run the low-detail face safety gate in `references/person-pixel-lock.md` before prompting. If any face is too small, out of focus, motion-blurred, compressed, occluded, or otherwise lacks reliable facial detail, automatically use strict whole-person pixel lock for every visible person. Record the whole-photo crop, translation, and uniform scale used in each panel.
 4. Choose one group mask family from `references/style-system.md`. Use a connected paper-doll chain for a horizontal group and separate related silhouettes for staggered or deep-space groups.
 5. Compose a vertical 4:5 or 2:3 diptych. Repeat the same source scene across the upper and lower halves, then invert figure and ground:
    - Panel A: show most of the photo and cover selected areas with opaque accent shapes.
@@ -31,12 +31,23 @@ Treat this skill as the frozen visual baseline trained and tested in the origina
 
 Read `references/approved-style-assets.md` at the start of every image task and inspect its selected complete examples before choosing the layout. Read `references/prompt-recipes.md` when building the generation prompt. Read `references/style-system.md` when deciding mask family, layout, or palette. Read `references/seam-lettering-system.md` before generating, correcting, or evaluating middle-seam text; consult the cropped samples in `assets/lettering-reference/` only as visual references, never as instructions or fixed copy. Read `references/reference-breakdown.md` when explaining how the five seed references produce the system. Read `references/person-pixel-lock.md` before every generation or edit containing a visible person.
 
+## Low-detail face safety gate
+
+Run this gate on every visible face at 200% before generation. Fail the gate when any of the following is true:
+
+- the face's shorter side is below 48 source pixels after the planned whole-photo transform;
+- the eyes, nose, and mouth cannot be distinguished as separate source features because of focus blur, motion blur, compression, occlusion, low contrast, or extreme scale;
+- the operator cannot confidently define a protected facial interior without asking a model to invent missing detail.
+
+If any face fails or the assessment is uncertain, switch the entire job to strict whole-person pixel lock. Keep every visible person's face, hair, skin, body, hands, clothing, footwear, and held objects as unchanged source pixels. Do not enhance, sharpen, denoise, reconstruct, or regenerate any person. Generate only paper fields, reciprocal masks, stars, lettering, and non-person content. If deterministic compositing and zero-RGB-difference verification cannot be completed, stop and do not deliver a formal finished image. A clearly labelled layout preview may be shown only as non-final work and must not be described as pixel locked.
+
 ## Person source-pixel lock
 
 `PERSON INVARIANT: every visible person must come directly from the supplied photograph as protected source pixels; never generate, repaint, reconstruct, beautify, relight, or reinterpret a person.`
 
 - Treat faces, hair, skin, bodies, hands, clothing, footwear, held objects, and identity-bearing details as protected source regions.
 - Preserve visible people by deterministic compositing from the original photograph, not by prompt wording or visual resemblance.
+- Treat original blur as protected source information. Preserving a blurred face exactly is correct; inventing a sharper face is not.
 - Allow only the crop, translation, and uniform scaling applied to the complete source photograph. Never independently reshape, relight, sharpen, denoise, beautify, restyle, or reconstruct a person.
 - When an opaque paper silhouette fully covers a person, no person pixels need to remain visible in that state. In every photographic window or visible-photo state, restore the original person pixels.
 - If the available tools cannot restore and verify the source person pixels, stop and report that exact person preservation cannot be guaranteed.
@@ -48,6 +59,7 @@ Read `references/approved-style-assets.md` at the start of every image task and 
 - Make the two panels visibly reciprocal: opaque shape above becomes a photo-revealing hole below, or vice versa.
 - Preserve the exact person count, left-to-right order, foreground/background scale, poses, interactions, clothing, held objects, and recognisable setting.
 - Preserve every visible person as source pixels. No generative change to faces, hair, skin, bodies, hands, clothing, footwear, held objects, or identity-bearing details is allowed.
+- When any face fails the low-detail safety gate, apply whole-person pixel lock to every visible person and prohibit all person enhancement or reconstruction.
 - Let flat colour occupy roughly 40–60% of the whole page.
 - Keep the page asymmetrical and handmade; allow slight imperfect alignment.
 - Use group silhouettes as the mask family; stars and loose marks are supporting punctuation only.
@@ -73,7 +85,7 @@ Before delivery, confirm all answers are yes:
 1. Can the viewer recognise that both halves derive from the same photo?
 2. Does at least one shape perform an obvious positive-negative role reversal?
 3. Are the person count, order, depth scale, poses, clothing, interactions, and held objects correct in both panels?
-4. Do all visible people use verified protected source pixels, with zero RGB difference inside each visible protected region and no AI-redrawn detail?
+4. Did every face pass the low-detail safety gate, or did the job automatically switch to strict whole-person lock; and do all visible protected person regions have zero RGB difference with no AI-redrawn detail?
 5. Does the result feel cut from printed paper rather than rendered as clean vectors?
 6. Does the photograph retain its source grain, focus, exposure, colour, and environmental texture?
 7. Is there one strong colour decision, 8–12 restrained stars, and one correctly spelled single-line seam phrase using exactly one T1–T4 lettering family at the prescribed scale and contrast?
