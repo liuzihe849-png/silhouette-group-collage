@@ -11,7 +11,9 @@ Treat every visible person as a protected source-pixel region. Do not generate, 
 
 Build a reciprocal positive-negative mask composition from one continuous source image. In the upper panel, retain the photograph and cover every person with opaque [dominant colour] group silhouettes. In the lower panel, reverse figure and ground: use a broad flat [dominant colour / complementary paper colour] field and reveal the same photograph through apertures with matching silhouettes, scale, and positions. The same masks must visibly change from solid covers to photographic windows between panels.
 
-Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars. Place the exact scene-matched phrase "[phrase]" in loose lowercase handwriting across the middle seam, spelled exactly and secondary to the group.
+Art direction: handmade cut-paper editorial collage, indie album artwork, youthful photo diary, imperfect scissor-cut contours, asymmetrical spacing, scanned uncoated paper, visible paper fibres, restrained dust, uneven ink density, slight registration drift, matte surface. Preserve the source photo's own grain, focus, exposure, motion blur, weather, and colour cast inside all photographic regions. Add 8–12 sparse handmade [secondary accent] stars.
+
+SEAM LETTERING SYSTEM: render the exact phrase "[phrase]" as one single-line lowercase seam inscription in the [T1 dry-brush italic / T2 rounded hand-marker / T3 wide kinetic brush / T4 quiet diary script] family. Let the lettering span [75–88%] of the canvas width and occupy [4–8%] of total canvas height, with at least 6% side margins. Use [warm cream / ivory / deep navy / charcoal brown] ink selected for strong contrast against the seam paper. Preserve irregular hand pressure, slightly uneven baseline, dry-brush gaps, matte paper fibres, edge feathering, and uneven ink density. Keep every word fully readable and spelled exactly. No second line, extra copy, outline, shadow, glow, gradient, glossy finish, clean vector edge, or typeset-perfect baseline.
 
 INVARIANT: this is one photograph shown in two reciprocal mask states, not a scrapbook grid and not a collection of unrelated images.
 
@@ -86,4 +88,10 @@ Return to the source and recount every person from left to right. Restore the ex
 
 ```text
 Restore the source photograph's original grain, focus, exposure, colour cast, weather, ground and background texture inside all photo regions. Add 8–12 sparse handmade stars across both panels. Add one clearly readable scene-matched lowercase handwritten phrase across the middle seam, spelled exactly as supplied. Keep all three elements subordinate to the reciprocal silhouettes.
+```
+
+### Seam lettering is tiny, digital, mixed, or misspelled
+
+```text
+Redo only the seam lettering layer and preserve the people, reciprocal masks, palette, crop, and source-photo regions unchanged. Use exactly one selected family from the seam lettering system: [T1 / T2 / T3 / T4]. Render the exact phrase "[phrase]" on one line, in the supplied word order and punctuation. Span [75–88%] of the canvas width, preserve at least 6% side margins, and use high-contrast [ink colour]. Add irregular hand pressure, slightly uneven baseline, matte paper fibres, dry-brush gaps, edge feathering, and uneven ink density. Remove every extra word, outline, shadow, glow, gradient, clean vector edge, and typeset-perfect baseline.
 ```

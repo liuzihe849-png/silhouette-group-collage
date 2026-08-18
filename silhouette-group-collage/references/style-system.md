@@ -21,7 +21,7 @@ Use this priority order:
 4. Large flat colour field.
 5. Tactile paper and film texture.
 6. Sparse visual punctuation.
-7. One scene-matched handwritten seam phrase.
+7. One scene-matched handwritten seam phrase using the reusable T1–T4 system.
 
 If an output feels like a generic scrapbook, reduce levels 5 and 6 before changing levels 1–4.
 
@@ -80,7 +80,7 @@ Avoid heavy universal noise, fake torn-paper shadows, thick white sticker outlin
 
 ## Typography
 
-Typography is expected for group images unless the user declines it. Derive one short lowercase phrase from visible action and setting, such as `we ran to the sea`, `we ran toward the sun`, or `together under winter skies`. Place it across the panel seam so it binds the group. Verify spelling exactly. Use loose imperfect handwriting and no additional copy.
+Typography is expected for group images unless the user declines it. Read `seam-lettering-system.md` and select exactly one of its four families before prompting. Derive one short lowercase phrase from visible action and setting, place it across the panel seam so it binds the group, and verify spelling exactly. Use loose imperfect handwriting and no additional copy.
 
 ## Source-preservation checklist
 

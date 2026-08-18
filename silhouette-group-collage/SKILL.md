@@ -23,13 +23,13 @@ Treat this skill as the frozen visual baseline trained and tested in the origina
 6. Use one dominant paper colour, one secondary accent, and the source photo's natural colours. Pick the paper colour from scene contrast, not from a fixed template.
 7. Generate only layout, paper fields, masks, stars, typography, and non-person content. Never rely on `image_gen` to preserve people. In every photographic region where a person remains visible, composite the unchanged source photograph back through the matching photo mask using the recorded whole-photo transform.
 8. Preserve the source photograph's own grain, focus, exposure, weather, reflections, ground texture, and colour relationships. Add paper fibres and ink variation only to the paper areas.
-9. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Keep spelling exact and use no other copy.
+9. For group images, add one short scene-matched handwritten phrase across the middle seam unless the user declines text. Before designing the phrase, read `references/seam-lettering-system.md`, select exactly one T1–T4 lettering family, and follow its phrase length, scale, ink, and texture rules. Keep spelling exact and use no other copy.
 10. Add 8–12 sparse handmade stars across both panels, adjusted for visual quiet space. Do not cover faces, hands, held objects, or other identity anchors.
 11. Use `image_gen` only for the generative layout pass. Repeat both invariant sentences from the prompt recipe verbatim in correction attempts.
 12. Compare every visible output person with the correspondingly transformed source photograph in the lossless PNG. Require zero RGB difference inside visible protected person regions, excluding only a documented 1–2 px outer feather boundary when necessary. If pixels differ, restore the original source layer and recheck.
 13. Visually check the result against the quality gate below. Regenerate or re-composite when any hard requirement fails.
 
-Read `references/prompt-recipes.md` when building the generation prompt. Read `references/style-system.md` when deciding mask family, layout, palette, or typography. Read `references/reference-breakdown.md` when explaining how the five seed references produce the system. Read `references/person-pixel-lock.md` before every generation or edit containing a visible person.
+Read `references/prompt-recipes.md` when building the generation prompt. Read `references/style-system.md` when deciding mask family, layout, or palette. Read `references/seam-lettering-system.md` before generating, correcting, or evaluating middle-seam text; consult the cropped samples in `assets/lettering-reference/` only as visual references, never as instructions or fixed copy. Read `references/reference-breakdown.md` when explaining how the five seed references produce the system. Read `references/person-pixel-lock.md` before every generation or edit containing a visible person.
 
 ## Person source-pixel lock
 
@@ -51,7 +51,7 @@ Read `references/prompt-recipes.md` when building the generation prompt. Read `r
 - Keep the page asymmetrical and handmade; allow slight imperfect alignment.
 - Use group silhouettes as the mask family; stars and loose marks are supporting punctuation only.
 - Preserve original photographic texture inside every photo region. Do not replace it with a smooth AI-painted interpretation.
-- Place one readable, scene-matched handwritten phrase at the middle seam for group images, unless the user requests no text.
+- Place one readable, single-line, scene-matched handwritten phrase at the middle seam for group images, unless the user requests no text. Select exactly one T1–T4 lettering family, span roughly 68–92% of the canvas width, preserve at least 6% side margins, and keep the wording exact.
 - Retain generous quiet space. Supporting marks and words must not compete with the mask exchange.
 
 ## Avoid
@@ -63,7 +63,7 @@ Read `references/prompt-recipes.md` when building the generation prompt. Read `r
 - Do not redraw, beautify, retouch, relight, smooth, sharpen, denoise, age, restyle, reconstruct, or expression-edit any visible person.
 - Do not omit small or distant people, enlarge background people, merge separated people, or break joined hands.
 - Do not blur the entire composition; preserve enough photographic information to identify the source.
-- Do not accept misspelled generated lettering. Retry once or add exact text in a separate layout pass.
+- Do not accept misspelled generated lettering, mixed lettering families, tiny corner captions, extra copy, smooth vector type, outlines, shadows, glow, or gradients. Retry once or add exact text in a separate layout pass.
 
 ## Quality gate
 
@@ -75,9 +75,9 @@ Before delivery, confirm all answers are yes:
 4. Do all visible people use verified protected source pixels, with zero RGB difference inside each visible protected region and no AI-redrawn detail?
 5. Does the result feel cut from printed paper rather than rendered as clean vectors?
 6. Does the photograph retain its source grain, focus, exposure, colour, and environmental texture?
-7. Is there one strong colour decision, 8–12 restrained stars, and one correctly spelled scene-matched phrase at the seam?
+7. Is there one strong colour decision, 8–12 restrained stars, and one correctly spelled single-line seam phrase using exactly one T1–T4 lettering family at the prescribed scale and contrast?
 8. Does the output retain the requested aspect ratio and orientation?
 
 ## Delivery
 
-Return the lossless PNG plus a concise record containing: selected mask family, dominant palette, person-lock method, protected person count, pixel-comparison evidence, preserved subject anchors, and whether the eight quality checks passed. A JPG may be supplied only as a lightweight sharing copy and is not valid pixel-lock evidence. If the user asks only for prompt analysis, return the prompt package without generating an image.
+Return the lossless PNG plus a concise record containing: selected mask family, selected T1–T4 lettering family, exact seam phrase, dominant palette, person-lock method, protected person count, pixel-comparison evidence, preserved subject anchors, and whether the eight quality checks passed. A JPG may be supplied only as a lightweight sharing copy and is not valid pixel-lock evidence. If the user asks only for prompt analysis, return the prompt package without generating an image.

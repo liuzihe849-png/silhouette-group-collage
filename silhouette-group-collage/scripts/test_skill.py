@@ -16,6 +16,17 @@ REQUIRED_FILES = (
     "references/prompt-recipes.md",
     "references/reference-breakdown.md",
     "references/person-pixel-lock.md",
+    "references/seam-lettering-system.md",
+)
+REQUIRED_LETTERING_ASSETS = (
+    "assets/lettering-reference/01-dry-brush-same-team.png",
+    "assets/lettering-reference/02-rounded-marker-ran-toward-sun.png",
+    "assets/lettering-reference/03-expressive-brush-winter-skies.png",
+    "assets/lettering-reference/04-rounded-marker-cold-air.png",
+    "assets/lettering-reference/05-wide-brush-same-rhythm.png",
+    "assets/lettering-reference/06-dry-brush-into-light.png",
+    "assets/lettering-reference/07-diary-script-winter-outside.png",
+    "assets/lettering-reference/08-expressive-brush-last-light.png",
 )
 REQUIRED_SKILL_PHRASES = (
     "Count all people explicitly from left to right",
@@ -27,6 +38,7 @@ REQUIRED_SKILL_PHRASES = (
     "PERSON INVARIANT",
     "protected source pixels",
     "zero RGB difference",
+    "T1–T4 lettering family",
 )
 
 
@@ -58,6 +70,11 @@ def main() -> None:
     for relative in REQUIRED_FILES:
         if not (root / relative).is_file():
             fail(f"missing required file: {relative}")
+
+    for relative in REQUIRED_LETTERING_ASSETS:
+        asset = root / relative
+        if not asset.is_file() or asset.stat().st_size == 0:
+            fail(f"missing or empty lettering asset: {relative}")
 
     skill_text = (root / "SKILL.md").read_text(encoding="utf-8")
     frontmatter = parse_frontmatter(skill_text)
@@ -94,6 +111,7 @@ def main() -> None:
 
     print(f"PASS: {EXPECTED_NAME}")
     print(f"PASS: {len(REQUIRED_FILES)} required files")
+    print(f"PASS: {len(REQUIRED_LETTERING_ASSETS)} lettering reference assets")
     lock_text = (root / "references/person-pixel-lock.md").read_text(encoding="utf-8")
     for phrase in ("Protected-person workflow", "Do not request another generative portrait or body correction", "stop before final delivery"):
         if phrase.lower() not in lock_text.lower():

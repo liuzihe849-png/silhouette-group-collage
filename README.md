@@ -16,6 +16,7 @@ English name: **Silhouette Group Collage v1**
 - 保留人物身份、景物、胶片颗粒与现场光线
 - 自动选择场景对比色、手工纸张质感和少量星星装饰
 - 为群像匹配一条位于双联画中缝的简短手写文字
+- 内置可复用的中缝文字系统：干刷斜体、圆润粗记号笔、宽幅动势笔刷、安静日记手写
 - 内置结构测试和八项成品质量检查
 
 ## 安装
@@ -43,6 +44,8 @@ cp -R silhouette-group-collage/silhouette-group-collage ~/.codex/skills/
 
 未指定文字时，skill 会根据照片中的动作和环境生成一条简短文案。群像人数、顺序、姿态、服装、持有物和环境锚点属于硬性保留项。所有可见人物必须直接来自原始照片的受保护源像素；如果当前工具无法恢复并验证原图人物像素，skill 会停止交付，而不是接受相似但被 AI 重绘的人物。
 
+中缝文字不是固定字体或固定英文文案。Skill 会从四种字感中选择一种，用单行短句跨越上下画面的接缝，并根据纸色选择暖奶油、象牙白、深海军蓝或焦茶墨色。八张参考裁切图只用于观察字感、尺度和纸墨关系，不会被当成执行指令。
+
 人物像素锁定不依赖 Human Cutout Engine：生成模型只负责纸面、遮罩和非人物内容；所有可见人物必须使用与整张原照片相同的裁切、位移和等比缩放，从原图重新合成并进行像素比对。
 
 ## 本地测试
@@ -60,11 +63,13 @@ python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py silhouet
 silhouette-group-collage/
 ├── SKILL.md
 ├── agents/openai.yaml
+├── assets/lettering-reference/
 ├── references/
+│   ├── person-pixel-lock.md
 │   ├── prompt-recipes.md
 │   ├── reference-breakdown.md
+│   ├── seam-lettering-system.md
 │   ├── style-system.md
-│   └── face-preservation.md
 └── scripts/test_skill.py
 ```
 
